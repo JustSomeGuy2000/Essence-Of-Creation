@@ -1,0 +1,54 @@
+{
+	"schemaVersion": 1,
+	"id": "essence-of-creation",
+	"version": "${version}",
+	"name": "Essence Of Creation",
+	"description": "Have you ever felt like the world wasn't enough?",
+	"authors": [
+		"JEHR"
+	],
+	"contact": {
+		"homepage": "https://fabricmc.net/",
+		"sources": "https://github.com/FabricMC/fabric-example-mod"
+	},
+	"license": "CC0-1.0",
+	"icon": "assets/essence-of-creation/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			{
+				"value": "jehr.experiments.essenceOfCreation.EoCMain",
+				"adapter": "kotlin"
+			}
+		],
+		"client": [
+			{
+				"value": "jehr.experiments.essenceOfCreation.EoCClient",
+				"adapter": "kotlin"
+			}
+		],
+		"fabric-datagen": [
+			{
+				"value": "jehr.experiments.essenceOfCreation.EoCDataGen",
+				"adapter": "kotlin"
+			}
+		]
+	},
+	"mixins": [
+		"essence-of-creation.mixins.json",
+		{
+			"config": "essence-of-creation.client.mixins.json",
+			"environment": "client"
+		}
+	],
+	"depends": {
+		"fabricloader": ">=0.17.2",
+		"minecraft": "~1.21.8",
+		"java": ">=21",
+		"fabric-api": "*",
+		"fabric-language-kotlin": "*"
+	},
+	"suggests": {
+		"another-mod": "*"
+	}
+}

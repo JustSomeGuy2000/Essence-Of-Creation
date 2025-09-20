@@ -1,0 +1,13 @@
+{
+  "block.essence-of-creation.scaffold_seed": "Scaffold Seed",
+  "block.essence-of-creation.scaffold_stripper": "Scaffold Stripper",
+  "block.essence-of-creation.scaffold_trunk": "Scaffold Trunk",
+  "block.essence-of-creation.spatial_displacer": "Spatial Displacer",
+  "item.essence-of-creation.essence_of_creation": "Essence of Creation",
+  "item.essence-of-creation.scaffold_seed": "Scaffold Seed",
+  "item.essence-of-creation.scaffold_stripper": "Scaffold Stripper",
+  "item.essence-of-creation.scaffold_trunk": "Scaffold Trunk",
+  "item.essence-of-creation.spatial_displacer": "Spatial Displacer",
+  "itemGroup.essence-of-creation.essence_of_creation": "Essence Of Creation",
+  "itemTooltip.essence-of-creation.essence_of_creation": "Have you ever felt that the world wasn't enough?"
+}

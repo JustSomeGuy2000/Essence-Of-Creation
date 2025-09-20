@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "progress=halted": {
+      "model": "essence-of-creation:block/scaffold_stripper_halted"
+    },
+    "progress=moving": {
+      "model": "essence-of-creation:block/scaffold_stripper_moving"
+    },
+    "progress=new": {
+      "model": "essence-of-creation:block/scaffold_stripper"
+    },
+    "progress=searching": {
+      "model": "essence-of-creation:block/scaffold_stripper_searching"
+    }
+  }
+}
