@@ -18,7 +18,7 @@ object EoCItems {
     }
 
     fun register(name: String, factory: (Item.Settings) -> Item, settings: Item.Settings): Item {
-        val itemKey = RegistryKey.of(RegistryKeys.ITEM, Identifier.of(EoCMain.modId, name))
+        val itemKey = RegistryKey.of(RegistryKeys.ITEM, Identifier.of(EoCMain.MOD_ID, name))
         val item = factory(settings.registryKey(itemKey))
         Registry.register(Registries.ITEM, itemKey, item)
         return item

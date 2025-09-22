@@ -17,7 +17,7 @@ object EoCBlockEntities {
     fun init() {}
 
     private fun <T : BlockEntity> register(name: String, entityFactory: FabricBlockEntityTypeBuilder.Factory<out T>, block: Block): BlockEntityType<T> {
-        val id: Identifier = Identifier.of(EoCMain.modId, name)
+        val id: Identifier = Identifier.of(EoCMain.MOD_ID, name)
         return Registry.register(Registries.BLOCK_ENTITY_TYPE, id, FabricBlockEntityTypeBuilder.create (entityFactory, block).build())
     }
 }

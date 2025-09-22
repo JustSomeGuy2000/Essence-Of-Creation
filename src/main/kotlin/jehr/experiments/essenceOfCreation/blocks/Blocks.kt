@@ -34,10 +34,10 @@ object EoCBlocks {
     }
 
     fun register(name: String, factory: (AbstractBlock.Settings) -> Block, settings: AbstractBlock.Settings, registerItem: Boolean = true): Block {
-        val blockKey = RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(EoCMain.modId, name))
+        val blockKey = RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(EoCMain.MOD_ID, name))
         val block = factory(settings.registryKey(blockKey))
         if (registerItem) {
-            val itemKey = RegistryKey.of(RegistryKeys.ITEM, Identifier.of(EoCMain.modId, name))
+            val itemKey = RegistryKey.of(RegistryKeys.ITEM, Identifier.of(EoCMain.MOD_ID, name))
             val item = BlockItem(block, Item.Settings().registryKey(itemKey))
             Registry.register(Registries.ITEM, itemKey, item)
         }

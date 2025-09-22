@@ -1,9 +1,13 @@
 package jehr.experiments.essenceOfCreation
 
 import jehr.experiments.essenceOfCreation.blocks.EoCBlocks
+import jehr.experiments.essenceOfCreation.blocks.ScaffoldSeed
 import jehr.experiments.essenceOfCreation.blocks.ScaffoldStripper
 import jehr.experiments.essenceOfCreation.blocks.ScaffoldStripper.Companion.Progress
+import jehr.experiments.essenceOfCreation.blocks.ScaffoldTrunk
+import jehr.experiments.essenceOfCreation.blocks.SpatialDisplacer
 import jehr.experiments.essenceOfCreation.items.EoCItems
+import jehr.experiments.essenceOfCreation.items.EssenceOfCreation
 import net.fabricmc.fabric.api.client.datagen.v1.provider.FabricModelProvider
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator
@@ -28,20 +32,20 @@ object EoCDataGen : DataGeneratorEntrypoint {
 }
 
 class EoCLangProviderEnUs(dataOutput: FabricDataOutput, registryLookup: CompletableFuture<RegistryWrapper.WrapperLookup>): FabricLanguageProvider(dataOutput, registryLookup) {
-	val id = EoCMain.modId
+	val id = EoCMain.MOD_ID
 
-	override fun generateTranslations(wrapperLookup: RegistryWrapper.WrapperLookup, builder: FabricLanguageProvider.TranslationBuilder) {
-		builder.add("item.$id.essence_of_creation", "Essence of Creation")
+	override fun generateTranslations(wrapperLookup: RegistryWrapper.WrapperLookup, builder: TranslationBuilder) {
+		builder.add("item.$id.${EssenceOfCreation.ID}", "Essence of Creation")
 		builder.add("itemGroup.$id.essence_of_creation", "Essence Of Creation")
 		builder.add("itemTooltip.$id.essence_of_creation", "Have you ever felt that the world wasn't enough?")
-		builder.add("block.$id.scaffold_seed", "Scaffold Seed")
-		builder.add("item.$id.scaffold_seed", "Scaffold Seed")
-		builder.add("block.$id.scaffold_trunk", "Scaffold Trunk")
-		builder.add("item.$id.scaffold_trunk", "Scaffold Trunk")
-		builder.add("block.$id.scaffold_stripper", "Scaffold Stripper")
-		builder.add("item.$id.scaffold_stripper", "Scaffold Stripper")
-		builder.add("block.$id.spatial_displacer", "Spatial Displacer")
-		builder.add("item.$id.spatial_displacer", "Spatial Displacer")
+		builder.add("block.$id.${ScaffoldSeed.ID}", "Scaffold Seed")
+		builder.add("item.$id.${ScaffoldSeed.ID}", "Scaffold Seed")
+		builder.add("block.$id.${ScaffoldTrunk.ID}", "Scaffold Trunk")
+		builder.add("item.$id.${ScaffoldTrunk.ID}", "Scaffold Trunk")
+		builder.add("block.$id.${ScaffoldStripper.ID}", "Scaffold Stripper")
+		builder.add("item.$id.${ScaffoldStripper.ID}", "Scaffold Stripper")
+		builder.add("block.$id.${SpatialDisplacer.ID}", "Spatial Displacer")
+		builder.add("item.$id.${SpatialDisplacer.ID}", "Spatial Displacer")
 	}
 }
 

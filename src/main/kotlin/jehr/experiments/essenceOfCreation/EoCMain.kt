@@ -21,11 +21,11 @@ import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 
 object EoCMain : ModInitializer {
-	const val modId = "essence-of-creation"
+	const val MOD_ID = "essence-of-creation"
     val logger: Logger = LoggerFactory.getLogger("essence-of-creation")
 
-	val EoCItemGroupKey: RegistryKey<ItemGroup> = RegistryKey.of(Registries.ITEM_GROUP.getKey(), Identifier.of(modId, "item_group"))
-	val EoCItemGroup: ItemGroup = FabricItemGroup.builder().icon{ ItemStack(EoCItems.essenceOfCreation) }.displayName(Text.translatable("itemGroup.${modId}.essence_of_creation")).build()
+	val EoCItemGroupKey: RegistryKey<ItemGroup> = RegistryKey.of(Registries.ITEM_GROUP.getKey(), Identifier.of(MOD_ID, "item_group"))
+	val EoCItemGroup: ItemGroup = FabricItemGroup.builder().icon{ ItemStack(EoCItems.essenceOfCreation) }.displayName(Text.translatable("itemGroup.${MOD_ID}.essence_of_creation")).build()
 
 	override fun onInitialize() {
 		// This code runs as soon as Minecraft is in a mod-load-ready state.
@@ -48,7 +48,7 @@ object EoCMain : ModInitializer {
 					val rate = IntegerArgumentType.getInteger(context, "rate")
 				if (rate >= 1) {
 					ScaffoldStripper.moveRate = rate
-					context.source.sendMessage(Text.literal("Scaffold Stripper move rate set to $rate."))
+					context.source.sendMessage(Text.literal("Scaffold Stripper move rate set to $rate t/b."))
 					return@executes 1
 				} else {
 					context.source.sendMessage(Text.literal("Minumum value is 1."))
@@ -60,7 +60,7 @@ object EoCMain : ModInitializer {
 						context -> val rate = IntegerArgumentType.getInteger(context, "rate")
 						if (rate >= 1) {
 							ScaffoldSeed.Companion.Specs.accelDelay = rate
-							context.source.sendMessage(Text.literal("Scaffold Seed growth rate set to $rate."))
+							context.source.sendMessage(Text.literal("Scaffold Seed growth rate set to $rate t/b."))
 							return@executes 1
 						} else {
 							context.source.sendMessage(Text.literal("Minumum value is 1."))
