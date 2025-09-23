@@ -1,0 +1,9 @@
+{
+  "parent": "minecraft:block/orientable_with_bottom",
+  "textures": {
+    "bottom": "essence-of-creation:block/spatial_displacer_bottom",
+    "front": "essence-of-creation:block/spatial_displacer_front",
+    "side": "essence-of-creation:block/spatial_displacer_side",
+    "top": "essence-of-creation:block/spatial_displacer_top"
+  }
+}

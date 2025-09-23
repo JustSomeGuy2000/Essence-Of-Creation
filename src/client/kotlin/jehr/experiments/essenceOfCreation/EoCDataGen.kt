@@ -1,11 +1,7 @@
 package jehr.experiments.essenceOfCreation
 
-import jehr.experiments.essenceOfCreation.blocks.EoCBlocks
-import jehr.experiments.essenceOfCreation.blocks.ScaffoldSeed
-import jehr.experiments.essenceOfCreation.blocks.ScaffoldStripper
+import jehr.experiments.essenceOfCreation.blocks.*
 import jehr.experiments.essenceOfCreation.blocks.ScaffoldStripper.Companion.Progress
-import jehr.experiments.essenceOfCreation.blocks.ScaffoldTrunk
-import jehr.experiments.essenceOfCreation.blocks.SpatialDisplacer
 import jehr.experiments.essenceOfCreation.items.EoCItems
 import jehr.experiments.essenceOfCreation.items.EssenceOfCreation
 import net.fabricmc.fabric.api.client.datagen.v1.provider.FabricModelProvider
@@ -13,13 +9,7 @@ import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricLanguageProvider
-import net.minecraft.client.data.BlockStateModelGenerator
-import net.minecraft.client.data.BlockStateVariantMap
-import net.minecraft.client.data.ItemModelGenerator
-import net.minecraft.client.data.Models
-import net.minecraft.client.data.TextureMap
-import net.minecraft.client.data.TexturedModel
-import net.minecraft.client.data.VariantsBlockModelDefinitionCreator
+import net.minecraft.client.data.*
 import net.minecraft.registry.RegistryWrapper
 import java.util.concurrent.CompletableFuture
 
@@ -52,6 +42,7 @@ class EoCLangProviderEnUs(dataOutput: FabricDataOutput, registryLookup: Completa
 class EoCModelProvider(dataOutput: FabricDataOutput): FabricModelProvider(dataOutput) {
 
 	override fun generateBlockStateModels(bsmg: BlockStateModelGenerator) {
+
 		bsmg.registerSimpleCubeAll(EoCBlocks.scaffoldSeed)
 		bsmg.registerSimpleCubeAll(EoCBlocks.scaffoldTrunk)
 
@@ -68,6 +59,14 @@ class EoCModelProvider(dataOutput: FabricDataOutput): FabricModelProvider(dataOu
 				.register(Progress.SEARCHING, BlockStateModelGenerator.createWeightedVariant(stripperSearching))
 				.register(Progress.MOVING, BlockStateModelGenerator.createWeightedVariant(stripperMoving))
 				.register(Progress.HALTED, BlockStateModelGenerator.createWeightedVariant(stripperHalted))))
+
+		val temp = VariantsBlockModelDefinitionCreator.of(EoCBlocks.spatialDisplacer)
+		bsmg.blockStateCollector.accept(
+			VariantsBlockModelDefinitionCreator.of(
+				EoCBlocks.spatialDisplacer,
+				BlockStateModelGenerator.createWeightedVariant(TexturedModel.ORIENTABLE_WITH_BOTTOM.upload(EoCBlocks.spatialDisplacer, bsmg.modelCollector))
+			)
+		)
 	}
 
 	override fun generateItemModels(img: ItemModelGenerator) {

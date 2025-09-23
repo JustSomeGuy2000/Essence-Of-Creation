@@ -4,6 +4,7 @@ import jehr.experiments.essenceOfCreation.EoCMain
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents
 import net.minecraft.block.AbstractBlock
 import net.minecraft.block.Block
+import net.minecraft.block.MapColor
 import net.minecraft.item.BlockItem
 import net.minecraft.item.Item
 import net.minecraft.item.ItemGroups
@@ -12,14 +13,15 @@ import net.minecraft.registry.Registry
 import net.minecraft.registry.RegistryKey
 import net.minecraft.registry.RegistryKeys
 import net.minecraft.sound.BlockSoundGroup
+import net.minecraft.util.DyeColor
 import net.minecraft.util.Identifier
 
 object EoCBlocks {
 
-    val scaffoldTrunk = register("scaffold_trunk", ::ScaffoldTrunk, AbstractBlock.Settings.create().nonOpaque().sounds(BlockSoundGroup.SCAFFOLDING))
-    val scaffoldSeed = register("scaffold_seed", ::ScaffoldSeed, AbstractBlock.Settings.create().nonOpaque().sounds(BlockSoundGroup.SCAFFOLDING).ticksRandomly())
-    val scaffoldStripper = register("scaffold_stripper", ::ScaffoldStripper, AbstractBlock.Settings.create().sounds(BlockSoundGroup.IRON))
-    val spatialDisplacer = register("spatial_displacer", ::SpatialDisplacer, AbstractBlock.Settings.create().sounds(BlockSoundGroup.STONE))
+    val scaffoldTrunk = register(ScaffoldTrunk.ID, ::ScaffoldTrunk, AbstractBlock.Settings.create().nonOpaque().sounds(BlockSoundGroup.SCAFFOLDING).mapColor(DyeColor.BROWN))
+    val scaffoldSeed = register(ScaffoldSeed.ID, ::ScaffoldSeed, AbstractBlock.Settings.create().nonOpaque().sounds(BlockSoundGroup.SCAFFOLDING).mapColor(DyeColor.YELLOW))
+    val scaffoldStripper = register(ScaffoldStripper.ID, ::ScaffoldStripper, AbstractBlock.Settings.create().sounds(BlockSoundGroup.IRON).mapColor(DyeColor.GRAY).hardness(8.0f).resistance(8.0f))
+    val spatialDisplacer = register(SpatialDisplacer.ID, ::SpatialDisplacer, AbstractBlock.Settings.create().sounds(BlockSoundGroup.STONE).mapColor(DyeColor.MAGENTA).luminance{10}.hardness(2.0f).resistance(6.0f))
 
     fun init() {
         ItemGroupEvents.modifyEntriesEvent(EoCMain.EoCItemGroupKey).register{
