@@ -4,10 +4,12 @@ import jehr.experiments.essenceOfCreation.blocks.*
 import jehr.experiments.essenceOfCreation.blocks.ScaffoldStripper.Companion.Progress
 import jehr.experiments.essenceOfCreation.items.EoCItems
 import jehr.experiments.essenceOfCreation.items.EssenceOfCreation
+import jehr.experiments.essenceOfCreation.statusEffects.BlessingOfRye
 import net.fabricmc.fabric.api.client.datagen.v1.provider.FabricModelProvider
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput
+import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootTableProvider
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricLanguageProvider
 import net.minecraft.client.data.*
 import net.minecraft.registry.RegistryWrapper
@@ -18,6 +20,7 @@ object EoCDataGen : DataGeneratorEntrypoint {
 		val pack = fabricDataGenerator.createPack()
 		pack.addProvider(::EoCLangProviderEnUs)
 		pack.addProvider(::EoCModelProvider)
+		pack.addProvider(::EoCBlockLootTableProvider)
 	}
 }
 
@@ -36,6 +39,10 @@ class EoCLangProviderEnUs(dataOutput: FabricDataOutput, registryLookup: Completa
 		builder.add("item.$id.${ScaffoldStripper.ID}", "Scaffold Stripper")
 		builder.add("block.$id.${SpatialDisplacer.ID}", "Spatial Displacer")
 		builder.add("item.$id.${SpatialDisplacer.ID}", "Spatial Displacer")
+		builder.add("block.$id.${RoggenStatue.ID}", "Statue of the Rye God")
+		builder.add("item.$id.${RoggenStatue.ID}", "Statue of the Rye God")
+		builder.add("effect.$id.${BlessingOfRye.ID}", "Blessing of Rye")
+		builder.add("item.$id.rye", "Rye")
 	}
 }
 
@@ -60,16 +67,26 @@ class EoCModelProvider(dataOutput: FabricDataOutput): FabricModelProvider(dataOu
 				.register(Progress.MOVING, BlockStateModelGenerator.createWeightedVariant(stripperMoving))
 				.register(Progress.HALTED, BlockStateModelGenerator.createWeightedVariant(stripperHalted))))
 
-		val temp = VariantsBlockModelDefinitionCreator.of(EoCBlocks.spatialDisplacer)
 		bsmg.blockStateCollector.accept(
 			VariantsBlockModelDefinitionCreator.of(
 				EoCBlocks.spatialDisplacer,
 				BlockStateModelGenerator.createWeightedVariant(TexturedModel.ORIENTABLE_WITH_BOTTOM.upload(EoCBlocks.spatialDisplacer, bsmg.modelCollector))
 			)
 		)
+
+		bsmg.registerSimpleCubeAll(EoCBlocks.roggenStatue)
 	}
 
 	override fun generateItemModels(img: ItemModelGenerator) {
 		img.register(EoCItems.essenceOfCreation, Models.GENERATED)
+		img.register(EoCItems.rye, Models.GENERATED)
+	}
+}
+
+class EoCBlockLootTableProvider(dataOutput: FabricDataOutput, registryLookup: CompletableFuture<RegistryWrapper.WrapperLookup>): FabricBlockLootTableProvider(dataOutput, registryLookup) {
+
+	override fun generate() {
+		addDrop(EoCBlocks.spatialDisplacer)
+		addDropWithSilkTouch(EoCBlocks.scaffoldStripper)
 	}
 }

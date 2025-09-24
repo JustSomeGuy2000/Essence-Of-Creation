@@ -6,6 +6,7 @@ import jehr.experiments.essenceOfCreation.blocks.EoCBlocks
 import jehr.experiments.essenceOfCreation.blocks.ScaffoldSeed
 import jehr.experiments.essenceOfCreation.blocks.ScaffoldStripper
 import jehr.experiments.essenceOfCreation.items.EoCItems
+import jehr.experiments.essenceOfCreation.statusEffects.EoCStatusEffects
 import net.fabricmc.api.ModInitializer
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup
@@ -35,6 +36,7 @@ object EoCMain : ModInitializer {
 		Registry.register(Registries.ITEM_GROUP, EoCItemGroupKey, EoCItemGroup)
 		registerCommands()
 		EoCItems.init()
+		EoCStatusEffects.init()
 		EoCBlocks.init()
 		EoCBlockEntities.init()
 	}

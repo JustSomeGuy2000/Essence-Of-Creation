@@ -1,9 +1,12 @@
 {
+  "block.essence-of-creation.roggen_statue": "Statue of the Rye God",
   "block.essence-of-creation.scaffold_seed": "Scaffold Seed",
   "block.essence-of-creation.scaffold_stripper": "Scaffold Stripper",
   "block.essence-of-creation.scaffold_trunk": "Scaffold Trunk",
   "block.essence-of-creation.spatial_displacer": "Spatial Displacer",
+  "effect.essence-of-creation.blessing-of-rye": "Blessing of Rye",
   "item.essence-of-creation.essence_of_creation": "Essence of Creation",
+  "item.essence-of-creation.roggen_statue": "Statue of the Rye God",
   "item.essence-of-creation.scaffold_seed": "Scaffold Seed",
   "item.essence-of-creation.scaffold_stripper": "Scaffold Stripper",
   "item.essence-of-creation.scaffold_trunk": "Scaffold Trunk",

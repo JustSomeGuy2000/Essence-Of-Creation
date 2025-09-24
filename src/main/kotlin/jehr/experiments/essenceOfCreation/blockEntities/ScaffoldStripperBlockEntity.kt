@@ -18,13 +18,21 @@ class ScaffoldStripperBlockEntity(pos: BlockPos, state: BlockState): BlockEntity
     }
 
     override fun writeData(view: WriteView) {
+        if (this.stored != null) {
+            view.put("stored", BlockState.CODEC, this.stored)
+        } else {
+            view.putBoolean("is_null", true)
+        }
         super.writeData(view)
-        // TODO
     }
 
-    override fun readData(view: ReadView?) {
+    override fun readData(view: ReadView) {
         super.readData(view)
-        // TODO
+        if (!view.getBoolean("is_null", true)) {
+          this.stored = view.read("stored", BlockState.CODEC).get()
+        } else {
+            this.stored = null
+        }
     }
 
 }

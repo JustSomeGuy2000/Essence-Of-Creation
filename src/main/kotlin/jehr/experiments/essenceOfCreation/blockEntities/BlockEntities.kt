@@ -2,6 +2,8 @@ package jehr.experiments.essenceOfCreation.blockEntities
 
 import jehr.experiments.essenceOfCreation.EoCMain
 import jehr.experiments.essenceOfCreation.blocks.EoCBlocks
+import jehr.experiments.essenceOfCreation.blocks.RoggenStatue
+import jehr.experiments.essenceOfCreation.blocks.ScaffoldStripper
 import net.fabricmc.fabric.api.`object`.builder.v1.block.entity.FabricBlockEntityTypeBuilder
 import net.minecraft.block.Block
 import net.minecraft.block.entity.BlockEntity
@@ -12,7 +14,8 @@ import net.minecraft.util.Identifier
 
 
 object EoCBlockEntities {
-    val scaffoldStripperBlockEntity = register("scaffold_stripper_memory", ::ScaffoldStripperBlockEntity, EoCBlocks.scaffoldStripper)
+    val scaffoldStripperBlockEntity = register("${ScaffoldStripper.ID}_memory", ::ScaffoldStripperBlockEntity, EoCBlocks.scaffoldStripper)
+    val roggenStatueBlockEntity = register("${RoggenStatue.ID}_memory", ::RoggenStatueBlockEntity, EoCBlocks.roggenStatue)
 
     fun init() {}
 

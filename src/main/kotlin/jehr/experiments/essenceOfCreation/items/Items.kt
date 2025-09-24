@@ -12,6 +12,7 @@ import net.minecraft.util.Identifier
 object EoCItems {
 
     val essenceOfCreation = register("essence_of_creation", ::EssenceOfCreation, Item.Settings())
+    val rye = register("rye", ::Item, Item.Settings())
 
     fun init() {
         ItemGroupEvents.modifyEntriesEvent(EoCMain.EoCItemGroupKey).register{ it.add(this.essenceOfCreation) }
