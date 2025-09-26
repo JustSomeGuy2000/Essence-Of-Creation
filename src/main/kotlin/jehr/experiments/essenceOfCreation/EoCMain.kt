@@ -5,7 +5,9 @@ import jehr.experiments.essenceOfCreation.blockEntities.EoCBlockEntities
 import jehr.experiments.essenceOfCreation.blocks.EoCBlocks
 import jehr.experiments.essenceOfCreation.blocks.ScaffoldSeed
 import jehr.experiments.essenceOfCreation.blocks.ScaffoldStripper
+import jehr.experiments.essenceOfCreation.criteria.EoCCriteria
 import jehr.experiments.essenceOfCreation.items.EoCItems
+import jehr.experiments.essenceOfCreation.statusEffects.BlessingOfRye
 import jehr.experiments.essenceOfCreation.statusEffects.EoCStatusEffects
 import net.fabricmc.api.ModInitializer
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback
@@ -35,10 +37,12 @@ object EoCMain : ModInitializer {
 		logger.info("Hello Fabric world!")
 		Registry.register(Registries.ITEM_GROUP, EoCItemGroupKey, EoCItemGroup)
 		registerCommands()
+		registerEvents()
 		EoCItems.init()
 		EoCStatusEffects.init()
 		EoCBlocks.init()
 		EoCBlockEntities.init()
+		EoCCriteria.init()
 	}
 
 	fun registerCommands() {
@@ -68,7 +72,22 @@ object EoCMain : ModInitializer {
 							context.source.sendMessage(Text.literal("Minumum value is 1."))
 							return@executes -1
 						}
+					}))
+				.then(CommandManager.literal("rye_blessing_amp_time")
+					.then(CommandManager.argument("ticks", IntegerArgumentType.integer()).executes {
+						context -> val rate = IntegerArgumentType.getInteger(context, "ticks")
+						if (rate >= 1) {
+							BlessingOfRye.ampTime = rate
+							context.source.sendMessage(Text.literal("Blessing of Rye amplification time set to $rate ticks."))
+							return@executes 1
+						} else {
+							context.source.sendMessage(Text.literal("Minimum value is 1"))
+							return@executes -1
+						}
 					})))
 		}
+	}
+
+	fun registerEvents() {
 	}
 }

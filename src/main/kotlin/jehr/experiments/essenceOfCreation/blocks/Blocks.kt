@@ -22,6 +22,8 @@ object EoCBlocks {
     val scaffoldStripper = register(ScaffoldStripper.ID, ::ScaffoldStripper, AbstractBlock.Settings.create().sounds(BlockSoundGroup.IRON).mapColor(DyeColor.GRAY).hardness(8.0f).resistance(8.0f))
     val spatialDisplacer = register(SpatialDisplacer.ID, ::SpatialDisplacer, AbstractBlock.Settings.create().sounds(BlockSoundGroup.STONE).mapColor(DyeColor.MAGENTA).luminance{10}.hardness(2.0f).resistance(6.0f))
     val roggenStatue = register(RoggenStatue.ID, ::RoggenStatue, AbstractBlock.Settings.create().sounds(BlockSoundGroup.STONE).mapColor(DyeColor.BROWN).hardness(1.0f).resistance(2.0f))
+    const val RYE_BALE_ID = "rye_bale"
+    val ryeBale = register(RYE_BALE_ID, ::Block, AbstractBlock.Settings.create().sounds(BlockSoundGroup.GRASS).mapColor(DyeColor.BROWN).hardness(0.1f).resistance(0.05f))
 
     fun init() {
         ItemGroupEvents.modifyEntriesEvent(EoCMain.EoCItemGroupKey).register{
@@ -30,6 +32,7 @@ object EoCBlocks {
             it.add(scaffoldStripper)
             it.add(spatialDisplacer)
             it.add(roggenStatue)
+            it.add(ryeBale)
         }
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.NATURAL).register {
 

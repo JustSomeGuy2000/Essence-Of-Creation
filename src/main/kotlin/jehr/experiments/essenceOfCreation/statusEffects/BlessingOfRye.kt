@@ -8,13 +8,12 @@ import net.minecraft.entity.effect.StatusEffectInstance
 import net.minecraft.entity.player.PlayerEntity
 import net.minecraft.item.ItemStack
 import net.minecraft.server.world.ServerWorld
-import kotlin.math.floor
 
 class BlessingOfRye: StatusEffect(StatusEffectCategory.NEUTRAL, 0x614023) {
 
     companion object {
         const val ID = "blessing-of-rye"
-        const val AMP_TIME = 1200
+        var ampTime = 600
     }
 
     override fun canApplyUpdateEffect(duration: Int, amplifier: Int): Boolean = duration % 20 == 0
@@ -24,7 +23,7 @@ class BlessingOfRye: StatusEffect(StatusEffectCategory.NEUTRAL, 0x614023) {
             val entry = EoCStatusEffects.blessingOfRye
             if (entity.getStatusEffect(entry)?.duration == 20) {
                 entity.removeStatusEffect(entry)
-                entity.addStatusEffect(StatusEffectInstance(entry, AMP_TIME, amplifier + 1))
+                entity.addStatusEffect(StatusEffectInstance(entry, ampTime, amplifier + 1))
             }
             val stackCount = amplifier/64
             val ryeStacks = mutableListOf<ItemStack>()

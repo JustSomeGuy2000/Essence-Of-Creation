@@ -1,0 +1,29 @@
+{
+  "criteria": {
+    "get_eoc": {
+      "conditions": {
+        "items": [
+          {
+            "items": "essence-of-creation:essence_of_creation"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "background": "minecraft:textures/gui/advancements/backgrounds/adventure",
+    "description": "Expand your horizons.",
+    "icon": {
+      "count": 1,
+      "id": "essence-of-creation:essence_of_creation"
+    },
+    "title": "Essence Of Creation"
+  },
+  "requirements": [
+    [
+      "get_eoc"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

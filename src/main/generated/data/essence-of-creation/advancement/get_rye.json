@@ -1,0 +1,29 @@
+{
+  "parent": "essence-of-creation:got_eoc",
+  "criteria": {
+    "get_rye": {
+      "conditions": {
+        "items": [
+          {
+            "items": "essence-of-creation:rye"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": "Roggen smiles upon you.",
+    "icon": {
+      "count": 1,
+      "id": "essence-of-creation:rye"
+    },
+    "title": "Ryes And Shine"
+  },
+  "requirements": [
+    [
+      "get_rye"
+    ]
+  ],
+  "sends_telemetry_event": true
+}
