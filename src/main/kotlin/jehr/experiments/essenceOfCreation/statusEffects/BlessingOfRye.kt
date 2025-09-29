@@ -1,5 +1,6 @@
 package jehr.experiments.essenceOfCreation.statusEffects
 
+import jehr.experiments.essenceOfCreation.criteria.EoCCriteria
 import jehr.experiments.essenceOfCreation.items.EoCItems
 import net.minecraft.entity.LivingEntity
 import net.minecraft.entity.effect.StatusEffect
@@ -7,6 +8,7 @@ import net.minecraft.entity.effect.StatusEffectCategory
 import net.minecraft.entity.effect.StatusEffectInstance
 import net.minecraft.entity.player.PlayerEntity
 import net.minecraft.item.ItemStack
+import net.minecraft.server.network.ServerPlayerEntity
 import net.minecraft.server.world.ServerWorld
 
 class BlessingOfRye: StatusEffect(StatusEffectCategory.NEUTRAL, 0x614023) {
@@ -38,6 +40,9 @@ class BlessingOfRye: StatusEffect(StatusEffectCategory.NEUTRAL, 0x614023) {
                 if (!wasAdded) {
                     entity.dropStack(world, ryeStack)
                 }
+            }
+            if (entity is ServerPlayerEntity) {
+                EoCCriteria.ryeNotCriterion.trigger(entity)
             }
             return true
         } else {

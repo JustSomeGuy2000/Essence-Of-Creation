@@ -2,6 +2,8 @@ package jehr.experiments.essenceOfCreation
 
 import jehr.experiments.essenceOfCreation.blocks.*
 import jehr.experiments.essenceOfCreation.blocks.ScaffoldStripper.Companion.Progress
+import jehr.experiments.essenceOfCreation.criteria.EoCCriteria
+import jehr.experiments.essenceOfCreation.criteria.RyeNotCriterion
 import jehr.experiments.essenceOfCreation.items.EoCItems
 import jehr.experiments.essenceOfCreation.items.EssenceOfCreation
 import jehr.experiments.essenceOfCreation.statusEffects.BlessingOfRye
@@ -26,6 +28,7 @@ import net.minecraft.registry.RegistryKeys
 import net.minecraft.registry.RegistryWrapper
 import net.minecraft.text.Text
 import net.minecraft.util.Identifier
+import java.util.Optional
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
@@ -110,6 +113,7 @@ class EoCModelProvider(dataOutput: FabricDataOutput): FabricModelProvider(dataOu
 	override fun generateItemModels(img: ItemModelGenerator) {
 		img.register(EoCItems.essenceOfCreation, Models.GENERATED)
 		img.register(EoCItems.rye, Models.GENERATED)
+		img.register(EoCItems.totemOfUnrying, Models.GENERATED)
 	}
 }
 
@@ -127,19 +131,12 @@ class EoCRecipeProvider(dataOutput: FabricDataOutput, registryLookup: Completabl
 
 	override fun getName() = "EssenceOfCreationRecipeProvider"
 
-	override fun getRecipeGenerator(registryLookup: RegistryWrapper.WrapperLookup?, exporter: RecipeExporter?) = object : RecipeGenerator(registryLookup, exporter) {
-
-		override fun generate() {
-			val items = registries.getOrThrow(RegistryKeys.ITEM)
-			createShaped(RecipeCategory.FOOD, EoCBlocks.ryeBale, 1)
-				.pattern("rrr")
-				.pattern("rrr")
-				.pattern("rrr")
-				.input('r', EoCItems.rye)
-				.group("multi_bench")
-				.offerTo(exporter)
+	override fun getRecipeGenerator(registryLookup: RegistryWrapper.WrapperLookup?, exporter: RecipeExporter?)
+		= object : RecipeGenerator(registryLookup, exporter) {
+			override fun generate() {
+				createShapeless(RecipeCategory.MISC, EoCBlocks.ryeBale, 1).input(EoCItems.rye, 9).offerTo(exporter)
+			}
 		}
-	}
 }
 
 class EoCAdvancementProvider(dataOutput: FabricDataOutput, registryLookup: CompletableFuture<RegistryWrapper.WrapperLookup>): FabricAdvancementProvider(dataOutput, registryLookup) {
@@ -158,9 +155,9 @@ class EoCAdvancementProvider(dataOutput: FabricDataOutput, registryLookup: Compl
 			.criterion("get_rye", InventoryChangedCriterion.Conditions.items(EoCItems.rye))
 			.build(exporter, Identifier.of(EoCMain.MOD_ID, "get_rye").toString())
 
-//		val ryeNot = Advancement.Builder.create().parent(ryesAndShine)
-//			.display(EoCBlocks.ryeBale, Text.literal("Rye Not?"), Text.literal("Rye not, indeed?"), null, AdvancementFrame.GOAL, true, true, false)
-//			.criterion("inv_of_rye", EoCCriteria.ryeNotCriterion.create())
-		//TODO: FIGURE OUT HOW THIS WORKS!!!
+		val ryeNot = Advancement.Builder.create().parent(ryesAndShine)
+			.display(EoCBlocks.ryeBale, Text.literal("Rye Not?"), Text.literal("Rye not, indeed?"), null, AdvancementFrame.GOAL, true, true, false)
+			.criterion("inv_of_rye", EoCCriteria.ryeNotCriterion.create(RyeNotCriterion.Conditions(Optional.empty())))
+			.build(exporter, Identifier.of(EoCMain.MOD_ID, "inventory_of_rye").toString())
 	}
 }

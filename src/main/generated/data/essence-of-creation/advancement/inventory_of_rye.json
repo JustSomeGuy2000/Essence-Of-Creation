@@ -1,0 +1,23 @@
+{
+  "parent": "essence-of-creation:get_rye",
+  "criteria": {
+    "inv_of_rye": {
+      "trigger": "essence-of-creation:inv_of_rye"
+    }
+  },
+  "display": {
+    "description": "Rye not, indeed?",
+    "frame": "goal",
+    "icon": {
+      "count": 1,
+      "id": "essence-of-creation:rye_bale"
+    },
+    "title": "Rye Not?"
+  },
+  "requirements": [
+    [
+      "inv_of_rye"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

@@ -11,5 +11,5 @@ object EoCCriteria {
 
     fun init() {}
 
-    fun <T: AbstractCriterion.Conditions> register(name: String, creator: () -> AbstractCriterion<T>): AbstractCriterion<T> = Criteria.register(Identifier.of(EoCMain.MOD_ID, name).toString(), creator())
+    fun <C: AbstractCriterion.Conditions, T: AbstractCriterion<C>> register(name: String, creator: () -> T): T = Criteria.register(Identifier.of(EoCMain.MOD_ID, name).toString(), creator())
 }
