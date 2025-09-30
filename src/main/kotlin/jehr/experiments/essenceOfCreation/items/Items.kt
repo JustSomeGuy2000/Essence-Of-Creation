@@ -27,9 +27,9 @@ object EoCItems {
     val totemOfUnrying = register(TOR_ID, ::Item, Item.Settings().rarity(Rarity.UNCOMMON).maxCount(1).component(DataComponentTypes.DEATH_PROTECTION, DeathProtectionComponent(listOf(
         ClearAllEffectsConsumeEffect(),
         ApplyEffectsConsumeEffect(listOf(
-            StatusEffectInstance(StatusEffects.REGENERATION, 900, 1),
-            StatusEffectInstance(StatusEffects.ABSORPTION, 100, 1),
-            StatusEffectInstance(StatusEffects.FIRE_RESISTANCE, 800, 0),
+            StatusEffectInstance(StatusEffects.REGENERATION, 900, 2),
+            StatusEffectInstance(StatusEffects.ABSORPTION, 100, 2),
+            StatusEffectInstance(StatusEffects.FIRE_RESISTANCE, 800, 1),
             StatusEffectInstance(EoCStatusEffects.blessingOfRye, BlessingOfRye.ampTime, 1)
         ))
     ))))

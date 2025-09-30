@@ -15,6 +15,7 @@ For ages Essence of Creation has been irretrievably locked away, but no longer. 
 - Make the Rye Bale directional
 - Make milk unable to cure Blessing of Rye
 - Recipe for Scaffold Stripper
+- Recipe for Totem of Unrying
 
 # Features
 ## Blocks
@@ -27,5 +28,6 @@ For ages Essence of Creation has been irretrievably locked away, but no longer. 
 ## Items
 - Essence of Creation: The core component of the mod. Can be extracted from and infused into some items and blocks.
 - Rye: A long lost grain. Obtained by being afflicted with Blessing of Rye.
+- Totem of Unrying: Revives on death with more potent effects than the normal Totem, but also gives Blessing of Rye.
 ## Status Effects
 - Blessing of Rye: Gives you Rye based on its power every second. Automatically increases its power over time.
