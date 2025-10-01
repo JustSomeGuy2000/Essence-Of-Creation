@@ -4,6 +4,7 @@ import jehr.experiments.essenceOfCreation.blocks.*
 import jehr.experiments.essenceOfCreation.blocks.ScaffoldStripper.Companion.Progress
 import jehr.experiments.essenceOfCreation.criteria.EoCCriteria
 import jehr.experiments.essenceOfCreation.criteria.RyeNotCriterion
+import jehr.experiments.essenceOfCreation.criteria.RyeTotemCriterion
 import jehr.experiments.essenceOfCreation.items.EoCItems
 import jehr.experiments.essenceOfCreation.items.EssenceOfCreation
 import jehr.experiments.essenceOfCreation.statusEffects.BlessingOfRye
@@ -148,7 +149,7 @@ class EoCAdvancementProvider(dataOutput: FabricDataOutput, registryLookup: Compl
 
 	override fun generateAdvancement(wrapperLookup: RegistryWrapper.WrapperLookup?, exporter: Consumer<AdvancementEntry?>?) {
 		val essenceOfCreation = Advancement.Builder.create()
-			.display(EoCItems.essenceOfCreation, Text.literal("Essence Of Creation"), Text.literal("Expand your horizons."), Identifier.ofVanilla("textures/gui/advancements/backgrounds/adventure"), AdvancementFrame.TASK, true, true, false)
+			.display(EoCItems.essenceOfCreation, Text.literal("Essence Of Creation"), Text.literal("Expand your horizons."), Identifier.ofVanilla("gui/advancements/backgrounds/adventure"), AdvancementFrame.TASK, true, true, false)
 			.criterion("get_eoc",
 			InventoryChangedCriterion.Conditions.items(EoCItems.essenceOfCreation))
 			.build(exporter, Identifier.of(EoCMain.MOD_ID, "got_eoc").toString())
@@ -162,5 +163,10 @@ class EoCAdvancementProvider(dataOutput: FabricDataOutput, registryLookup: Compl
 			.display(EoCBlocks.ryeBale, Text.literal("Rye Not?"), Text.literal("Rye not, indeed?"), null, AdvancementFrame.GOAL, true, true, false)
 			.criterion("inv_of_rye", EoCCriteria.ryeNotCriterion.create(RyeNotCriterion.Conditions(Optional.empty())))
 			.build(exporter, Identifier.of(EoCMain.MOD_ID, "inventory_of_rye").toString())
+
+		val aryse = Advancement.Builder.create().parent(ryesAndShine)
+			.display(EoCItems.totemOfUnrying, Text.literal("Aryse"), Text.literal("A force pulls you back from the brink..."), null, AdvancementFrame.GOAL, true, true, false)
+			.criterion("use_totem_of_unrying", EoCCriteria.ryeTotemCriterion.create(RyeTotemCriterion.Conditions(Optional.empty())))
+			.build(exporter, Identifier.of(EoCMain.MOD_ID, "aryse").toString())
 	}
 }

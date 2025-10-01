@@ -8,6 +8,7 @@ import net.minecraft.entity.player.PlayerEntity
 import net.minecraft.entity.player.PlayerInventory
 import net.minecraft.inventory.Inventories
 import net.minecraft.item.ItemStack
+import net.minecraft.screen.ArrayPropertyDelegate
 import net.minecraft.screen.NamedScreenHandlerFactory
 import net.minecraft.screen.PropertyDelegate
 import net.minecraft.storage.ReadView
@@ -21,6 +22,7 @@ class EssentialExtractorBlockEntity(pos: BlockPos, state: BlockState): BlockEnti
     var currentFuel = 0
     var maxFuel = 0
     var progress = 0
+    var accumulator = 0.0
 
     private val inv: DefaultedList<ItemStack> = DefaultedList.ofSize(3, ItemStack.EMPTY)
     var source
@@ -33,39 +35,27 @@ class EssentialExtractorBlockEntity(pos: BlockPos, state: BlockState): BlockEnti
         get() = inv[2]
         set(value) { inv[2] = value ; markDirty() }
 
-    class EssentialExtractorPropertyDelegate(val eebe: EssentialExtractorBlockEntity?): PropertyDelegate {
+    private val propertyDelegate = object : PropertyDelegate {
         override fun get(index: Int): Int {
-            if (eebe == null) return 0
             return when (index) {
-                0 -> eebe.currentFuel
-                1 -> eebe.maxFuel
-                2 -> eebe.progress
+                0 -> this@EssentialExtractorBlockEntity.currentFuel
+                1 -> this@EssentialExtractorBlockEntity.maxFuel
+                2 -> this@EssentialExtractorBlockEntity.progress
                 else -> 0
             }
         }
 
         override fun set(index: Int, value: Int) {
-            if (eebe == null) return
             when (index) {
-                0 -> eebe.currentFuel = value
-                1 -> eebe.maxFuel = value
-                2 -> eebe.progress = value
+                0 -> this@EssentialExtractorBlockEntity.currentFuel = value
+                1 -> this@EssentialExtractorBlockEntity.maxFuel = value
+                2 -> this@EssentialExtractorBlockEntity.progress = value
                 else -> {}
             }
         }
 
         override fun size() = 3
-
-        fun setCurrentFuel(value: Int) = set(0, value)
-        fun setMaxFuel(value: Int) = set(1, value)
-        fun setProgress(value: Int) = set(2, value)
-
-        fun getCurrentFuel() = get(0)
-        fun getMaxFuel() = get(1)
-        fun getProgress() = get(2)
     }
-
-    private val propertyDelegate = EssentialExtractorPropertyDelegate(this)
 
     override fun getItems() = inv
 
@@ -80,6 +70,7 @@ class EssentialExtractorBlockEntity(pos: BlockPos, state: BlockState): BlockEnti
         this.currentFuel = view.getInt("current_fuel", 0)
         this.maxFuel = view.getInt("max_fuel", 0)
         this.progress = view.getInt("progress", 0)
+        this.accumulator = view.getDouble("accumulator", 0.0)
     }
 
     override fun writeData(view: WriteView) {
@@ -88,5 +79,6 @@ class EssentialExtractorBlockEntity(pos: BlockPos, state: BlockState): BlockEnti
         view.putInt("current_fuel", this.currentFuel)
         view.putInt("max_fuel", this.maxFuel)
         view.putInt("progress", this.progress)
+        view.putDouble("accumulator", this.accumulator)
     }
 }

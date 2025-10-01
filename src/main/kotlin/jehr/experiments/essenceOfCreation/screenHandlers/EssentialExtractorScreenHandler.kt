@@ -7,13 +7,15 @@ import net.minecraft.entity.player.PlayerInventory
 import net.minecraft.inventory.Inventory
 import net.minecraft.inventory.SimpleInventory
 import net.minecraft.item.ItemStack
+import net.minecraft.screen.ArrayPropertyDelegate
+import net.minecraft.screen.PropertyDelegate
 import net.minecraft.screen.ScreenHandler
 import net.minecraft.screen.slot.Slot
 
-class EssentialExtractorScreenHandler(syncID: Int, playerInv: PlayerInventory, inv: Inventory, delegate: EssentialExtractorBlockEntity.EssentialExtractorPropertyDelegate): ScreenHandler(EoCScreenHandlers.essentialExtractorScreenHandler, syncID) {
+class EssentialExtractorScreenHandler(syncID: Int, playerInv: PlayerInventory, inv: Inventory, delegate: PropertyDelegate): ScreenHandler(EoCScreenHandlers.essentialExtractorScreenHandler, syncID) {
 
-    constructor(syncID: Int, playerInv: PlayerInventory): this(syncID, playerInv, SimpleInventory(9),
-        EssentialExtractorBlockEntity.EssentialExtractorPropertyDelegate(null))
+    constructor(syncID: Int, playerInv: PlayerInventory): this(syncID, playerInv, SimpleInventory(9), ArrayPropertyDelegate(3)
+    )
 
     val inventory = inv
     val delegate = delegate
@@ -25,6 +27,7 @@ class EssentialExtractorScreenHandler(syncID: Int, playerInv: PlayerInventory, i
         this.addSlot(Slot(inv, 1, 56, 53))
         this.addSlot(Slot(inv, 2, 116, 35))
         this.addPlayerSlots(playerInv, 8, 84)
+        this.addProperties(delegate)
     }
 
     override fun quickMove(player: PlayerEntity?, slot: Int): ItemStack {

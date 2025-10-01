@@ -25,28 +25,29 @@ class EssentialExtractorScreen(handler: EssentialExtractorScreenHandler, playerI
     }
 
     override fun drawBackground(context: DrawContext, deltaTicks: Float, mouseX: Int, mouseY: Int) {
-        val i = this.x
-        val j = this.y
-        context.drawTexture(RenderPipelines.GUI_TEXTURED, backgroundTexture, i, j, 0.0f, 0.0f, this.backgroundWidth, this.backgroundHeight, 256, 256)
-        if (delegate.getCurrentFuel() != 0 && delegate.getProgress() != 0) {
-            val k = 14
-            val l = MathHelper.ceil(delegate.getCurrentFuel() * 13.0f) + 1
+        val baseX = this.x
+        val baseY = this.y
+        context.drawTexture(RenderPipelines.GUI_TEXTURED, backgroundTexture, baseX, baseY, 0.0f, 0.0f, this.backgroundWidth, this.backgroundHeight, 256, 256)
+        if (delegate[0] != 0 && delegate[2] != 0) {
+            val fuelConsumptionConversion = 1 // go through furnace source and see ticking speed
+            /*First order of business: locate source and modifications of fuel level.*/
+            val offset = MathHelper.ceil(delegate[0].toDouble())/fuelConsumptionConversion + 1
             context.drawGuiTexture(
                 RenderPipelines.GUI_TEXTURED,
                 fuelTexture,
                 14,
                 14,
                 0,
-                14 - l,
-                i + 56,
-                j + 36 + 14 - l,
+                14 - offset,
+                baseX + 56,
+                baseY + 36 + 14 - offset,
                 14,
-                l
+                offset
             )
         }
 
-        val k = 24
-        val l = MathHelper.ceil(delegate.getProgress() * 24.0f)
+        val progressConversion = 1
+        val offset = MathHelper.ceil(delegate[2].toDouble()) * progressConversion
         context.drawGuiTexture(
             RenderPipelines.GUI_TEXTURED,
             progressTexture,
@@ -54,9 +55,9 @@ class EssentialExtractorScreen(handler: EssentialExtractorScreenHandler, playerI
             16,
             0,
             0,
-            i + 79,
-            j + 34,
-            l,
+            baseX + 79,
+            baseY + 34,
+            offset,
             16
         )
     }

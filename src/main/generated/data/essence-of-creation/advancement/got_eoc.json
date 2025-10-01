@@ -12,7 +12,7 @@
     }
   },
   "display": {
-    "background": "minecraft:textures/gui/advancements/backgrounds/adventure",
+    "background": "minecraft:gui/advancements/backgrounds/adventure",
     "description": "Expand your horizons.",
     "icon": {
       "count": 1,

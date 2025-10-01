@@ -3,6 +3,7 @@ package jehr.experiments.essenceOfCreation.blocks
 import com.mojang.serialization.MapCodec
 import jehr.experiments.essenceOfCreation.blockEntities.EoCBlockEntities
 import jehr.experiments.essenceOfCreation.blockEntities.EssentialExtractorBlockEntity
+import jehr.experiments.essenceOfCreation.items.EoCItems
 import net.minecraft.block.Block
 import net.minecraft.block.BlockRenderType
 import net.minecraft.block.BlockState
@@ -12,12 +13,15 @@ import net.minecraft.block.entity.BlockEntityTicker
 import net.minecraft.block.entity.BlockEntityType
 import net.minecraft.entity.player.PlayerEntity
 import net.minecraft.item.Item
+import net.minecraft.item.ItemStack
+import net.minecraft.item.Items
 import net.minecraft.server.world.ServerWorld
 import net.minecraft.util.ActionResult
 import net.minecraft.util.ItemScatterer
 import net.minecraft.util.hit.BlockHitResult
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.World
+import kotlin.math.floor
 
 
 class EssentialExtractor(settings: Settings): BlockWithEntity(settings) {
@@ -25,12 +29,48 @@ class EssentialExtractor(settings: Settings): BlockWithEntity(settings) {
     companion object {
         const val ID = "essential_extractor"
         const val EXTRACT_TIME = 100
+        const val FUEL_PER_TICK = 1
+        /**Update the Extractor. Perform one of the following actions, evaluated in the following order:
+         * - Load fuel: If there is no loaded fuel, source is available, and fuel is available, consume one item of fuel and load fuel equivalent to its value in Companion.fuels.
+         * - Finish extraction: If progress == EXTRACT_TIME, consume one item of source and increment accumulator by its value in Companion.sources. If accumulator >= 1, take its integer component and add that amount of Essences of Creation to output. Nothing happens if output is occupied by some other item.
+         * - Progress extraction: If there is loaded fuel, source is available, and progress < EXTRACT_TIME, increment progress by 1, and decrement fuel by FUEL_PER_TICK.
+         * - Reduce fuel: If there is loaded fuel but nothing else, reduce it.*/
         fun tick(world: World, pos: BlockPos, state: BlockState, blockEntity: BlockEntity) {
-            // TODO
+            val be = blockEntity
+            if (be is EssentialExtractorBlockEntity) {
+                if (be.currentFuel == 0 && be.fuel.item in fuels && be.source.item in sources) {
+                    val consumedFuel = be.fuel.copyWithCount(1).item
+                    be.fuel.decrement(1)
+                    be.maxFuel = fuels[consumedFuel]!!
+                    be.currentFuel = fuels[consumedFuel]!!
+                    be.progress += 1
+                } else if (be.progress == EXTRACT_TIME && (be.output.isOf(EoCItems.essenceOfCreation) || be.output.isEmpty)) {
+                    val consumedSource = be.source.copyWithCount(1).item
+                    be.source.decrement(1)
+                    be.accumulator += sources[consumedSource]!!
+                    be.progress = 0
+                    if (be.accumulator >= 1) {
+                        val produced = floor(be.accumulator).toInt()
+                        be.accumulator -= produced
+                        if (be.output.isOf(EoCItems.essenceOfCreation)) {
+                            be.output.increment(produced)
+                        } else if (be.output.isEmpty) {
+                            be.output = ItemStack(EoCItems.essenceOfCreation, 1)
+                        }
+                    }
+                } else if (be.currentFuel != 0 && be.source.item in sources && be.progress < EXTRACT_TIME) {
+                    be.progress += 1
+                    be.currentFuel -= FUEL_PER_TICK
+                } else if (be.currentFuel != 0) {
+                    be.currentFuel -= FUEL_PER_TICK
+                }
+            }
         }
 
-        val sources = mapOf<Item, Float>()
-        val fuels = mapOf<Item, Int>()
+        /**How much Essence should result from extraction of the given item.*/
+        val sources = mapOf<Item, Double>(Items.GOLD_BLOCK to 1.0)
+        /**How much fuel value the given item provides.*/
+        val fuels = mapOf<Item, Int>(Items.IRON_BLOCK to 100)
     }
 
     override fun getCodec(): MapCodec<EssentialExtractor> = createCodec(::EssentialExtractor)

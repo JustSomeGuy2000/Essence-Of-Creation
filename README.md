@@ -12,9 +12,9 @@ For ages Essence of Creation has been irretrievably locked away, but no longer. 
 # To Do
 - Finish writing the Roggen Lore Books
 - Figure out why the recipe generator keeps crashing
+- Figure out why LivingEntityMixin crashes the build. Note: Captured local variable is incorrect (Error: Type top (current frame, locals\[4]) is not assignable to reference type). Works fine without the capture, so it must be the problem.
 - Make the Rye Bale directional
-- Essential Extractor screen
-- Essential Extractor screen handler
+- Essential Extractor screen (UV values are different from furnace)
 - Make Blessing of Rye persist after death, instead of the current subpar implementation
 
 # Features
@@ -32,6 +32,11 @@ For ages Essence of Creation has been irretrievably locked away, but no longer. 
 - Totem of Unrying: Revives on death with more potent effects than the normal Totem, but also gives Blessing of Rye.
 ## Status Effects
 - Blessing of Rye: Gives you Rye based on its power every second. Automatically increases its power over time. Is not cleared by milk. Cleared by death, but at a cost. A new Statue of the Rye God will spawn, and all your levels and items will be lost as sacrifice to it.
+## Advancements
+- Essence of Creation (root): Obtain an Essence of Creation.
+- Ryes and Shine (Essence of Creation): Obtain Rye.
+- Rye Not? (Ryes and Shine): Fill your inventory and offhand with stacks of Rye.
+- Aryse (Ryes and Shine): **Developing...**
 ## Recipes
 - Scaffold Stripper
 - Totem of Unrying

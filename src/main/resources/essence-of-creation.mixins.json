@@ -5,7 +5,8 @@
 	"mixins": [
 		"ExampleMixin",
 		"BlessingOfRyeMilkMixin",
-		"ServerPlayerEntityMixin"
+		"ServerPlayerEntityMixin",
+		"LivingEntityMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1

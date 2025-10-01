@@ -8,6 +8,7 @@ import net.minecraft.util.Identifier
 object EoCCriteria {
 
     val ryeNotCriterion = register(RyeNotCriterion.ID, ::RyeNotCriterion)
+    val ryeTotemCriterion = register(RyeTotemCriterion.ID, ::RyeTotemCriterion)
 
     fun init() {}
 

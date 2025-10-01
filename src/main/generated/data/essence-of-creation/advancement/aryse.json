@@ -1,0 +1,22 @@
+{
+  "parent": "essence-of-creation:get_rye",
+  "criteria": {
+    "use_totem_of_unrying": {
+      "trigger": "essence-of-creation:used_totem_of_unrying"
+    }
+  },
+  "display": {
+    "description": "A force pulls you back from the brink...",
+    "icon": {
+      "count": 1,
+      "id": "essence-of-creation:totem_of_unrying"
+    },
+    "title": "Aryse"
+  },
+  "requirements": [
+    [
+      "use_totem_of_unrying"
+    ]
+  ],
+  "sends_telemetry_event": true
+}
