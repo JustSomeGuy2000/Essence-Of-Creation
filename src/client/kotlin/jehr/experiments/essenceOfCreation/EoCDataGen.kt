@@ -73,6 +73,9 @@ class EoCLangProviderEnUs(dataOutput: FabricDataOutput, registryLookup: Completa
 				builder.add("lore.roggen.${lore.name}.page$num", page)
 			}
 		}
+		builder.add("item.$id.${EoCItems.TOR_ID}", "Totem of Unrying")
+		builder.add("block.$id.${EssentialExtractor.ID}", "Essential Extractor")
+		builder.add("item.$id.${EssentialExtractor.ID}", "Essential Extractor")
 	}
 }
 
