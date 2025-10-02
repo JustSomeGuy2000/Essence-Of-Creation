@@ -12,9 +12,9 @@ For ages Essence of Creation has been irretrievably locked away, but no longer. 
 # To Do
 - Finish writing the Roggen Lore Books
 - Figure out why the recipe generator keeps crashing
-- Figure out why LivingEntityMixin crashes the build. Note: Captured local variable is incorrect (Error: Type top (current frame, locals\[4]) is not assignable to reference type). Works fine without the capture, so it must be the problem.
 - Make the Rye Bale directional
-- Essential Extractor screen (UV values are different from furnace)
+- Essential Extractor fuels and sources
+- Fix Essential Extractor quick-move
 - Make Blessing of Rye persist after death, instead of the current subpar implementation
 
 # Features
@@ -25,7 +25,7 @@ For ages Essence of Creation has been irretrievably locked away, but no longer. 
 - Spatial Displacer (Purpur Pillar): Any entity that touches its top gets teleported away. Starts with 8 blocks of range, increasing by 8 blocks for every Spatial Displacer below it.
 - Statue of the Rye God: Inflicts Blessing of Rye onto nearby players. Clears the Blessing when broken.
 - Rye Bale: Hay Bale for Rye.
-- Essential Extractor: **Developing...**
+- Essential Extractor: Allows Essence of Creation to be extracted from objects. Takes in two inputs: a souce and a fuel. Different items have different fuel values or extraction efficiencies. Both are used up in the process.
 ## Items
 - Essence of Creation: The core component of the mod. Can be extracted from and infused into some items and blocks.
 - Rye: A long lost grain. Obtained by being afflicted with Blessing of Rye.
@@ -36,7 +36,7 @@ For ages Essence of Creation has been irretrievably locked away, but no longer. 
 - Essence of Creation (root): Obtain an Essence of Creation.
 - Ryes and Shine (Essence of Creation): Obtain Rye.
 - Rye Not? (Ryes and Shine): Fill your inventory and offhand with stacks of Rye.
-- Aryse (Ryes and Shine): **Developing...**
+- Aryse (Ryes and Shine): Activate a Totem of Unrying.
 ## Recipes
 - Scaffold Stripper
 - Totem of Unrying

@@ -1,0 +1,46 @@
+{
+  "variants": {
+    "state=false_down": {
+      "model": "essence-of-creation:block/essential_extractor"
+    },
+    "state=false_east": {
+      "model": "essence-of-creation:block/essential_extractor",
+      "y": 90
+    },
+    "state=false_north": {
+      "model": "essence-of-creation:block/essential_extractor"
+    },
+    "state=false_south": {
+      "model": "essence-of-creation:block/essential_extractor",
+      "y": 180
+    },
+    "state=false_up": {
+      "model": "essence-of-creation:block/essential_extractor"
+    },
+    "state=false_west": {
+      "model": "essence-of-creation:block/essential_extractor",
+      "y": 270
+    },
+    "state=true_down": {
+      "model": "essence-of-creation:block/essential_extractor"
+    },
+    "state=true_east": {
+      "model": "essence-of-creation:block/essential_extractor_active",
+      "y": 90
+    },
+    "state=true_north": {
+      "model": "essence-of-creation:block/essential_extractor_active"
+    },
+    "state=true_south": {
+      "model": "essence-of-creation:block/essential_extractor_active",
+      "y": 180
+    },
+    "state=true_up": {
+      "model": "essence-of-creation:block/essential_extractor"
+    },
+    "state=true_west": {
+      "model": "essence-of-creation:block/essential_extractor_active",
+      "y": 270
+    }
+  }
+}

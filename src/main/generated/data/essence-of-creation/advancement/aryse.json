@@ -7,6 +7,7 @@
   },
   "display": {
     "description": "A force pulls you back from the brink...",
+    "frame": "goal",
     "icon": {
       "count": 1,
       "id": "essence-of-creation:totem_of_unrying"

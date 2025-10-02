@@ -1,0 +1,9 @@
+{
+  "parent": "minecraft:block/orientable_with_bottom",
+  "textures": {
+    "bottom": "essence-of-creation:block/essential_extractor_bottom",
+    "front": "essence-of-creation:block/essential_extractor_front",
+    "side": "essence-of-creation:block/essential_extractor_side",
+    "top": "essence-of-creation:block/essential_extractor_top"
+  }
+}

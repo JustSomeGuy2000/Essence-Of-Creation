@@ -1,5 +1,7 @@
 package jehr.experiments.essenceOfCreation.handledScreens
 
+import jehr.experiments.essenceOfCreation.EoCMain
+import jehr.experiments.essenceOfCreation.blocks.EssentialExtractor
 import jehr.experiments.essenceOfCreation.screenHandlers.EssentialExtractorScreenHandler
 import net.minecraft.client.gl.RenderPipelines
 import net.minecraft.client.gui.DrawContext
@@ -12,9 +14,9 @@ import net.minecraft.util.math.MathHelper
 class EssentialExtractorScreen(handler: EssentialExtractorScreenHandler, playerInv: PlayerInventory, title: Text): HandledScreen<EssentialExtractorScreenHandler>(handler, playerInv, title) {
 
     companion object {
-        val backgroundTexture = Identifier.ofVanilla("textures/gui/container/furnace.png")
-        val progressTexture = Identifier.ofVanilla("container/furnace/burn_progress")
-        val fuelTexture = Identifier.ofVanilla("container/furnace/lit_progress")
+        val backgroundTexture: Identifier = Identifier.ofVanilla("textures/gui/container/furnace.png")
+        val progressTexture: Identifier = Identifier.ofVanilla("container/furnace/burn_progress")
+        val fuelTexture: Identifier = Identifier.of(EoCMain.MOD_ID, "container/essential_extractor/lit_progress")
     }
 
     val delegate = this.handler.delegate
@@ -29,9 +31,8 @@ class EssentialExtractorScreen(handler: EssentialExtractorScreenHandler, playerI
         val baseY = this.y
         context.drawTexture(RenderPipelines.GUI_TEXTURED, backgroundTexture, baseX, baseY, 0.0f, 0.0f, this.backgroundWidth, this.backgroundHeight, 256, 256)
         if (delegate[0] != 0 && delegate[2] != 0) {
-            val fuelConsumptionConversion = 1 // go through furnace source and see ticking speed
-            /*First order of business: locate source and modifications of fuel level.*/
-            val offset = MathHelper.ceil(delegate[0].toDouble())/fuelConsumptionConversion + 1
+            // fuel texture is 14 pixels tall, with 1 pixel being the shadow at the bottom.
+            val offset = MathHelper.ceil((delegate[0].toDouble()/delegate[1])*13) + 1
             context.drawGuiTexture(
                 RenderPipelines.GUI_TEXTURED,
                 fuelTexture,
@@ -46,8 +47,8 @@ class EssentialExtractorScreen(handler: EssentialExtractorScreenHandler, playerI
             )
         }
 
-        val progressConversion = 1
-        val offset = MathHelper.ceil(delegate[2].toDouble()) * progressConversion
+        // progress texture is 24 pixels long, with 2 pixels of background (one on either end)
+        val offset = MathHelper.ceil((delegate[2].toDouble() / EssentialExtractor.EXTRACT_TIME) * 24)
         context.drawGuiTexture(
             RenderPipelines.GUI_TEXTURED,
             progressTexture,

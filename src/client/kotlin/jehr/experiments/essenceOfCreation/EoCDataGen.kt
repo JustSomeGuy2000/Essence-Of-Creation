@@ -8,6 +8,7 @@ import jehr.experiments.essenceOfCreation.criteria.RyeTotemCriterion
 import jehr.experiments.essenceOfCreation.items.EoCItems
 import jehr.experiments.essenceOfCreation.items.EssenceOfCreation
 import jehr.experiments.essenceOfCreation.statusEffects.BlessingOfRye
+import jehr.experiments.essenceOfCreation.utils.CombinedBoolDir
 import jehr.experiments.essenceOfCreation.utils.RoggenLore
 import net.fabricmc.fabric.api.client.datagen.v1.provider.FabricModelProvider
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint
@@ -21,6 +22,7 @@ import net.minecraft.advancement.Advancement
 import net.minecraft.advancement.AdvancementEntry
 import net.minecraft.advancement.AdvancementFrame
 import net.minecraft.advancement.criterion.InventoryChangedCriterion
+import net.minecraft.block.Block
 import net.minecraft.client.data.*
 import net.minecraft.data.recipe.RecipeExporter
 import net.minecraft.data.recipe.RecipeGenerator
@@ -29,6 +31,7 @@ import net.minecraft.registry.RegistryKeys
 import net.minecraft.registry.RegistryWrapper
 import net.minecraft.text.Text
 import net.minecraft.util.Identifier
+import net.minecraft.util.math.Direction
 import java.util.Optional
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
@@ -112,6 +115,29 @@ class EoCModelProvider(dataOutput: FabricDataOutput): FabricModelProvider(dataOu
 
 		bsmg.registerSimpleCubeAll(EoCBlocks.roggenStatue)
 		bsmg.registerSingleton(EoCBlocks.ryeBale, TexturedModel.CUBE_COLUMN)
+
+		val extractorInactive = BlockStateModelGenerator.createWeightedVariant(TexturedModel.ORIENTABLE_WITH_BOTTOM.upload(EoCBlocks.essentialExtractor, bsmg.modelCollector))
+		val extractorActive = BlockStateModelGenerator.createWeightedVariant(bsmg.createSubModel(EoCBlocks.essentialExtractor, "_active", Models.ORIENTABLE_WITH_BOTTOM) { id ->
+            TextureMap().put(TextureKey.SIDE, Identifier.of(id.toString() + "_side"))
+                .put(TextureKey.FRONT, Identifier.of(id.toString() + "_front"))
+                .put(TextureKey.TOP, Identifier.of(id.toString() + "_top"))
+                .put(TextureKey.BOTTOM, Identifier.of(id.toString() + "_bottom"))
+        })
+		bsmg.blockStateCollector.accept(VariantsBlockModelDefinitionCreator.of(EoCBlocks.essentialExtractor).with(
+			BlockStateVariantMap.models(EssentialExtractor.condition)
+				.register(CombinedBoolDir.FALSE_NORTH, extractorInactive)
+				.register(CombinedBoolDir.FALSE_UP, extractorInactive)
+				.register(CombinedBoolDir.FALSE_DOWN, extractorInactive)
+				.register(CombinedBoolDir.TRUE_UP, extractorInactive)
+				.register(CombinedBoolDir.TRUE_DOWN, extractorInactive)
+				.register(CombinedBoolDir.FALSE_EAST, extractorInactive.apply(BlockStateModelGenerator.ROTATE_Y_90))
+				.register(CombinedBoolDir.FALSE_SOUTH, extractorInactive.apply(BlockStateModelGenerator.ROTATE_Y_180))
+				.register(CombinedBoolDir.FALSE_WEST, extractorInactive.apply(BlockStateModelGenerator.ROTATE_Y_270))
+				.register(CombinedBoolDir.TRUE_NORTH, extractorActive)
+				.register(CombinedBoolDir.TRUE_EAST, extractorActive.apply(BlockStateModelGenerator.ROTATE_Y_90))
+				.register(CombinedBoolDir.TRUE_SOUTH, extractorActive.apply(BlockStateModelGenerator.ROTATE_Y_180))
+				.register(CombinedBoolDir.TRUE_WEST, extractorActive.apply(BlockStateModelGenerator.ROTATE_Y_270))
+		))
 	}
 
 	override fun generateItemModels(img: ItemModelGenerator) {
@@ -128,6 +154,7 @@ class EoCBlockLootTableProvider(dataOutput: FabricDataOutput, registryLookup: Co
 	override fun generate() {
 		addDrop(EoCBlocks.spatialDisplacer)
 		addDropWithSilkTouch(EoCBlocks.scaffoldStripper)
+		addDrop(EoCBlocks.essentialExtractor)
 	}
 }
 

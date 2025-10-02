@@ -4,6 +4,7 @@ import com.mojang.serialization.MapCodec
 import jehr.experiments.essenceOfCreation.blockEntities.EoCBlockEntities
 import jehr.experiments.essenceOfCreation.blockEntities.EssentialExtractorBlockEntity
 import jehr.experiments.essenceOfCreation.items.EoCItems
+import jehr.experiments.essenceOfCreation.utils.CombinedBoolDir
 import net.minecraft.block.Block
 import net.minecraft.block.BlockRenderType
 import net.minecraft.block.BlockState
@@ -16,17 +17,28 @@ import net.minecraft.item.Item
 import net.minecraft.item.ItemStack
 import net.minecraft.item.Items
 import net.minecraft.server.world.ServerWorld
+import net.minecraft.state.StateManager
+import net.minecraft.state.property.BooleanProperty
+import net.minecraft.state.property.EnumProperty
+import net.minecraft.state.property.Properties
 import net.minecraft.util.ActionResult
 import net.minecraft.util.ItemScatterer
 import net.minecraft.util.hit.BlockHitResult
 import net.minecraft.util.math.BlockPos
+import net.minecraft.util.math.Direction
 import net.minecraft.world.World
 import kotlin.math.floor
 
 
 class EssentialExtractor(settings: Settings): BlockWithEntity(settings) {
 
+    init {
+        this.defaultState = this.stateManager.defaultState.with(condition, CombinedBoolDir.FALSE_NORTH)
+    }
+
     companion object {
+        var condition: EnumProperty<CombinedBoolDir> = EnumProperty.of("state", CombinedBoolDir::class.java)
+
         const val ID = "essential_extractor"
         const val EXTRACT_TIME = 100
         const val FUEL_PER_TICK = 1
@@ -44,6 +56,7 @@ class EssentialExtractor(settings: Settings): BlockWithEntity(settings) {
                     be.maxFuel = fuels[consumedFuel]!!
                     be.currentFuel = fuels[consumedFuel]!!
                     be.progress += 1
+                    world.setBlockState(pos, state.with(condition, CombinedBoolDir.modBool(state.get(condition)) {true}))
                 } else if (be.progress == EXTRACT_TIME && (be.output.isOf(EoCItems.essenceOfCreation) || be.output.isEmpty)) {
                     val consumedSource = be.source.copyWithCount(1).item
                     be.source.decrement(1)
@@ -58,6 +71,7 @@ class EssentialExtractor(settings: Settings): BlockWithEntity(settings) {
                             be.output = ItemStack(EoCItems.essenceOfCreation, 1)
                         }
                     }
+                    world.setBlockState(pos, state.with(condition, CombinedBoolDir.modBool(state.get(condition)) {false}))
                 } else if (be.currentFuel != 0 && be.source.item in sources && be.progress < EXTRACT_TIME) {
                     be.progress += 1
                     be.currentFuel -= FUEL_PER_TICK
@@ -109,5 +123,10 @@ class EssentialExtractor(settings: Settings): BlockWithEntity(settings) {
     override fun getComparatorOutput(state: BlockState, world: World, pos: BlockPos): Int {
         val blockEntity = world.getBlockEntity(pos)
         return if (blockEntity !is EssentialExtractorBlockEntity) 0 else (blockEntity.currentFuel/blockEntity.maxFuel)*15
+    }
+
+    override fun appendProperties(builder: StateManager.Builder<Block?, BlockState?>) {
+        super.appendProperties(builder)
+        builder.add(condition)
     }
 }
