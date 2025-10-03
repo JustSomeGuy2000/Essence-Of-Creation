@@ -23,6 +23,7 @@ import net.minecraft.advancement.AdvancementEntry
 import net.minecraft.advancement.AdvancementFrame
 import net.minecraft.advancement.criterion.InventoryChangedCriterion
 import net.minecraft.block.Block
+import net.minecraft.block.HayBlock
 import net.minecraft.client.data.*
 import net.minecraft.data.recipe.RecipeExporter
 import net.minecraft.data.recipe.RecipeGenerator
@@ -114,9 +115,15 @@ class EoCModelProvider(dataOutput: FabricDataOutput): FabricModelProvider(dataOu
 		)
 
 		bsmg.registerSimpleCubeAll(EoCBlocks.roggenStatue)
-		bsmg.registerSingleton(EoCBlocks.ryeBale, TexturedModel.CUBE_COLUMN)
+		val ryeBale = BlockStateModelGenerator.createWeightedVariant(TexturedModel.CUBE_COLUMN.upload(EoCBlocks.ryeBale, bsmg.modelCollector))
+		bsmg.blockStateCollector.accept(VariantsBlockModelDefinitionCreator.of(EoCBlocks.ryeBale, ryeBale)
+			.coordinate(BlockStateVariantMap.operations(HayBlock.AXIS)
+				.register(Direction.Axis.X, BlockStateModelGenerator.ROTATE_X_90.then(BlockStateModelGenerator.ROTATE_Y_90))
+				.register(Direction.Axis.Y, BlockStateModelGenerator.NO_OP)
+				.register(Direction.Axis.Z, BlockStateModelGenerator.ROTATE_X_90)))
 
 		val extractorInactive = BlockStateModelGenerator.createWeightedVariant(TexturedModel.ORIENTABLE_WITH_BOTTOM.upload(EoCBlocks.essentialExtractor, bsmg.modelCollector))
+		// this thing is held together with a cursed enum, intuition, and duct tape
 		val extractorActive = BlockStateModelGenerator.createWeightedVariant(bsmg.createSubModel(EoCBlocks.essentialExtractor, "_active", Models.ORIENTABLE_WITH_BOTTOM) { id ->
             TextureMap().put(TextureKey.SIDE, Identifier.of(id.toString() + "_side"))
                 .put(TextureKey.FRONT, Identifier.of(id.toString() + "_front"))

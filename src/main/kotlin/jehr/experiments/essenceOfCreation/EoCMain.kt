@@ -7,6 +7,7 @@ import jehr.experiments.essenceOfCreation.blocks.ScaffoldSeed
 import jehr.experiments.essenceOfCreation.blocks.ScaffoldStripper
 import jehr.experiments.essenceOfCreation.criteria.EoCCriteria
 import jehr.experiments.essenceOfCreation.items.EoCItems
+import jehr.experiments.essenceOfCreation.particles.EoCParticles
 import jehr.experiments.essenceOfCreation.screenHandlers.EoCScreenHandlers
 import jehr.experiments.essenceOfCreation.statusEffects.BlessingOfRye
 import jehr.experiments.essenceOfCreation.statusEffects.EoCStatusEffects
@@ -45,6 +46,7 @@ object EoCMain : ModInitializer {
 		EoCBlockEntities.init()
 		EoCCriteria.init()
 		EoCScreenHandlers.init()
+		EoCParticles.init()
 	}
 
 	fun registerCommands() {

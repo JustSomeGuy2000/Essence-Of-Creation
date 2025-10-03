@@ -30,9 +30,18 @@ class EssentialExtractorScreen(handler: EssentialExtractorScreenHandler, playerI
         val baseX = this.x
         val baseY = this.y
         context.drawTexture(RenderPipelines.GUI_TEXTURED, backgroundTexture, baseX, baseY, 0.0f, 0.0f, this.backgroundWidth, this.backgroundHeight, 256, 256)
-        if (delegate[0] != 0 && delegate[2] != 0) {
+        if (delegate[0] != 0) {
             // fuel texture is 14 pixels tall, with 1 pixel being the shadow at the bottom.
             val offset = MathHelper.ceil((delegate[0].toDouble()/delegate[1])*13) + 1
+            /* Notes for drawGuiTexture
+            x and y axes start on top left, x goes right and y goes down, all coordinate values in minecraft pixels
+            Arguments:
+            pipeline: what kind of object is being drawn (I think). Seems to affect render parameters.
+            sprite: the identifier of the image to draw from
+            (textureWidth, textureHeight): original dimensions of the image
+            (u, v): starting coordinates of the part of the image to draw from
+            (x, y): top left coordinates of screen location to draw on
+            (width, height): how many pixels of the image to draw on the x and y axes, along the direction of the axes.*/
             context.drawGuiTexture(
                 RenderPipelines.GUI_TEXTURED,
                 fuelTexture,

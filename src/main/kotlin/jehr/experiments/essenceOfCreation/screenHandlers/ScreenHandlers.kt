@@ -2,6 +2,7 @@ package jehr.experiments.essenceOfCreation.screenHandlers
 
 import jehr.experiments.essenceOfCreation.EoCMain
 import jehr.experiments.essenceOfCreation.blocks.EssentialExtractor
+import jehr.experiments.essenceOfCreation.blocks.EssentialInfuser
 import net.minecraft.registry.Registries
 import net.minecraft.registry.Registry
 import net.minecraft.resource.featuretoggle.FeatureSet
@@ -13,6 +14,7 @@ import net.minecraft.util.Identifier
 object EoCScreenHandlers {
 
     val essentialExtractorScreenHandler = register("${EssentialExtractor.ID}_screen_handler", ::EssentialExtractorScreenHandler)
+    val essentialInfuserScreenHandler = register("${EssentialInfuser.ID}_screen_handler", ::EssentialInfuserScreenHandler)
 
     fun init() {}
 

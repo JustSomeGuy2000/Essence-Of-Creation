@@ -3,6 +3,7 @@ package jehr.experiments.essenceOfCreation.blockEntities
 import jehr.experiments.essenceOfCreation.EoCMain
 import jehr.experiments.essenceOfCreation.blocks.EoCBlocks
 import jehr.experiments.essenceOfCreation.blocks.EssentialExtractor
+import jehr.experiments.essenceOfCreation.blocks.EssentialInfuser
 import jehr.experiments.essenceOfCreation.blocks.RoggenStatue
 import jehr.experiments.essenceOfCreation.blocks.ScaffoldStripper
 import net.fabricmc.fabric.api.`object`.builder.v1.block.entity.FabricBlockEntityTypeBuilder
@@ -18,6 +19,7 @@ object EoCBlockEntities {
     val scaffoldStripperBlockEntity = register("${ScaffoldStripper.ID}_memory", ::ScaffoldStripperBlockEntity, EoCBlocks.scaffoldStripper)
     val roggenStatueBlockEntity = register("${RoggenStatue.ID}_memory", ::RoggenStatueBlockEntity, EoCBlocks.roggenStatue)
     val essentialExtractorBlockEntity = register("${EssentialExtractor.ID}_memory", ::EssentialExtractorBlockEntity, EoCBlocks.essentialExtractor)
+    val essentialInfuserBlockEntity = register("${EssentialInfuser.ID}_memory", ::EssentialInfuserBlockEntity, EoCBlocks.essentialInfuser)
 
     fun init() {}
 

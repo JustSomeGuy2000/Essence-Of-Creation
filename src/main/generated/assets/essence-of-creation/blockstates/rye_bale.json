@@ -1,7 +1,16 @@
 {
   "variants": {
-    "": {
+    "axis=x": {
+      "model": "essence-of-creation:block/rye_bale",
+      "x": 90,
+      "y": 90
+    },
+    "axis=y": {
       "model": "essence-of-creation:block/rye_bale"
+    },
+    "axis=z": {
+      "model": "essence-of-creation:block/rye_bale",
+      "x": 90
     }
   }
 }

@@ -4,6 +4,7 @@ import jehr.experiments.essenceOfCreation.EoCMain
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents
 import net.minecraft.block.AbstractBlock
 import net.minecraft.block.Block
+import net.minecraft.block.HayBlock
 import net.minecraft.item.BlockItem
 import net.minecraft.item.Item
 import net.minecraft.item.ItemGroups
@@ -23,8 +24,9 @@ object EoCBlocks {
     val spatialDisplacer = register(SpatialDisplacer.ID, ::SpatialDisplacer, AbstractBlock.Settings.create().sounds(BlockSoundGroup.STONE).mapColor(DyeColor.MAGENTA).luminance{10}.hardness(2.0f).resistance(6.0f))
     val roggenStatue = register(RoggenStatue.ID, ::RoggenStatue, AbstractBlock.Settings.create().sounds(BlockSoundGroup.STONE).mapColor(DyeColor.BROWN).hardness(1.0f).resistance(2.0f))
     const val RYE_BALE_ID = "rye_bale"
-    val ryeBale = register(RYE_BALE_ID, ::Block, AbstractBlock.Settings.create().sounds(BlockSoundGroup.GRASS).mapColor(DyeColor.BROWN).hardness(0.1f).resistance(0.05f))
-    val essentialExtractor = register(EssentialExtractor.ID, ::EssentialExtractor, AbstractBlock.Settings.create().sounds(BlockSoundGroup.STONE).mapColor(DyeColor.GRAY).hardness(3.0f).resistance(5.0f).luminance { state ->  if (state.get(EssentialExtractor.condition).bool) 10 else 0 })
+    val ryeBale = register(RYE_BALE_ID, ::HayBlock, AbstractBlock.Settings.create().sounds(BlockSoundGroup.GRASS).mapColor(DyeColor.BROWN).hardness(0.1f).resistance(0.05f))
+    val essentialExtractor = register(EssentialExtractor.ID, ::EssentialExtractor, AbstractBlock.Settings.create().sounds(BlockSoundGroup.STONE).mapColor(DyeColor.GRAY).hardness(6.0f).resistance(5.0f).luminance { state ->  if (state.get(EssentialExtractor.condition).bool) 13 else 0 })
+    val essentialInfuser = register(EssentialInfuser.ID, ::EssentialInfuser, AbstractBlock.Settings.create().sounds(BlockSoundGroup.STONE).mapColor(DyeColor.GRAY).hardness(6.0f).resistance(1200.0F))
 
     fun init() {
         ItemGroupEvents.modifyEntriesEvent(EoCMain.EoCItemGroupKey).register{
@@ -35,6 +37,7 @@ object EoCBlocks {
             it.add(roggenStatue)
             it.add(ryeBale)
             it.add(essentialExtractor)
+            it.add(essentialInfuser)
         }
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.NATURAL).register {
 

@@ -1,7 +1,7 @@
 package jehr.experiments.essenceOfCreation.screenHandlers
 
-import jehr.experiments.essenceOfCreation.blockEntities.EssentialExtractorBlockEntity
 import jehr.experiments.essenceOfCreation.blocks.EssentialExtractor
+import jehr.experiments.essenceOfCreation.items.EoCItems
 import net.minecraft.entity.player.PlayerEntity
 import net.minecraft.entity.player.PlayerInventory
 import net.minecraft.inventory.Inventory
@@ -30,24 +30,37 @@ class EssentialExtractorScreenHandler(syncID: Int, playerInv: PlayerInventory, i
         this.addProperties(delegate)
     }
 
-    override fun quickMove(player: PlayerEntity?, slot: Int): ItemStack {
-        var newStack = ItemStack.EMPTY
+    override fun quickMove(player: PlayerEntity, slot: Int): ItemStack {
+        var newStack: ItemStack
         val invSlot = this.slots.getOrNull(slot)
         if (invSlot != null && invSlot.hasStack()) {
             val originalStack = invSlot.stack
             newStack = originalStack.copy()
-            if (newStack.item in EssentialExtractor.fuels.keys) {
-                if (!this.insertItem(originalStack, 1, 1, false)) {
+            if (slot <= 2)  { // moving from extractor slots, move to inventory
+                if (!this.insertItem(originalStack, 3, 39, false)) {
                     return ItemStack.EMPTY
                 }
-            } else if (newStack.item in EssentialExtractor.sources.keys) {
-                if (!this.insertItem(originalStack, 0, 0, false)) {
+            } else { // moving from player inventory slot
+                if (originalStack.item in EssentialExtractor.sources) {
+                    if (!this.insertItem(originalStack, 0, 1, false)) {
+                        return ItemStack.EMPTY
+                    }
+                } else if (originalStack.item in EssentialExtractor.fuels) {
+                    if (!this.insertItem(originalStack, 1, 2, false)) {
+                        return ItemStack.EMPTY
+                    }
+                } else if (originalStack.isOf(EoCItems.essenceOfCreation)) {
+                    if (!this.insertItem(originalStack, 2, 3, false)) {
+                        return ItemStack.EMPTY
+                    }
+                } else {
                     return ItemStack.EMPTY
                 }
-            } else return ItemStack.EMPTY
+            }
             invSlot.markDirty()
+            return newStack
         }
-        return newStack
+        return ItemStack.EMPTY
     }
 
     override fun canUse(player: PlayerEntity?) = this.inventory.canPlayerUse(player)
