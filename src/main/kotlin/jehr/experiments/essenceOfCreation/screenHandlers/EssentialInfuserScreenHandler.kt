@@ -12,7 +12,7 @@ import net.minecraft.screen.PropertyDelegate
 import net.minecraft.screen.ScreenHandler
 import net.minecraft.screen.slot.Slot
 
-class EssentialInfuserScreenHandler(syncId: Int, playerInv: PlayerInventory, val inv: Inventory, val delegate: PropertyDelegate): ScreenHandler(EoCScreenHandlers.essentialExtractorScreenHandler, syncId) {
+class EssentialInfuserScreenHandler(syncId: Int, playerInv: PlayerInventory, val inv: Inventory, val delegate: PropertyDelegate): ScreenHandler(EoCScreenHandlers.essentialInfuserScreenHandler, syncId) {
 
     constructor(syncId: Int, playerInv: PlayerInventory): this(syncId, playerInv, SimpleInventory(3),
         ArrayPropertyDelegate(1)
@@ -38,6 +38,7 @@ class EssentialInfuserScreenHandler(syncId: Int, playerInv: PlayerInventory, val
         val invSlot = this.slots.getOrNull(slot)
         if (invSlot != null && invSlot.hasStack()) {
             val stack = invSlot.stack
+            val copied = stack.copy()
             if (slot <= 2) {
                 if (!this.insertItem(stack, 3, 39, false)) return ItemStack.EMPTY
             } else {
@@ -50,7 +51,7 @@ class EssentialInfuserScreenHandler(syncId: Int, playerInv: PlayerInventory, val
                 }
             }
             invSlot.markDirty()
-            return stack.copy()
+            return copied
         }
         return ItemStack.EMPTY
     }

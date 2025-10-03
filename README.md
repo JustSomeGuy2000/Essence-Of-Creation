@@ -10,9 +10,10 @@ It is said that nestled deeply in every human creation is a spark, a quantum of 
 For ages Essence of Creation has been irretrievably locked away, but no longer. With the power of the Essential Extractor and Essential Infuser, the common man can harness its massive power for their own purposes. What are you waiting for? There is much to be done.
 
 # Installation (coming soon)
-## Github (requires Java compiler)
+## Github releases
 ## Modrinth
 ## CurseForge
+## Self-compile (requires JDK)
 
 # To Do
 - Finish writing the Roggen Lore Books
@@ -23,7 +24,10 @@ For ages Essence of Creation has been irretrievably locked away, but no longer. 
 - Make Blessing of Rye persist after death, instead of the current subpar implementation
 - Allow Scaffold Trunk and Seed to be climbed like ladders
 - Essential Infuser particles in randomDisplayTick
+- Fix Essential Infuser progress arrow not rendering
 - Stacks of diamond blocks exhibit strange behaviour when shift-clicked into the essential infuser. True scope is unscertain.
+- Animated texture for Essential Infuser
+- Rework datagen to eliminate duplicate texture images
 
 # Features
 ## Blocks

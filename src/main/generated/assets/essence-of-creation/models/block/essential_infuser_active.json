@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/cube_bottom_top",
+  "textures": {
+    "bottom": "essence-of-creation:block/essential_infuser_active_bottom",
+    "side": "essence-of-creation:block/essential_infuser_active_side",
+    "top": "essence-of-creation:block/essential_infuser_active_top"
+  }
+}

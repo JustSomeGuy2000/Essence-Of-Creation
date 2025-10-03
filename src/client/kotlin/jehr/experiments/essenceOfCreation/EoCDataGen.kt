@@ -81,6 +81,8 @@ class EoCLangProviderEnUs(dataOutput: FabricDataOutput, registryLookup: Completa
 		builder.add("item.$id.${EoCItems.TOR_ID}", "Totem of Unrying")
 		builder.add("block.$id.${EssentialExtractor.ID}", "Essential Extractor")
 		builder.add("item.$id.${EssentialExtractor.ID}", "Essential Extractor")
+		builder.add("item.$id.${EssentialInfuser.ID}", "Essential Infuser")
+		builder.add("block.$id.${EssentialInfuser.ID}", "Essential Infuser")
 	}
 }
 
@@ -124,12 +126,7 @@ class EoCModelProvider(dataOutput: FabricDataOutput): FabricModelProvider(dataOu
 
 		val extractorInactive = BlockStateModelGenerator.createWeightedVariant(TexturedModel.ORIENTABLE_WITH_BOTTOM.upload(EoCBlocks.essentialExtractor, bsmg.modelCollector))
 		// this thing is held together with a cursed enum, intuition, and duct tape
-		val extractorActive = BlockStateModelGenerator.createWeightedVariant(bsmg.createSubModel(EoCBlocks.essentialExtractor, "_active", Models.ORIENTABLE_WITH_BOTTOM) { id ->
-            TextureMap().put(TextureKey.SIDE, Identifier.of(id.toString() + "_side"))
-                .put(TextureKey.FRONT, Identifier.of(id.toString() + "_front"))
-                .put(TextureKey.TOP, Identifier.of(id.toString() + "_top"))
-                .put(TextureKey.BOTTOM, Identifier.of(id.toString() + "_bottom"))
-        })
+		val extractorActive = BlockStateModelGenerator.createWeightedVariant(bsmg.createSubModel(EoCBlocks.essentialExtractor, "_active", Models.ORIENTABLE_WITH_BOTTOM, textTureMapGenerator(mapOf(TextureKey.SIDE to "_side", TextureKey.FRONT to "_front", TextureKey.TOP to "_top", TextureKey.BOTTOM to "_bottom"))))
 		bsmg.blockStateCollector.accept(VariantsBlockModelDefinitionCreator.of(EoCBlocks.essentialExtractor).with(
 			BlockStateVariantMap.models(EssentialExtractor.condition)
 				.register(CombinedBoolDir.FALSE_NORTH, extractorInactive)
@@ -145,7 +142,26 @@ class EoCModelProvider(dataOutput: FabricDataOutput): FabricModelProvider(dataOu
 				.register(CombinedBoolDir.TRUE_SOUTH, extractorActive.apply(BlockStateModelGenerator.ROTATE_Y_180))
 				.register(CombinedBoolDir.TRUE_WEST, extractorActive.apply(BlockStateModelGenerator.ROTATE_Y_270))
 		))
+
+		val infuserInactive = BlockStateModelGenerator.createWeightedVariant(TexturedModel.CUBE_BOTTOM_TOP.upload(
+			EoCBlocks.essentialInfuser, bsmg.modelCollector))
+		val infuserActive = BlockStateModelGenerator.createWeightedVariant(bsmg.createSubModel(EoCBlocks.essentialInfuser, "_active", Models.CUBE_BOTTOM_TOP, textTureMapGenerator(mapOf(
+			TextureKey.SIDE to "_side", TextureKey.TOP to "_top", TextureKey.BOTTOM to "_bottom"))))
+		bsmg.blockStateCollector.accept(VariantsBlockModelDefinitionCreator.of(EoCBlocks.essentialInfuser).with(
+			BlockStateVariantMap.models(EssentialInfuser.active)
+				.register(false, infuserInactive)
+				.register(true, infuserActive)
+		))
 	}
+
+	/**A way to generate texture factories for `BlockStateModelGenerator()$createSubModel`. This is definitely not the right way to do it, but it works.*/
+	fun textTureMapGenerator(keys: Map<TextureKey, String>): (Identifier) -> TextureMap
+			= fun(id: Identifier): TextureMap =
+				TextureMap().apply {
+					for ((key, suffix) in keys) {
+						put(key, Identifier.of(id.toString() + suffix))
+					}
+				}
 
 	override fun generateItemModels(img: ItemModelGenerator) {
 		img.register(EoCItems.essenceOfCreation, Models.GENERATED)

@@ -9,6 +9,7 @@ import net.minecraft.client.gui.screen.ingame.HandledScreen
 import net.minecraft.entity.player.PlayerInventory
 import net.minecraft.text.Text
 import net.minecraft.util.Identifier
+import kotlin.math.ceil
 
 class EssentialInfuserScreen(handler: EssentialInfuserScreenHandler, playerInv: PlayerInventory, title: Text): HandledScreen<EssentialInfuserScreenHandler>(handler, playerInv, title) {
 
@@ -30,7 +31,7 @@ class EssentialInfuserScreen(handler: EssentialInfuserScreenHandler, playerInv: 
         context.drawTexture(RenderPipelines.GUI_TEXTURED, backgroundTexture, baseX, baseY, 0.0f, 0.0f, this.backgroundWidth, this.backgroundHeight, 256, 256)
 
         if (delegate[0] != 0) {
-            val progressPercent = delegate[0] / EssentialInfuser.INFUSE_TIME * 52
+            val progressPercent = ceil(delegate[0] / EssentialInfuser.INFUSE_TIME_F * 52).toInt()
             context.drawGuiTexture(RenderPipelines.GUI_TEXTURED, progressTexture, 51, 16, 0, 0, baseX + 51, baseY + 38, progressPercent, 16)
         }
     }

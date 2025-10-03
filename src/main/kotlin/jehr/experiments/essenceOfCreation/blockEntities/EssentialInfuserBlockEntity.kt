@@ -6,6 +6,7 @@ import net.minecraft.block.BlockState
 import net.minecraft.block.entity.BlockEntity
 import net.minecraft.entity.player.PlayerEntity
 import net.minecraft.entity.player.PlayerInventory
+import net.minecraft.inventory.Inventories
 import net.minecraft.item.ItemStack
 import net.minecraft.screen.NamedScreenHandlerFactory
 import net.minecraft.screen.PropertyDelegate
@@ -50,11 +51,13 @@ class EssentialInfuserBlockEntity(pos: BlockPos, state: BlockState): BlockEntity
 
     override fun readData(view: ReadView) {
         super.readData(view)
+        Inventories.readData(view, this.inv)
         view.getInt("progress", 0)
     }
 
     override fun writeData(view: WriteView) {
         super.writeData(view)
+        Inventories.writeData(view, this.inv)
         view.putInt("progress", this.progress)
     }
 }

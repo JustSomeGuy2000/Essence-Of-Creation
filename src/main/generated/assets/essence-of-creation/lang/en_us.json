@@ -1,5 +1,6 @@
 {
   "block.essence-of-creation.essential_extractor": "Essential Extractor",
+  "block.essence-of-creation.essential_infuser": "Essential Infuser",
   "block.essence-of-creation.roggen_statue": "Statue of the Rye God",
   "block.essence-of-creation.rye_bale": "Rye Bale",
   "block.essence-of-creation.scaffold_seed": "Scaffold Seed",
@@ -9,6 +10,7 @@
   "effect.essence-of-creation.blessing-of-rye": "Blessing of Rye",
   "item.essence-of-creation.essence_of_creation": "Essence of Creation",
   "item.essence-of-creation.essential_extractor": "Essential Extractor",
+  "item.essence-of-creation.essential_infuser": "Essential Infuser",
   "item.essence-of-creation.roggen_statue": "Statue of the Rye God",
   "item.essence-of-creation.rye": "Rye",
   "item.essence-of-creation.rye_bale": "Rye Bale",

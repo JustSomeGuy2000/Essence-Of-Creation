@@ -26,7 +26,7 @@ object EoCBlocks {
     const val RYE_BALE_ID = "rye_bale"
     val ryeBale = register(RYE_BALE_ID, ::HayBlock, AbstractBlock.Settings.create().sounds(BlockSoundGroup.GRASS).mapColor(DyeColor.BROWN).hardness(0.1f).resistance(0.05f))
     val essentialExtractor = register(EssentialExtractor.ID, ::EssentialExtractor, AbstractBlock.Settings.create().sounds(BlockSoundGroup.STONE).mapColor(DyeColor.GRAY).hardness(6.0f).resistance(5.0f).luminance { state ->  if (state.get(EssentialExtractor.condition).bool) 13 else 0 })
-    val essentialInfuser = register(EssentialInfuser.ID, ::EssentialInfuser, AbstractBlock.Settings.create().sounds(BlockSoundGroup.STONE).mapColor(DyeColor.GRAY).hardness(6.0f).resistance(1200.0F))
+    val essentialInfuser = register(EssentialInfuser.ID, ::EssentialInfuser, AbstractBlock.Settings.create().sounds(BlockSoundGroup.STONE).mapColor(DyeColor.GRAY).hardness(6.0f).resistance(1200.0F).luminance { state -> if (state.get(EssentialInfuser.active)) 13 else 0 })
 
     fun init() {
         ItemGroupEvents.modifyEntriesEvent(EoCMain.EoCItemGroupKey).register{

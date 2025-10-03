@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "active=false": {
+      "model": "essence-of-creation:block/essential_infuser"
+    },
+    "active=true": {
+      "model": "essence-of-creation:block/essential_infuser_active"
+    }
+  }
+}

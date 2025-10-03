@@ -34,6 +34,7 @@ class EssentialInfuser(settings: Settings): BlockWithEntity(settings) {
     companion object {
         const val ID = "essential_infuser"
         const val INFUSE_TIME = 100
+        const val INFUSE_TIME_F = 100.0
         const val PROGRESS_PER_TICK = 1
 
         var active: BooleanProperty = BooleanProperty.of("active")
@@ -41,7 +42,7 @@ class EssentialInfuser(settings: Settings): BlockWithEntity(settings) {
         /**Update the infuser. Increment the progress meter and produce an output if it is full.*/
         fun tick(world: World, pos: BlockPos, state: BlockState, blockEntity: BlockEntity) {
             val be = blockEntity
-            if (be is EssentialInfuserBlockEntity) {
+            if (be is EssentialInfuserBlockEntity && !world.isClient) {
                 if (be.essence.isOf(EoCItems.essenceOfCreation) && be.source.item in outputs) {
                     if (be.progress < INFUSE_TIME) {
                         be.progress += PROGRESS_PER_TICK
@@ -57,6 +58,7 @@ class EssentialInfuser(settings: Settings): BlockWithEntity(settings) {
                         } else return
                         be.source.decrement(1)
                         be.essence.decrement(1)
+                        be.progress = 0
                         if (!(be.essence.isOf(EoCItems.essenceOfCreation) && be.source.item in outputs)) {
                             world.setBlockState(pos, state.with(active, false))
                         }
@@ -68,7 +70,7 @@ class EssentialInfuser(settings: Settings): BlockWithEntity(settings) {
         }
 
         /**Valid input items and what they turn into.*/
-        val outputs = mapOf<Item, Item>(Blocks.SCAFFOLDING.asItem() to EoCBlocks.scaffoldSeed.asItem())
+        val outputs = mapOf<Item, Item>(Blocks.SCAFFOLDING.asItem() to EoCBlocks.scaffoldSeed.asItem(), Blocks.PURPUR_PILLAR.asItem() to EoCBlocks.spatialDisplacer.asItem())
     }
 
     override fun getCodec(): MapCodec<EssentialInfuser> = createCodec(::EssentialInfuser)
