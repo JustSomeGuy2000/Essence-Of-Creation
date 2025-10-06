@@ -4,6 +4,7 @@ import com.mojang.serialization.MapCodec
 import jehr.experiments.essenceOfCreation.blockEntities.EoCBlockEntities
 import jehr.experiments.essenceOfCreation.blockEntities.EssentialInfuserBlockEntity
 import jehr.experiments.essenceOfCreation.items.EoCItems
+import jehr.experiments.essenceOfCreation.particles.EoCParticles
 import net.minecraft.block.Block
 import net.minecraft.block.BlockRenderType
 import net.minecraft.block.BlockState
@@ -15,7 +16,10 @@ import net.minecraft.block.entity.BlockEntityType
 import net.minecraft.entity.player.PlayerEntity
 import net.minecraft.item.Item
 import net.minecraft.item.ItemStack
+import net.minecraft.item.Items
 import net.minecraft.server.world.ServerWorld
+import net.minecraft.sound.SoundCategory
+import net.minecraft.sound.SoundEvents
 import net.minecraft.state.StateManager
 import net.minecraft.state.property.BooleanProperty
 import net.minecraft.util.ActionResult
@@ -70,7 +74,12 @@ class EssentialInfuser(settings: Settings): BlockWithEntity(settings) {
         }
 
         /**Valid input items and what they turn into.*/
-        val outputs = mapOf<Item, Item>(Blocks.SCAFFOLDING.asItem() to EoCBlocks.scaffoldSeed.asItem(), Blocks.PURPUR_PILLAR.asItem() to EoCBlocks.spatialDisplacer.asItem())
+        val outputs = mapOf<Item, Item>(
+            Blocks.SCAFFOLDING.asItem() to EoCBlocks.scaffoldSeed.asItem(),
+            Blocks.PURPUR_PILLAR.asItem() to EoCBlocks.spatialDisplacer.asItem(),
+            Items.ENCHANTED_GOLDEN_APPLE to EoCItems.godApple,
+            Items.BONE_MEAL to EoCItems.superBoneMeal
+        )
     }
 
     override fun getCodec(): MapCodec<EssentialInfuser> = createCodec(::EssentialInfuser)
@@ -104,7 +113,19 @@ class EssentialInfuser(settings: Settings): BlockWithEntity(settings) {
         super.onStateReplaced(state, world, pos, moved)
     }
 
-    override fun randomDisplayTick(state: BlockState?, world: World?, pos: BlockPos?, random: Random?) {}
+    override fun randomDisplayTick(state: BlockState, world: World, pos: BlockPos, random: Random) {
+        if (state.get(active)) {
+            val x = pos.x + 0.5 + (random.nextDouble() - 0.5) * 12 / 16
+            val y = pos.y + 1.1
+            val z = pos.z + 0.5 + (random.nextDouble() - 0.5) * 12 / 16
+
+            if (random.nextDouble() < 0.1) {
+                world.playSoundClient(x, y, z, SoundEvents.BLOCK_FURNACE_FIRE_CRACKLE, SoundCategory.BLOCKS, 1.0F, 1.0F, false)
+            }
+
+            world.addParticleClient(EoCParticles.purpleFlame, x, y, z, 0.0, 0.0, 0.0)
+        }
+    }
 
     override fun hasComparatorOutput(state: BlockState): Boolean = state.get(active)
 

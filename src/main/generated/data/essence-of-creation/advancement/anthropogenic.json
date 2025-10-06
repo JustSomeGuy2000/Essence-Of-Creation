@@ -1,0 +1,44 @@
+{
+  "parent": "essence-of-creation:got_eoc",
+  "criteria": {
+    "5572b427-9a15-4fa4-9ea1-5888fb9d1f02": {
+      "conditions": {
+        "items": [
+          {
+            "items": "essence-of-creation:scaffold_seed"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "cdc33e97-8169-489c-919d-7cb9b965d7dd": {
+      "conditions": {
+        "items": [
+          {
+            "items": "essence-of-creation:spatial_displacer"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "used_handheld_infuser": {
+      "trigger": "essence-of-creation:anthropogenic_criterion"
+    }
+  },
+  "display": {
+    "description": "Use Essence of Creation.",
+    "icon": {
+      "count": 1,
+      "id": "essence-of-creation:essential_infuser"
+    },
+    "title": "Anthropogenic"
+  },
+  "requirements": [
+    [
+      "5572b427-9a15-4fa4-9ea1-5888fb9d1f02",
+      "cdc33e97-8169-489c-919d-7cb9b965d7dd",
+      "used_handheld_infuser"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

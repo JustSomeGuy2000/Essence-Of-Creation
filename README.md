@@ -23,11 +23,10 @@ For ages Essence of Creation has been irretrievably locked away, but no longer. 
 - Fix Essential Extractor datagen to use proper methods instead of the current cursed implementation
 - Make Blessing of Rye persist after death, instead of the current subpar implementation
 - Allow Scaffold Trunk and Seed to be climbed like ladders
-- Essential Infuser particles in randomDisplayTick
-- Fix Essential Infuser progress arrow not rendering
 - Stacks of diamond blocks exhibit strange behaviour when shift-clicked into the essential infuser. True scope is unscertain.
-- Animated texture for Essential Infuser
+- Animated texture for Essential Infuser (top part pulses)
 - Rework datagen to eliminate duplicate texture images
+- 3D model for Handheld Infuser
 
 # Features
 ## Blocks
@@ -38,11 +37,14 @@ For ages Essence of Creation has been irretrievably locked away, but no longer. 
 - Statue of the Rye God: Inflicts Blessing of Rye onto nearby players. Clears the Blessing when broken.
 - Rye Bale: Hay Bale for Rye.
 - Essential Extractor: Allows Essence of Creation to be extracted from objects. Takes in two inputs: a souce and a fuel. Different items have different fuel values or extraction efficiencies (look at EssentialExtractor.Companion.sources/fuels for a list). Both are used up in the process.
-- Essential Infuser: **Developing...**
+- Essential Infuser: Allows Essence of Creation to be infused into items. Takes in two inputs: a source and an Essence. Each Essence may be infused into one and only one item. Infusable items are shown here with brackets after thieir name showing their source item.
 ## Items
 - Essence of Creation: The core component of the mod. Can be extracted from and infused into some items and blocks.
 - Rye: A long lost grain. Obtained by being afflicted with Blessing of Rye.
 - Totem of Unrying: Revives on death with more potent effects than the normal Totem, but also gives Blessing of Rye.
+- Handheld Infuser: Hit an entity with Essence of Creation in your inventory to infuse it (if possible). See HandheldInfuser.Companion.infusables for a list.
+- God Apple (Enchanted Golden Apple): An even better version of the item usually termed "God Apple".
+- Super Bone Meal (Bone Meal): **Developing...**
 ## Status Effects
 - Blessing of Rye: Gives you Rye based on its power every second. Automatically increases its power over time. Is not cleared by milk. Cleared by death, but at a cost. A new Statue of the Rye God will spawn, and all your levels and items will be lost as sacrifice to it.
 ## Advancements
@@ -50,6 +52,8 @@ For ages Essence of Creation has been irretrievably locked away, but no longer. 
 - Ryes and Shine (Essence of Creation): Obtain Rye.
 - Rye Not? (Ryes and Shine): Fill your inventory and offhand with stacks of Rye.
 - Aryse (Ryes and Shine): Activate a Totem of Unrying.
+- Anthropogenesis (Essence of Creation): Infuse an item or entity with Essence of Creation.
+- Ambrosia (Anthropogenesis): Obtain a God Apple.
 ## Recipes
 - Scaffold Stripper
 - Totem of Unrying

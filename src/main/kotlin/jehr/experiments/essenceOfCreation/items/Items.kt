@@ -5,7 +5,9 @@ import jehr.experiments.essenceOfCreation.statusEffects.BlessingOfRye
 import jehr.experiments.essenceOfCreation.statusEffects.EoCStatusEffects
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents
 import net.minecraft.component.DataComponentTypes
+import net.minecraft.component.type.ConsumableComponents
 import net.minecraft.component.type.DeathProtectionComponent
+import net.minecraft.component.type.FoodComponent
 import net.minecraft.entity.effect.StatusEffectInstance
 import net.minecraft.entity.effect.StatusEffects
 import net.minecraft.item.Item
@@ -33,12 +35,28 @@ object EoCItems {
             StatusEffectInstance(EoCStatusEffects.blessingOfRye, BlessingOfRye.ampTime, 1)
         ))
     ))))
+    val handheldInfuser = register(HandheldInfuser.ID, ::HandheldInfuser, Item.Settings().maxCount(1))
+    const val GOD_APPLE_ID = "god_apple"
+    val godApple = register(GOD_APPLE_ID, ::Item, Item.Settings().rarity(Rarity.RARE).food(
+        FoodComponent.Builder().nutrition(8).saturationModifier(1.5F).alwaysEdible().build(),
+        ConsumableComponents.food().consumeEffect(ApplyEffectsConsumeEffect(listOf(
+            StatusEffectInstance(StatusEffects.REGENERATION, 600, 3),
+            StatusEffectInstance(StatusEffects.RESISTANCE, 6000, 2),
+            StatusEffectInstance(StatusEffects.FIRE_RESISTANCE, 6000, 0),
+            StatusEffectInstance(StatusEffects.ABSORPTION, 6000, 5),
+            StatusEffectInstance(StatusEffects.STRENGTH, 3600, 3),
+            StatusEffectInstance(StatusEffects.SPEED, 3600, 1)
+        ))).build()
+     ).component(DataComponentTypes.ENCHANTMENT_GLINT_OVERRIDE, true))
+    val superBoneMeal = register(SuperBoneMeal.ID, ::SuperBoneMeal, Item.Settings())
 
     fun init() {
         ItemGroupEvents.modifyEntriesEvent(EoCMain.EoCItemGroupKey).register{
             it.add(this.essenceOfCreation)
             it.add(this.rye)
             it.add(this.totemOfUnrying)
+            it.add(this.handheldInfuser)
+            it.add(this.godApple)
         }
     }
 

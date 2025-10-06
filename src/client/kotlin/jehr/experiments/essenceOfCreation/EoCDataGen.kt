@@ -2,11 +2,14 @@ package jehr.experiments.essenceOfCreation
 
 import jehr.experiments.essenceOfCreation.blocks.*
 import jehr.experiments.essenceOfCreation.blocks.ScaffoldStripper.Companion.Progress
+import jehr.experiments.essenceOfCreation.criteria.AnthropogenicCriterion
 import jehr.experiments.essenceOfCreation.criteria.EoCCriteria
 import jehr.experiments.essenceOfCreation.criteria.RyeNotCriterion
 import jehr.experiments.essenceOfCreation.criteria.RyeTotemCriterion
 import jehr.experiments.essenceOfCreation.items.EoCItems
 import jehr.experiments.essenceOfCreation.items.EssenceOfCreation
+import jehr.experiments.essenceOfCreation.items.HandheldInfuser
+import jehr.experiments.essenceOfCreation.items.SuperBoneMeal
 import jehr.experiments.essenceOfCreation.statusEffects.BlessingOfRye
 import jehr.experiments.essenceOfCreation.utils.CombinedBoolDir
 import jehr.experiments.essenceOfCreation.utils.RoggenLore
@@ -21,19 +24,20 @@ import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider
 import net.minecraft.advancement.Advancement
 import net.minecraft.advancement.AdvancementEntry
 import net.minecraft.advancement.AdvancementFrame
+import net.minecraft.advancement.AdvancementRequirements
 import net.minecraft.advancement.criterion.InventoryChangedCriterion
-import net.minecraft.block.Block
 import net.minecraft.block.HayBlock
 import net.minecraft.client.data.*
 import net.minecraft.data.recipe.RecipeExporter
 import net.minecraft.data.recipe.RecipeGenerator
+import net.minecraft.item.Item
 import net.minecraft.recipe.book.RecipeCategory
-import net.minecraft.registry.RegistryKeys
 import net.minecraft.registry.RegistryWrapper
 import net.minecraft.text.Text
 import net.minecraft.util.Identifier
 import net.minecraft.util.math.Direction
 import java.util.Optional
+import java.util.UUID
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
@@ -83,6 +87,11 @@ class EoCLangProviderEnUs(dataOutput: FabricDataOutput, registryLookup: Completa
 		builder.add("item.$id.${EssentialExtractor.ID}", "Essential Extractor")
 		builder.add("item.$id.${EssentialInfuser.ID}", "Essential Infuser")
 		builder.add("block.$id.${EssentialInfuser.ID}", "Essential Infuser")
+		builder.add("item.$id.${HandheldInfuser.ID}", "Handheld Infuser")
+		builder.add("itemTooltip.$id.${HandheldInfuser.ID}.title", "Usage")
+		builder.add("itemTooltip.$id.${HandheldInfuser.ID}.content", "Left-click on entity to attempt.")
+		builder.add("item.$id.${EoCItems.GOD_APPLE_ID}", "God Apple")
+		builder.add("item.$id.${SuperBoneMeal.ID}", "Super Bone Meal")
 	}
 }
 
@@ -154,7 +163,7 @@ class EoCModelProvider(dataOutput: FabricDataOutput): FabricModelProvider(dataOu
 		))
 	}
 
-	/**A way to generate texture factories for `BlockStateModelGenerator()$createSubModel`. This is definitely not the right way to do it, but it works.*/
+	/**A way to generate texture factories for `BlockStateModelGenerator()$createSubModel`. This is definitely not the right way to do it, but it works. Manually adds a second suffix to an Identifier, then associates it with the TextureKey of the original.*/
 	fun textTureMapGenerator(keys: Map<TextureKey, String>): (Identifier) -> TextureMap
 			= fun(id: Identifier): TextureMap =
 				TextureMap().apply {
@@ -167,6 +176,9 @@ class EoCModelProvider(dataOutput: FabricDataOutput): FabricModelProvider(dataOu
 		img.register(EoCItems.essenceOfCreation, Models.GENERATED)
 		img.register(EoCItems.rye, Models.GENERATED)
 		img.register(EoCItems.totemOfUnrying, Models.GENERATED)
+		img.register(EoCItems.handheldInfuser, Models.GENERATED) // change to 3D in the future
+		img.register(EoCItems.godApple, Models.GENERATED)
+		img.register(EoCItems.superBoneMeal, Models.GENERATED)
 	}
 }
 
@@ -218,5 +230,25 @@ class EoCAdvancementProvider(dataOutput: FabricDataOutput, registryLookup: Compl
 			.display(EoCItems.totemOfUnrying, Text.literal("Aryse"), Text.literal("A force pulls you back from the brink..."), null, AdvancementFrame.GOAL, true, true, false)
 			.criterion("use_totem_of_unrying", EoCCriteria.ryeTotemCriterion.create(RyeTotemCriterion.Conditions(Optional.empty())))
 			.build(exporter, Identifier.of(EoCMain.MOD_ID, "aryse").toString())
+
+		val anthropogenic = Advancement.Builder.create().parent(essenceOfCreation)
+			.display(EoCBlocks.essentialInfuser, Text.literal("Anthropogenic"), Text.literal("Use Essence of Creation."), null, AdvancementFrame.TASK, true, true, false)
+			.oneFromItemListCriterion(EssentialInfuser.outputs.values)
+			.criterion("used_handheld_infuser", EoCCriteria.anthropogenicCriterion.create(AnthropogenicCriterion.Conditions(Optional.empty())))
+			.criteriaMerger(AdvancementRequirements.CriterionMerger.OR)
+			.build(exporter, Identifier.of(EoCMain.MOD_ID, "anthropogenic").toString())
+
+		val ambrosia = Advancement.Builder.create().parent(anthropogenic)
+			.display(EoCItems.godApple, Text.literal("Ambrosia"), Text.literal("Food of the gods."), null, AdvancementFrame.GOAL, true, true, false)
+			.criterion("has_god_apple", InventoryChangedCriterion.Conditions.items(EoCItems.godApple))
+			.build(exporter, Identifier.of(EoCMain.MOD_ID, "ambrosia").toString())
+	}
+
+	/**Yet another cursed solution since datagen is so POORLY DOCUMENTED. It works, though, so I won't complain.*/
+	fun Advancement.Builder.oneFromItemListCriterion(items: Collection<Item>): Advancement.Builder {
+		for (item in items) {
+			this.criterion(UUID.randomUUID().toString(), InventoryChangedCriterion.Conditions.items(item))
+		}
+		return this.criteriaMerger(AdvancementRequirements.CriterionMerger.OR)
 	}
 }

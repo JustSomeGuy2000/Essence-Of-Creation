@@ -57,4 +57,5 @@ class EssentialInfuserScreenHandler(syncId: Int, playerInv: PlayerInventory, val
     }
 
     override fun canUse(player: PlayerEntity?) = this.inv.canPlayerUse(player)
+
 }

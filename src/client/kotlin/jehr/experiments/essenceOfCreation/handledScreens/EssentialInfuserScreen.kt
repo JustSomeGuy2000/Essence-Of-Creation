@@ -31,8 +31,8 @@ class EssentialInfuserScreen(handler: EssentialInfuserScreenHandler, playerInv: 
         context.drawTexture(RenderPipelines.GUI_TEXTURED, backgroundTexture, baseX, baseY, 0.0f, 0.0f, this.backgroundWidth, this.backgroundHeight, 256, 256)
 
         if (delegate[0] != 0) {
-            val progressPercent = ceil(delegate[0] / EssentialInfuser.INFUSE_TIME_F * 52).toInt()
-            context.drawGuiTexture(RenderPipelines.GUI_TEXTURED, progressTexture, 51, 16, 0, 0, baseX + 51, baseY + 38, progressPercent, 16)
+            val progressPercent = ceil(delegate[0] / EssentialInfuser.INFUSE_TIME_F * 51).toInt() + 1
+            context.drawGuiTexture(RenderPipelines.GUI_TEXTURED, progressTexture, 51, 51, 0, 0, baseX + 51, baseY + 38, progressPercent, 17)
         }
     }
 
