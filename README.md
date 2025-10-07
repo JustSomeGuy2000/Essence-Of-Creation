@@ -44,7 +44,7 @@ For ages Essence of Creation has been irretrievably locked away, but no longer. 
 - Totem of Unrying: Revives on death with more potent effects than the normal Totem, but also gives Blessing of Rye.
 - Handheld Infuser: Hit an entity with Essence of Creation in your inventory to infuse it (if possible). See HandheldInfuser.Companion.infusables for a list.
 - God Apple (Enchanted Golden Apple): An even better version of the item usually termed "God Apple".
-- Super Bone Meal (Bone Meal): **Developing...**
+- Super Bone Meal (Bone Meal): Has the same effect as applying Bone Meal 32 times, instantly growing most things.
 ## Status Effects
 - Blessing of Rye: Gives you Rye based on its power every second. Automatically increases its power over time. Is not cleared by milk. Cleared by death, but at a cost. A new Statue of the Rye God will spawn, and all your levels and items will be lost as sacrifice to it.
 ## Advancements

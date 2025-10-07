@@ -57,6 +57,7 @@ object EoCItems {
             it.add(this.totemOfUnrying)
             it.add(this.handheldInfuser)
             it.add(this.godApple)
+            it.add(this.superBoneMeal)
         }
     }
 
