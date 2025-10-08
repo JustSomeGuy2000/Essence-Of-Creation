@@ -21,6 +21,7 @@ import net.fabricmc.fabric.api.datagen.v1.provider.FabricAdvancementProvider
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootTableProvider
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricLanguageProvider
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider
+import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider
 import net.minecraft.advancement.Advancement
 import net.minecraft.advancement.AdvancementEntry
 import net.minecraft.advancement.AdvancementFrame
@@ -33,6 +34,7 @@ import net.minecraft.data.recipe.RecipeGenerator
 import net.minecraft.item.Item
 import net.minecraft.recipe.book.RecipeCategory
 import net.minecraft.registry.RegistryWrapper
+import net.minecraft.registry.tag.ItemTags
 import net.minecraft.text.Text
 import net.minecraft.util.Identifier
 import net.minecraft.util.math.Direction
@@ -49,6 +51,7 @@ object EoCDataGen : DataGeneratorEntrypoint {
 		pack.addProvider(::EoCBlockLootTableProvider)
 //		pack.addProvider(::EoCRecipeProvider)
 		pack.addProvider(::EoCAdvancementProvider)
+		pack.addProvider(::EoCItemTagProvider)
 	}
 }
 
@@ -92,6 +95,10 @@ class EoCLangProviderEnUs(dataOutput: FabricDataOutput, registryLookup: Completa
 		builder.add("itemTooltip.$id.${HandheldInfuser.ID}.content", "Left-click on entity to attempt.")
 		builder.add("item.$id.${EoCItems.GOD_APPLE_ID}", "God Apple")
 		builder.add("item.$id.${SuperBoneMeal.ID}", "Super Bone Meal")
+		builder.add("item.$id.${EoCItems.CANE_ID}", "Cane")
+		builder.add("death.attack.gun_sword", "%s was fatally shot.")
+		builder.add("death.attack.gun_sword.item", "%s was fatally shot with by %s using %s.")
+		builder.add("death.attack.gun_sword.player", "%s was fatally shot while trying to escape %s.")
 	}
 }
 
@@ -179,6 +186,7 @@ class EoCModelProvider(dataOutput: FabricDataOutput): FabricModelProvider(dataOu
 		img.register(EoCItems.handheldInfuser, Models.GENERATED) // change to 3D in the future
 		img.register(EoCItems.godApple, Models.GENERATED)
 		img.register(EoCItems.superBoneMeal, Models.GENERATED)
+		img.register(EoCItems.cane, Models.HANDHELD)
 	}
 }
 
@@ -245,10 +253,21 @@ class EoCAdvancementProvider(dataOutput: FabricDataOutput, registryLookup: Compl
 	}
 
 	/**Yet another cursed solution since datagen is so POORLY DOCUMENTED. It works, though, so I won't complain.*/
-	fun Advancement.Builder.oneFromItemListCriterion(items: Collection<Item>): Advancement.Builder {
+	private fun Advancement.Builder.oneFromItemListCriterion(items: Collection<Item>): Advancement.Builder {
 		for (item in items) {
 			this.criterion(UUID.randomUUID().toString(), InventoryChangedCriterion.Conditions.items(item))
 		}
 		return this.criteriaMerger(AdvancementRequirements.CriterionMerger.OR)
 	}
+}
+
+class EoCItemTagProvider(output: FabricDataOutput, registryLookup: CompletableFuture<RegistryWrapper.WrapperLookup>): FabricTagProvider.ItemTagProvider(output, registryLookup) {
+
+	override fun getName() = "EssenceOfCreationItemTagProvider"
+
+	override fun configure(wrapperLookup: RegistryWrapper.WrapperLookup?) {
+		valueLookupBuilder(ItemTags.SWORDS)
+			.add(EoCItems.cane)
+	}
+
 }

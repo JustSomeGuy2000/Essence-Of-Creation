@@ -1,6 +1,7 @@
 package jehr.experiments.essenceOfCreation
 
 import jehr.experiments.essenceOfCreation.blocks.EoCBlocks
+import jehr.experiments.essenceOfCreation.entityRenderers.EoCEntityRenderers
 import jehr.experiments.essenceOfCreation.handledScreens.EoCHandledScreens
 import jehr.experiments.essenceOfCreation.particles.EoCParticles
 import net.fabricmc.api.ClientModInitializer
@@ -14,6 +15,7 @@ object EoCClient : ClientModInitializer {
 		// This entrypoint is suitable for setting up client-specific logic, such as rendering.
 		BlockRenderLayerMap.putBlocks(BlockRenderLayer.CUTOUT, EoCBlocks.scaffoldSeed, EoCBlocks.scaffoldTrunk)
 		EoCHandledScreens.init()
+		EoCEntityRenderers.init()
 		ParticleFactoryRegistry.getInstance().register(EoCParticles.purpleFlame, FlameParticle::Factory)
 	}
 }

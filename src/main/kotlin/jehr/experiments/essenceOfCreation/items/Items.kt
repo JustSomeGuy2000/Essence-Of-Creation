@@ -5,12 +5,18 @@ import jehr.experiments.essenceOfCreation.statusEffects.BlessingOfRye
 import jehr.experiments.essenceOfCreation.statusEffects.EoCStatusEffects
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents
 import net.minecraft.component.DataComponentTypes
+import net.minecraft.component.type.AttributeModifierSlot
+import net.minecraft.component.type.AttributeModifiersComponent
 import net.minecraft.component.type.ConsumableComponents
 import net.minecraft.component.type.DeathProtectionComponent
 import net.minecraft.component.type.FoodComponent
+import net.minecraft.component.type.WeaponComponent
+import net.minecraft.entity.attribute.EntityAttributeModifier
+import net.minecraft.entity.attribute.EntityAttributes
 import net.minecraft.entity.effect.StatusEffectInstance
 import net.minecraft.entity.effect.StatusEffects
 import net.minecraft.item.Item
+import net.minecraft.item.Items
 import net.minecraft.item.consume.ApplyEffectsConsumeEffect
 import net.minecraft.item.consume.ClearAllEffectsConsumeEffect
 import net.minecraft.registry.Registries
@@ -49,6 +55,25 @@ object EoCItems {
         ))).build()
      ).component(DataComponentTypes.ENCHANTMENT_GLINT_OVERRIDE, true))
     val superBoneMeal = register(SuperBoneMeal.ID, ::SuperBoneMeal, Item.Settings())
+    const val CANE_ID = "cane"
+    val cane = register(CANE_ID, ::Item, Item.Settings().maxDamage(100).repairable(Items.STICK).enchantable(20)
+        .component(DataComponentTypes.WEAPON, WeaponComponent(1))
+        .component(DataComponentTypes.ENCHANTMENT_GLINT_OVERRIDE, true)
+        .attributeModifiers(AttributeModifiersComponent.builder()
+            .add(EntityAttributes.ATTACK_DAMAGE,
+                EntityAttributeModifier(Item.BASE_ATTACK_DAMAGE_MODIFIER_ID, 2.0,
+                EntityAttributeModifier.Operation.ADD_VALUE),
+                AttributeModifierSlot.MAINHAND)
+            .add(EntityAttributes.ATTACK_SPEED,
+                EntityAttributeModifier(Item.BASE_ATTACK_SPEED_MODIFIER_ID, -2.4, EntityAttributeModifier.Operation.ADD_VALUE),
+                AttributeModifierSlot.MAINHAND)
+            .add(EntityAttributes.ATTACK_KNOCKBACK,
+                EntityAttributeModifier(Identifier.ofVanilla("base_attack_knockback"), 2.0, EntityAttributeModifier.Operation.ADD_VALUE),
+                AttributeModifierSlot.MAINHAND)
+            .add(EntityAttributes.MOVEMENT_SPEED,
+                EntityAttributeModifier(Identifier.ofVanilla("base_movement_speed"), 1.25, EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL),
+                AttributeModifierSlot.MAINHAND)
+            .build()))
 
     fun init() {
         ItemGroupEvents.modifyEntriesEvent(EoCMain.EoCItemGroupKey).register{
@@ -58,6 +83,7 @@ object EoCItems {
             it.add(this.handheldInfuser)
             it.add(this.godApple)
             it.add(this.superBoneMeal)
+            it.add(this.cane)
         }
     }
 

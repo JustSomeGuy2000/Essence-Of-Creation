@@ -1,21 +1,51 @@
 {
   "parent": "essence-of-creation:got_eoc",
   "criteria": {
-    "5572b427-9a15-4fa4-9ea1-5888fb9d1f02": {
+    "1dc2d9eb-03e3-4c9d-a4c8-2bffbd4506b0": {
       "conditions": {
         "items": [
           {
-            "items": "essence-of-creation:scaffold_seed"
+            "items": "essence-of-creation:cane"
           }
         ]
       },
       "trigger": "minecraft:inventory_changed"
     },
-    "cdc33e97-8169-489c-919d-7cb9b965d7dd": {
+    "4dd53af6-5bc4-4e09-b978-c321043df961": {
+      "conditions": {
+        "items": [
+          {
+            "items": "essence-of-creation:god_apple"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "899b31b0-7794-4a6b-85e2-34a41c974b9f": {
       "conditions": {
         "items": [
           {
             "items": "essence-of-creation:spatial_displacer"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "a1281a3e-13e2-43b2-8ff5-5054b52d92b2": {
+      "conditions": {
+        "items": [
+          {
+            "items": "essence-of-creation:super_bone_meal"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "bb1bc5e9-18d1-4c3c-9139-dccfad891f23": {
+      "conditions": {
+        "items": [
+          {
+            "items": "essence-of-creation:scaffold_seed"
           }
         ]
       },
@@ -35,8 +65,11 @@
   },
   "requirements": [
     [
-      "5572b427-9a15-4fa4-9ea1-5888fb9d1f02",
-      "cdc33e97-8169-489c-919d-7cb9b965d7dd",
+      "bb1bc5e9-18d1-4c3c-9139-dccfad891f23",
+      "899b31b0-7794-4a6b-85e2-34a41c974b9f",
+      "4dd53af6-5bc4-4e09-b978-c321043df961",
+      "a1281a3e-13e2-43b2-8ff5-5054b52d92b2",
+      "1dc2d9eb-03e3-4c9d-a4c8-2bffbd4506b0",
       "used_handheld_infuser"
     ]
   ],

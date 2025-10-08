@@ -6,6 +6,8 @@ import jehr.experiments.essenceOfCreation.blocks.EoCBlocks
 import jehr.experiments.essenceOfCreation.blocks.ScaffoldSeed
 import jehr.experiments.essenceOfCreation.blocks.ScaffoldStripper
 import jehr.experiments.essenceOfCreation.criteria.EoCCriteria
+import jehr.experiments.essenceOfCreation.damageTypes.EoCDamageTypes
+import jehr.experiments.essenceOfCreation.entities.EoCEntities
 import jehr.experiments.essenceOfCreation.items.EoCItems
 import jehr.experiments.essenceOfCreation.particles.EoCParticles
 import jehr.experiments.essenceOfCreation.screenHandlers.EoCScreenHandlers
@@ -40,6 +42,7 @@ object EoCMain : ModInitializer {
 		Registry.register(Registries.ITEM_GROUP, EoCItemGroupKey, EoCItemGroup)
 		registerCommands()
 		registerEvents()
+		EoCDamageTypes.init()
 		EoCItems.init()
 		EoCStatusEffects.init()
 		EoCBlocks.init()
@@ -47,6 +50,7 @@ object EoCMain : ModInitializer {
 		EoCCriteria.init()
 		EoCScreenHandlers.init()
 		EoCParticles.init()
+		EoCEntities.init()
 	}
 
 	fun registerCommands() {

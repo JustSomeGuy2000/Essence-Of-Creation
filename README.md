@@ -27,6 +27,8 @@ For ages Essence of Creation has been irretrievably locked away, but no longer. 
 - Animated texture for Essential Infuser (top part pulses)
 - Rework datagen to eliminate duplicate texture images
 - 3D model for Handheld Infuser
+- Scatter fertilisation for Super Bone Meal
+- Particles for Super Bone Meal don't work
 
 # Features
 ## Blocks
@@ -44,7 +46,11 @@ For ages Essence of Creation has been irretrievably locked away, but no longer. 
 - Totem of Unrying: Revives on death with more potent effects than the normal Totem, but also gives Blessing of Rye.
 - Handheld Infuser: Hit an entity with Essence of Creation in your inventory to infuse it (if possible). See HandheldInfuser.Companion.infusables for a list.
 - God Apple (Enchanted Golden Apple): An even better version of the item usually termed "God Apple".
-- Super Bone Meal (Bone Meal): Has the same effect as applying Bone Meal 32 times, instantly growing most things.
+- Super Bone Meal (Bone Meal): Applies Bone Meal 16 times to every block in a 5x5 are around the targeted block.
+- Cane (Stick): A weak melee weapon that gives a speed and knockback boost.
+- Gun-Sword: **Developing...**
+## Entities
+- Gun Sword Bullet: **Developing**
 ## Status Effects
 - Blessing of Rye: Gives you Rye based on its power every second. Automatically increases its power over time. Is not cleared by milk. Cleared by death, but at a cost. A new Statue of the Rye God will spawn, and all your levels and items will be lost as sacrifice to it.
 ## Advancements

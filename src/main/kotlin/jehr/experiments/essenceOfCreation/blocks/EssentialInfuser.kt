@@ -78,7 +78,8 @@ class EssentialInfuser(settings: Settings): BlockWithEntity(settings) {
             Blocks.SCAFFOLDING.asItem() to EoCBlocks.scaffoldSeed.asItem(),
             Blocks.PURPUR_PILLAR.asItem() to EoCBlocks.spatialDisplacer.asItem(),
             Items.ENCHANTED_GOLDEN_APPLE to EoCItems.godApple,
-            Items.BONE_MEAL to EoCItems.superBoneMeal
+            Items.BONE_MEAL to EoCItems.superBoneMeal,
+            Items.STICK to EoCItems.cane
         )
     }
 

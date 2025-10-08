@@ -1,0 +1,5 @@
+{
+  "exhaustion": 0.1,
+  "message_id": "gun_sword",
+  "scaling": "when_caused_by_non_living_player"
+}
