@@ -71,9 +71,13 @@ object EoCItems {
                 EntityAttributeModifier(Identifier.ofVanilla("base_attack_knockback"), 2.0, EntityAttributeModifier.Operation.ADD_VALUE),
                 AttributeModifierSlot.MAINHAND)
             .add(EntityAttributes.MOVEMENT_SPEED,
-                EntityAttributeModifier(Identifier.ofVanilla("base_movement_speed"), 1.25, EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL),
+                EntityAttributeModifier(Identifier.ofVanilla("base_movement_speed"), 1.0, EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL),
                 AttributeModifierSlot.MAINHAND)
             .build()))
+    const val GSB_ITEM_ID = "gun_sword_bullet_item"
+    val gsbItem = register(GSB_ITEM_ID, ::Item, Item.Settings())
+    const val WOOD_GUN_SWORD_ID = "wood_${GunSword.BASE_ID}"
+    val woodGunSword = register(WOOD_GUN_SWORD_ID, ::GunSword, GunSword.generateBaseSettings(2.0, -2.4, 100, 3, 3))
 
     fun init() {
         ItemGroupEvents.modifyEntriesEvent(EoCMain.EoCItemGroupKey).register{
@@ -84,6 +88,7 @@ object EoCItems {
             it.add(this.godApple)
             it.add(this.superBoneMeal)
             it.add(this.cane)
+            it.add(this.woodGunSword)
         }
     }
 

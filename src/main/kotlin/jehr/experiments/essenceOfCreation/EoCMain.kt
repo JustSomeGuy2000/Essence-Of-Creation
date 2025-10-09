@@ -5,6 +5,7 @@ import jehr.experiments.essenceOfCreation.blockEntities.EoCBlockEntities
 import jehr.experiments.essenceOfCreation.blocks.EoCBlocks
 import jehr.experiments.essenceOfCreation.blocks.ScaffoldSeed
 import jehr.experiments.essenceOfCreation.blocks.ScaffoldStripper
+import jehr.experiments.essenceOfCreation.components.EoCComponents
 import jehr.experiments.essenceOfCreation.criteria.EoCCriteria
 import jehr.experiments.essenceOfCreation.damageTypes.EoCDamageTypes
 import jehr.experiments.essenceOfCreation.entities.EoCEntities
@@ -42,6 +43,7 @@ object EoCMain : ModInitializer {
 		Registry.register(Registries.ITEM_GROUP, EoCItemGroupKey, EoCItemGroup)
 		registerCommands()
 		registerEvents()
+		EoCComponents.init()
 		EoCDamageTypes.init()
 		EoCItems.init()
 		EoCStatusEffects.init()

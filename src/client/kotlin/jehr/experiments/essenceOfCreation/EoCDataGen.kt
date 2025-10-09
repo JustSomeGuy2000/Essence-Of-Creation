@@ -99,6 +99,7 @@ class EoCLangProviderEnUs(dataOutput: FabricDataOutput, registryLookup: Completa
 		builder.add("death.attack.gun_sword", "%s was fatally shot.")
 		builder.add("death.attack.gun_sword.item", "%s was fatally shot with by %s using %s.")
 		builder.add("death.attack.gun_sword.player", "%s was fatally shot while trying to escape %s.")
+		builder.add("item.$id.${EoCItems.WOOD_GUN_SWORD_ID}", "Wooden Gun-Sword")
 	}
 }
 
@@ -187,6 +188,7 @@ class EoCModelProvider(dataOutput: FabricDataOutput): FabricModelProvider(dataOu
 		img.register(EoCItems.godApple, Models.GENERATED)
 		img.register(EoCItems.superBoneMeal, Models.GENERATED)
 		img.register(EoCItems.cane, Models.HANDHELD)
+		img.register(EoCItems.woodGunSword, Models.HANDHELD)
 	}
 }
 

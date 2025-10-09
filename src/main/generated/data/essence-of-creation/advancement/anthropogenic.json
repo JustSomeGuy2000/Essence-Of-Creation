@@ -1,7 +1,7 @@
 {
   "parent": "essence-of-creation:got_eoc",
   "criteria": {
-    "1dc2d9eb-03e3-4c9d-a4c8-2bffbd4506b0": {
+    "35f988a4-8350-4184-9aa6-ddeba0b16234": {
       "conditions": {
         "items": [
           {
@@ -11,17 +11,7 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
-    "4dd53af6-5bc4-4e09-b978-c321043df961": {
-      "conditions": {
-        "items": [
-          {
-            "items": "essence-of-creation:god_apple"
-          }
-        ]
-      },
-      "trigger": "minecraft:inventory_changed"
-    },
-    "899b31b0-7794-4a6b-85e2-34a41c974b9f": {
+    "95d0199a-dfb1-42bc-bfa3-393720f50322": {
       "conditions": {
         "items": [
           {
@@ -31,7 +21,17 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
-    "a1281a3e-13e2-43b2-8ff5-5054b52d92b2": {
+    "978edc00-446e-4b35-a1a2-c93814209487": {
+      "conditions": {
+        "items": [
+          {
+            "items": "essence-of-creation:scaffold_seed"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "d621818c-497d-42cf-9bf8-fa844d34f82d": {
       "conditions": {
         "items": [
           {
@@ -41,11 +41,11 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
-    "bb1bc5e9-18d1-4c3c-9139-dccfad891f23": {
+    "fb40f5f8-b869-49f1-89c9-40d628f99193": {
       "conditions": {
         "items": [
           {
-            "items": "essence-of-creation:scaffold_seed"
+            "items": "essence-of-creation:god_apple"
           }
         ]
       },
@@ -65,11 +65,11 @@
   },
   "requirements": [
     [
-      "bb1bc5e9-18d1-4c3c-9139-dccfad891f23",
-      "899b31b0-7794-4a6b-85e2-34a41c974b9f",
-      "4dd53af6-5bc4-4e09-b978-c321043df961",
-      "a1281a3e-13e2-43b2-8ff5-5054b52d92b2",
-      "1dc2d9eb-03e3-4c9d-a4c8-2bffbd4506b0",
+      "978edc00-446e-4b35-a1a2-c93814209487",
+      "95d0199a-dfb1-42bc-bfa3-393720f50322",
+      "fb40f5f8-b869-49f1-89c9-40d628f99193",
+      "d621818c-497d-42cf-9bf8-fa844d34f82d",
+      "35f988a4-8350-4184-9aa6-ddeba0b16234",
       "used_handheld_infuser"
     ]
   ],
