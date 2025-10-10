@@ -14,6 +14,7 @@ import jehr.experiments.essenceOfCreation.particles.EoCParticles
 import jehr.experiments.essenceOfCreation.screenHandlers.EoCScreenHandlers
 import jehr.experiments.essenceOfCreation.statusEffects.BlessingOfRye
 import jehr.experiments.essenceOfCreation.statusEffects.EoCStatusEffects
+import jehr.experiments.essenceOfCreation.tags.EoCTags
 import net.fabricmc.api.ModInitializer
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup
@@ -53,6 +54,7 @@ object EoCMain : ModInitializer {
 		EoCScreenHandlers.init()
 		EoCParticles.init()
 		EoCEntities.init()
+		EoCTags.init()
 	}
 
 	fun registerCommands() {

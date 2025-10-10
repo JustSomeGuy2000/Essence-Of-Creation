@@ -11,6 +11,7 @@ import jehr.experiments.essenceOfCreation.items.EssenceOfCreation
 import jehr.experiments.essenceOfCreation.items.HandheldInfuser
 import jehr.experiments.essenceOfCreation.items.SuperBoneMeal
 import jehr.experiments.essenceOfCreation.statusEffects.BlessingOfRye
+import jehr.experiments.essenceOfCreation.tags.EoCTags
 import jehr.experiments.essenceOfCreation.utils.CombinedBoolDir
 import jehr.experiments.essenceOfCreation.utils.RoggenLore
 import net.fabricmc.fabric.api.client.datagen.v1.provider.FabricModelProvider
@@ -27,6 +28,8 @@ import net.minecraft.advancement.AdvancementEntry
 import net.minecraft.advancement.AdvancementFrame
 import net.minecraft.advancement.AdvancementRequirements
 import net.minecraft.advancement.criterion.InventoryChangedCriterion
+import net.minecraft.block.Block
+import net.minecraft.block.Blocks
 import net.minecraft.block.HayBlock
 import net.minecraft.client.data.*
 import net.minecraft.data.recipe.RecipeExporter
@@ -34,6 +37,7 @@ import net.minecraft.data.recipe.RecipeGenerator
 import net.minecraft.item.Item
 import net.minecraft.recipe.book.RecipeCategory
 import net.minecraft.registry.RegistryWrapper
+import net.minecraft.registry.tag.BlockTags
 import net.minecraft.registry.tag.ItemTags
 import net.minecraft.text.Text
 import net.minecraft.util.Identifier
@@ -52,6 +56,7 @@ object EoCDataGen : DataGeneratorEntrypoint {
 //		pack.addProvider(::EoCRecipeProvider)
 		pack.addProvider(::EoCAdvancementProvider)
 		pack.addProvider(::EoCItemTagProvider)
+		pack.addProvider(::EoCBlockTagprovider)
 	}
 }
 
@@ -271,5 +276,33 @@ class EoCItemTagProvider(output: FabricDataOutput, registryLookup: CompletableFu
 		valueLookupBuilder(ItemTags.SWORDS)
 			.add(EoCItems.cane)
 	}
+}
 
+class EoCBlockTagprovider(output: FabricDataOutput, registryLookup: CompletableFuture<RegistryWrapper.WrapperLookup>): FabricTagProvider.BlockTagProvider(output, registryLookup) {
+
+	override fun getName()= "EssenceOfCreationBlockTagProvider"
+
+	override fun configure(p0: RegistryWrapper.WrapperLookup?) {
+		valueLookupBuilder(EoCTags.gunSwordBulletBreakable)
+			.add(Blocks.GLOWSTONE)
+			.add(Blocks.SEA_LANTERN)
+			.addTag(BlockTags.IMPERMEABLE)
+			.add(Blocks.GLASS_PANE)
+			.add(Blocks.RED_STAINED_GLASS_PANE)
+			.add(Blocks.BLUE_STAINED_GLASS_PANE)
+			.add(Blocks.CYAN_STAINED_GLASS_PANE)
+			.add(Blocks.GRAY_STAINED_GLASS_PANE)
+			.add(Blocks.BLACK_STAINED_GLASS_PANE)
+			.add(Blocks.BROWN_STAINED_GLASS_PANE)
+			.add(Blocks.GREEN_STAINED_GLASS_PANE)
+			.add(Blocks.LIGHT_BLUE_STAINED_GLASS_PANE)
+			.add(Blocks.LIGHT_GRAY_STAINED_GLASS_PANE)
+			.add(Blocks.LIME_STAINED_GLASS_PANE)
+			.add(Blocks.MAGENTA_STAINED_GLASS_PANE)
+			.add(Blocks.ORANGE_STAINED_GLASS_PANE)
+			.add(Blocks.PINK_STAINED_GLASS_PANE)
+			.add(Blocks.PURPLE_STAINED_GLASS_PANE)
+			.add(Blocks.WHITE_STAINED_GLASS_PANE)
+			.add(Blocks.YELLOW_STAINED_GLASS_PANE)
+	}
 }

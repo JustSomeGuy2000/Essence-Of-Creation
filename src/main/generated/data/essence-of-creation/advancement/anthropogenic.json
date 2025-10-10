@@ -1,17 +1,7 @@
 {
   "parent": "essence-of-creation:got_eoc",
   "criteria": {
-    "35f988a4-8350-4184-9aa6-ddeba0b16234": {
-      "conditions": {
-        "items": [
-          {
-            "items": "essence-of-creation:cane"
-          }
-        ]
-      },
-      "trigger": "minecraft:inventory_changed"
-    },
-    "95d0199a-dfb1-42bc-bfa3-393720f50322": {
+    "6857af5d-8169-4160-bb27-725a3223462d": {
       "conditions": {
         "items": [
           {
@@ -21,17 +11,7 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
-    "978edc00-446e-4b35-a1a2-c93814209487": {
-      "conditions": {
-        "items": [
-          {
-            "items": "essence-of-creation:scaffold_seed"
-          }
-        ]
-      },
-      "trigger": "minecraft:inventory_changed"
-    },
-    "d621818c-497d-42cf-9bf8-fa844d34f82d": {
+    "a31b979f-cd5e-4e34-91de-e5fbdd2a3e96": {
       "conditions": {
         "items": [
           {
@@ -41,11 +21,31 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
-    "fb40f5f8-b869-49f1-89c9-40d628f99193": {
+    "b1b6750c-24e0-4f08-919d-51f7c6112cf9": {
+      "conditions": {
+        "items": [
+          {
+            "items": "essence-of-creation:scaffold_seed"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "cfe73073-f026-4cbd-b5fb-981b13646c3b": {
       "conditions": {
         "items": [
           {
             "items": "essence-of-creation:god_apple"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "ec16ba95-40bb-474e-8668-1637d6e62e7e": {
+      "conditions": {
+        "items": [
+          {
+            "items": "essence-of-creation:cane"
           }
         ]
       },
@@ -65,11 +65,11 @@
   },
   "requirements": [
     [
-      "978edc00-446e-4b35-a1a2-c93814209487",
-      "95d0199a-dfb1-42bc-bfa3-393720f50322",
-      "fb40f5f8-b869-49f1-89c9-40d628f99193",
-      "d621818c-497d-42cf-9bf8-fa844d34f82d",
-      "35f988a4-8350-4184-9aa6-ddeba0b16234",
+      "b1b6750c-24e0-4f08-919d-51f7c6112cf9",
+      "6857af5d-8169-4160-bb27-725a3223462d",
+      "cfe73073-f026-4cbd-b5fb-981b13646c3b",
+      "a31b979f-cd5e-4e34-91de-e5fbdd2a3e96",
+      "ec16ba95-40bb-474e-8668-1637d6e62e7e",
       "used_handheld_infuser"
     ]
   ],
