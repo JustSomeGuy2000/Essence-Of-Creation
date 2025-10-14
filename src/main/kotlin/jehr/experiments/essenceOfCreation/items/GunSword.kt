@@ -79,10 +79,10 @@ class GunSword(settings: Settings): RangedWeaponItem(settings) {
     fun spawnAndShoot(world: World, shooter: LivingEntity, info: Info, divergence: Float): Boolean {
         if (world.isClient) return false
         val bullet = GunSwordBullet(world, shooter, info.bulletDmg, info.gravity, info.drag)
-        bullet.setPosition(shooter.pos)
+        bullet.setPosition(shooter.pos.add(0.0, 1.5, 0.0))
         val res = world.spawnEntity(bullet)
         this.shoot(shooter, bullet, 0, info.shotVelocity, divergence, 0.0F, null)
-        return res
+        return true
     }
 
     fun getInfo(): Info? {
@@ -97,9 +97,9 @@ class GunSword(settings: Settings): RangedWeaponItem(settings) {
     data class Info(val bulletDmg: Int, val bulletCost: Int, val gravity: Float = BASE_GRAVITY, val shotVelocity: Float = BASE_VELOCITY, val drag: Float = BASE_DRAG) {
         companion object {
             /**Blocks per tick downwards.*/
-            const val BASE_GRAVITY = 0.05F
-            /**Blocks per tick in direction of travel. Decomposed internally based on player look vector.*/
-            const val BASE_VELOCITY = 0.5F
+            const val BASE_GRAVITY = 0.005F
+            /**Blocks per second? in direction of travel. I'm pretty sure its ticks, but it doesn't seem so in game.*/
+            const val BASE_VELOCITY = 1.0F
             /**Blocks per tick per tick opposite the velocity*/
             const val BASE_DRAG = 0.0005F
             /**Hip-fire inaccuracy, units unknown.*/

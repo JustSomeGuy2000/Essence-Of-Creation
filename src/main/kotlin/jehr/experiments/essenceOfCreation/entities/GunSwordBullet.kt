@@ -53,7 +53,9 @@ class GunSwordBullet(entityType: EntityType<out GunSwordBullet>, world: World): 
     override fun tick() {
         super.tick()
         this.world.addParticleClient(ParticleTypes.SQUID_INK, this.x, this.y, this.z, 0.0, 0.0, 0.0)
-        this.setPos(this.pos.x, this.pos.y - this.dataTracker.get(Companion.gravity), this.pos.z)
+        this.velocity = this.velocity.add(0.0, -(this.dataTracker.get(Companion.gravity).toDouble()), 0.0)
+        val vel = this.velocity
+        this.setPos(this.pos.x + vel.x, this.pos.y + vel.y, this.pos.z + vel.z)
     }
 
     override fun onBlockHit(blockHitResult: BlockHitResult) {

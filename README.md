@@ -19,7 +19,7 @@ For ages Essence of Creation has been irretrievably locked away, but no longer. 
 - Finish writing the Roggen Lore Books
 - Figure out why the recipe generator keeps crashing
 - Essential Extractor fuels and sources
-- Make Essential Extractor model better (more contrast for the cobble lines, increase height of hotizontal separator band, fix single misplaced pixel on top)
+- Make Essential Extractor model better (more contrast for the cobble lines, increase height of horizontal separator band, fix single misplaced pixel on top)
 - Fix Essential Extractor datagen to use proper methods instead of the current cursed implementation
 - Make Blessing of Rye persist after death, instead of the current subpar implementation
 - Allow Scaffold Trunk and Seed to be climbed like ladders
@@ -29,6 +29,7 @@ For ages Essence of Creation has been irretrievably locked away, but no longer. 
 - 3D model for Handheld Infuser
 - Scatter fertilisation for Super Bone Meal
 - Particles for Super Bone Meal don't work
+- Gun-Sword Bullet has no hitbox (onCollision is never called)
 
 # Features
 ## Blocks
