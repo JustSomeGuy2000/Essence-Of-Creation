@@ -6,6 +6,7 @@ import jehr.experiments.essenceOfCreation.criteria.AnthropogenicCriterion
 import jehr.experiments.essenceOfCreation.criteria.EoCCriteria
 import jehr.experiments.essenceOfCreation.criteria.RyeNotCriterion
 import jehr.experiments.essenceOfCreation.criteria.RyeTotemCriterion
+import jehr.experiments.essenceOfCreation.entities.EoCEntities
 import jehr.experiments.essenceOfCreation.items.EoCItems
 import jehr.experiments.essenceOfCreation.items.EssenceOfCreation
 import jehr.experiments.essenceOfCreation.items.HandheldInfuser
@@ -23,6 +24,8 @@ import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootTableProvider
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricLanguageProvider
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider
+import net.fabricmc.fabric.api.tag.convention.v2.ConventionalBlockTags
+import net.fabricmc.fabric.api.tag.convention.v2.ConventionalItemTags
 import net.minecraft.advancement.Advancement
 import net.minecraft.advancement.AdvancementEntry
 import net.minecraft.advancement.AdvancementFrame
@@ -38,6 +41,7 @@ import net.minecraft.item.Item
 import net.minecraft.recipe.book.RecipeCategory
 import net.minecraft.registry.RegistryWrapper
 import net.minecraft.registry.tag.BlockTags
+import net.minecraft.registry.tag.EntityTypeTags
 import net.minecraft.registry.tag.ItemTags
 import net.minecraft.text.Text
 import net.minecraft.util.Identifier
@@ -56,7 +60,8 @@ object EoCDataGen : DataGeneratorEntrypoint {
 //		pack.addProvider(::EoCRecipeProvider)
 		pack.addProvider(::EoCAdvancementProvider)
 		pack.addProvider(::EoCItemTagProvider)
-		pack.addProvider(::EoCBlockTagprovider)
+		//pack.addProvider(::EoCBlockTagprovider)
+		pack.addProvider(::EoCEntityTagProvider)
 	}
 }
 
@@ -304,5 +309,14 @@ class EoCBlockTagprovider(output: FabricDataOutput, registryLookup: CompletableF
 			.add(Blocks.PURPLE_STAINED_GLASS_PANE)
 			.add(Blocks.WHITE_STAINED_GLASS_PANE)
 			.add(Blocks.YELLOW_STAINED_GLASS_PANE)
+	}
+}
+
+class EoCEntityTagProvider(output: FabricDataOutput, registryLookup: CompletableFuture<RegistryWrapper.WrapperLookup>): FabricTagProvider.EntityTypeTagProvider(output, registryLookup) {
+	override fun getName() = "EssenceOfCreationEntityTypeTagProvider"
+
+	override fun configure(p0: RegistryWrapper.WrapperLookup?) {
+		valueLookupBuilder(EntityTypeTags.IMPACT_PROJECTILES)
+			.add(EoCEntities.gunSwordBullet)
 	}
 }

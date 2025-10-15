@@ -17,6 +17,7 @@ import net.minecraft.entity.projectile.ProjectileEntity
 import net.minecraft.item.ItemStack
 import net.minecraft.item.RangedWeaponItem
 import net.minecraft.item.consume.UseAction
+import net.minecraft.server.world.ServerWorld
 import net.minecraft.util.ActionResult
 import net.minecraft.util.Hand
 import net.minecraft.world.World
@@ -63,6 +64,11 @@ class GunSword(settings: Settings): RangedWeaponItem(settings) {
         val accuracy = max(Info.BASE_DIVERGENCE - (Info.MAX_USE_TIME - remainingUseTicks) * Info.ACCURATISE_RATE, 0.0F)
         val info = getInfo() ?: return false
         this.spawnAndShoot(world, user, info, accuracy)
+        if (user is PlayerEntity) {
+            user.addExperience(-(this.getInfo()?.bulletCost ?: 0))
+            user.itemCooldownManager.set(ItemStack(this), Info.COOLDOWN)
+            stack.damage(1, user, LivingEntity.getSlotForHand(user.activeHand))
+        }
         return true
     }
 
@@ -70,18 +76,15 @@ class GunSword(settings: Settings): RangedWeaponItem(settings) {
         /*Yaw is between 90 and -90, negative values upwards, 0 is parallel to ground.
          * Pitch is between 180 and -180, 0 is south (z-axis), negative values towards positive x (east).*/
         projectile.setVelocity(shooter, shooter.pitch, shooter.yaw + yaw, 0.0F, speed, divergence)
-        if (shooter is PlayerEntity) {
-            shooter.addExperience(-(this.getInfo()?.bulletCost ?: 0))
-            shooter.itemCooldownManager.set(ItemStack(this), Info.COOLDOWN)
-        }
     }
 
     fun spawnAndShoot(world: World, shooter: LivingEntity, info: Info, divergence: Float): Boolean {
         if (world.isClient) return false
         val bullet = GunSwordBullet(world, shooter, info.bulletDmg, info.gravity, info.drag)
         bullet.setPosition(shooter.pos.add(0.0, 1.5, 0.0))
-        val res = world.spawnEntity(bullet)
         this.shoot(shooter, bullet, 0, info.shotVelocity, divergence, 0.0F, null)
+        val res = world.spawnEntity(bullet)
+        bullet.triggerProjectileSpawned(world as ServerWorld, ItemStack.EMPTY)
         return true
     }
 
