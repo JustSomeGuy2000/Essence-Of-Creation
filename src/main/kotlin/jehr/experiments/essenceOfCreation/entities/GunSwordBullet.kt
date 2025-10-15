@@ -71,21 +71,21 @@ class GunSwordBullet(entityType: EntityType<out GunSwordBullet>, world: World): 
         val world = this.world
         val pos = BlockPos(round(blockHitResult.pos.x).toInt(), round(blockHitResult.pos.y).toInt(), round(blockHitResult.pos.z).toInt())
         val block = this.world.getBlockState(pos)
-        if (world is ServerWorld) {
+        if (world.isClient) {
+            if (block.isIn(EoCTags.gunSwordBulletBreakable)) {
+                world.addBlockBreakParticles(pos, block)
+            }
+            this.discard()
+        } else {
             if (block.isIn(EoCTags.gunSwordBulletBreakable)) {
                 world.setBlockState(pos, Blocks.AIR.defaultState)
             }
+            this.discard()
         }
-
-        if (world.isClient && block.isIn(EoCTags.gunSwordBulletBreakable)) {
-            world.addBlockBreakParticles(pos, block)
-        }
-
-        this.discard()
     }
 
     override fun onEntityHit(entityHitResult: EntityHitResult) {
-        if (this.world is ServerWorld) {
+        if (!world.isClient) {
             val target = entityHitResult.entity
             val velocity = this.velocity.length()
             val damage = this.dataTracker.get(damage)
@@ -93,8 +93,9 @@ class GunSwordBullet(entityType: EntityType<out GunSwordBullet>, world: World): 
                 DamageTypes.ARROW.value).get())
             target.damage(this.world as ServerWorld, ds, damage.toFloat())
             // TODO: Velocity-based damage?
+            this.discard()
+        } else {
+            this.discard()
         }
-
-        this.discard()
     }
 }
