@@ -1,0 +1,9 @@
+{
+  "values": [
+    "minecraft:glowstone",
+    "minecraft:sea_lantern",
+    "#minecraft:impermeable",
+    "#c:glass_blocks",
+    "#c:glass_panes"
+  ]
+}

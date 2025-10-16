@@ -78,6 +78,8 @@ object EoCItems {
     val gsbItem = register(GSB_ITEM_ID, ::Item, Item.Settings())
     const val WOOD_GUN_SWORD_ID = "wood_${GunSword.BASE_ID}"
     val woodGunSword = register(WOOD_GUN_SWORD_ID, ::GunSword, GunSword.generateBaseSettings(2.0, -2.4, 100, 3, 3))
+    const val SUPER_GUN_SWORD_ID = "super_${GunSword.BASE_ID}"
+    val superGunSword = register(SUPER_GUN_SWORD_ID, ::GunSword, GunSword.generateBaseSettings(7.0, -2.4, 1000, 50, 0))
 
     fun init() {
         ItemGroupEvents.modifyEntriesEvent(EoCMain.EoCItemGroupKey).register{
@@ -89,6 +91,7 @@ object EoCItems {
             it.add(this.superBoneMeal)
             it.add(this.cane)
             it.add(this.woodGunSword)
+            it.add(this.superGunSword)
         }
     }
 

@@ -29,7 +29,8 @@ For ages Essence of Creation has been irretrievably locked away, but no longer. 
 - 3D model for Handheld Infuser
 - Scatter fertilisation for Super Bone Meal
 - Particles for Super Bone Meal don't work
-- Gun-Sword Bullet has no hitbox (onCollision is never called)
+- Make blocks only be able to be mined with certain material levels
+- Add sound to the Gun-Sword
 
 # Features
 ## Blocks

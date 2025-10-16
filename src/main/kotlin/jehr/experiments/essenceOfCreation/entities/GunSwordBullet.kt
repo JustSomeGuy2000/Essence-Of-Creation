@@ -1,5 +1,6 @@
 package jehr.experiments.essenceOfCreation.entities
 
+import jehr.experiments.essenceOfCreation.EoCMain
 import jehr.experiments.essenceOfCreation.items.EoCItems
 import jehr.experiments.essenceOfCreation.tags.EoCTags
 import net.minecraft.block.Blocks
@@ -17,12 +18,13 @@ import net.minecraft.item.ItemStack
 import net.minecraft.particle.ParticleTypes
 import net.minecraft.registry.RegistryKeys
 import net.minecraft.server.world.ServerWorld
+import net.minecraft.storage.WriteView
 import net.minecraft.util.hit.BlockHitResult
 import net.minecraft.util.hit.EntityHitResult
 import net.minecraft.util.hit.HitResult
 import net.minecraft.util.math.BlockPos
+import net.minecraft.util.math.Direction
 import net.minecraft.world.World
-import kotlin.math.round
 
 class GunSwordBullet(entityType: EntityType<out GunSwordBullet>, world: World): PersistentProjectileEntity(entityType, world), FlyingItemEntity {
 
@@ -45,7 +47,6 @@ class GunSwordBullet(entityType: EntityType<out GunSwordBullet>, world: World): 
 
     override fun getStack() = this.internalStack
     override fun getDefaultItemStack() = this.internalStack
-    //override fun getDefaultItem() = this.internalStack.item
 
     override fun initDataTracker(builder: DataTracker.Builder) {
         super.initDataTracker(builder)
@@ -57,9 +58,9 @@ class GunSwordBullet(entityType: EntityType<out GunSwordBullet>, world: World): 
     override fun tick() {
         super.tick()
         this.world.addParticleClient(ParticleTypes.SQUID_INK, this.x, this.y, this.z, 0.0, 0.0, 0.0)
-        this.velocity = this.velocity.add(0.0, -(this.dataTracker.get(Companion.gravity).toDouble()), 0.0)
-        val vel = this.velocity
-        this.setPos(this.pos.x + vel.x, this.pos.y + vel.y, this.pos.z + vel.z)
+        if (this.inGroundTime > 0) {
+            this.discard()
+        }
     }
 
     override fun onCollision(hitResult: HitResult?) {
@@ -67,35 +68,40 @@ class GunSwordBullet(entityType: EntityType<out GunSwordBullet>, world: World): 
     }
 
     override fun onBlockHit(blockHitResult: BlockHitResult) {
-        super.onBlockHit(blockHitResult)
         val world = this.world
-        val pos = BlockPos(round(blockHitResult.pos.x).toInt(), round(blockHitResult.pos.y).toInt(), round(blockHitResult.pos.z).toInt())
+        val pos = blockHitResult.blockPos
         val block = this.world.getBlockState(pos)
-        if (world.isClient) {
+        if (!world.isClient) {
             if (block.isIn(EoCTags.gunSwordBulletBreakable)) {
-                world.addBlockBreakParticles(pos, block)
-            }
-            this.discard()
-        } else {
-            if (block.isIn(EoCTags.gunSwordBulletBreakable)) {
-                world.setBlockState(pos, Blocks.AIR.defaultState)
+                world.breakBlock(pos, false)
             }
             this.discard()
         }
+        super.onBlockHit(blockHitResult)
     }
 
     override fun onEntityHit(entityHitResult: EntityHitResult) {
+        super.onEntityHit(entityHitResult)
         if (!world.isClient) {
             val target = entityHitResult.entity
-            val velocity = this.velocity.length()
             val damage = this.dataTracker.get(damage)
             val ds = DamageSource(this.world.registryManager.getOrThrow(RegistryKeys.DAMAGE_TYPE).getEntry(
                 DamageTypes.ARROW.value).get())
             target.damage(this.world as ServerWorld, ds, damage.toFloat())
             // TODO: Velocity-based damage?
             this.discard()
-        } else {
-            this.discard()
         }
+    }
+
+    override fun writeCustomData(view: WriteView?) {
+        try {
+            super.writeCustomData(view)
+        } catch(_: Exception) {
+            EoCMain.logger.warn("Ghost bullet!")
+        }
+    }
+
+    override fun applyGravity() {
+        this.velocity = this.velocity.add(0.0, -(this.dataTracker.get(Companion.gravity).toDouble()), 0.0)
     }
 }

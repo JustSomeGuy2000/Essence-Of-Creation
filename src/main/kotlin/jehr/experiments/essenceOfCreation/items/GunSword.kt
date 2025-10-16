@@ -102,7 +102,7 @@ class GunSword(settings: Settings): RangedWeaponItem(settings) {
             /**Blocks per tick downwards.*/
             const val BASE_GRAVITY = 0.005F
             /**Blocks per second? in direction of travel. I'm pretty sure its ticks, but it doesn't seem so in game.*/
-            const val BASE_VELOCITY = 1.0F
+            const val BASE_VELOCITY = 10.0F
             /**Blocks per tick per tick opposite the velocity*/
             const val BASE_DRAG = 0.0005F
             /**Hip-fire inaccuracy, units unknown.*/

@@ -60,7 +60,7 @@ object EoCDataGen : DataGeneratorEntrypoint {
 //		pack.addProvider(::EoCRecipeProvider)
 		pack.addProvider(::EoCAdvancementProvider)
 		pack.addProvider(::EoCItemTagProvider)
-		//pack.addProvider(::EoCBlockTagprovider)
+		pack.addProvider(::EoCBlockTagprovider)
 		pack.addProvider(::EoCEntityTagProvider)
 	}
 }
@@ -110,6 +110,7 @@ class EoCLangProviderEnUs(dataOutput: FabricDataOutput, registryLookup: Completa
 		builder.add("death.attack.gun_sword.item", "%s was fatally shot with by %s using %s.")
 		builder.add("death.attack.gun_sword.player", "%s was fatally shot while trying to escape %s.")
 		builder.add("item.$id.${EoCItems.WOOD_GUN_SWORD_ID}", "Wooden Gun-Sword")
+		builder.add("item.$id.${EoCItems.SUPER_GUN_SWORD_ID}", "Super Gun-Sword")
 	}
 }
 
@@ -199,6 +200,7 @@ class EoCModelProvider(dataOutput: FabricDataOutput): FabricModelProvider(dataOu
 		img.register(EoCItems.superBoneMeal, Models.GENERATED)
 		img.register(EoCItems.cane, Models.HANDHELD)
 		img.register(EoCItems.woodGunSword, Models.HANDHELD)
+		img.register(EoCItems.superGunSword, Models.HANDHELD)
 	}
 }
 
@@ -210,6 +212,8 @@ class EoCBlockLootTableProvider(dataOutput: FabricDataOutput, registryLookup: Co
 		addDrop(EoCBlocks.spatialDisplacer)
 		addDropWithSilkTouch(EoCBlocks.scaffoldStripper)
 		addDrop(EoCBlocks.essentialExtractor)
+		addDrop(EoCBlocks.essentialInfuser)
+		addDrop(EoCBlocks.ryeBale)
 	}
 }
 
@@ -291,24 +295,9 @@ class EoCBlockTagprovider(output: FabricDataOutput, registryLookup: CompletableF
 		valueLookupBuilder(EoCTags.gunSwordBulletBreakable)
 			.add(Blocks.GLOWSTONE)
 			.add(Blocks.SEA_LANTERN)
-			.addTag(BlockTags.IMPERMEABLE)
-			.add(Blocks.GLASS_PANE)
-			.add(Blocks.RED_STAINED_GLASS_PANE)
-			.add(Blocks.BLUE_STAINED_GLASS_PANE)
-			.add(Blocks.CYAN_STAINED_GLASS_PANE)
-			.add(Blocks.GRAY_STAINED_GLASS_PANE)
-			.add(Blocks.BLACK_STAINED_GLASS_PANE)
-			.add(Blocks.BROWN_STAINED_GLASS_PANE)
-			.add(Blocks.GREEN_STAINED_GLASS_PANE)
-			.add(Blocks.LIGHT_BLUE_STAINED_GLASS_PANE)
-			.add(Blocks.LIGHT_GRAY_STAINED_GLASS_PANE)
-			.add(Blocks.LIME_STAINED_GLASS_PANE)
-			.add(Blocks.MAGENTA_STAINED_GLASS_PANE)
-			.add(Blocks.ORANGE_STAINED_GLASS_PANE)
-			.add(Blocks.PINK_STAINED_GLASS_PANE)
-			.add(Blocks.PURPLE_STAINED_GLASS_PANE)
-			.add(Blocks.WHITE_STAINED_GLASS_PANE)
-			.add(Blocks.YELLOW_STAINED_GLASS_PANE)
+			.forceAddTag(BlockTags.IMPERMEABLE)
+			.forceAddTag(ConventionalBlockTags.GLASS_BLOCKS)
+			.forceAddTag(ConventionalBlockTags.GLASS_PANES)
 	}
 }
 

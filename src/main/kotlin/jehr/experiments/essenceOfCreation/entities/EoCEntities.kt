@@ -14,7 +14,7 @@ import net.minecraft.world.World
 object EoCEntities {
 
     val gunSwordBullet = register("gun_sword_bullet", ::GunSwordBullet, {
-        this.dimensions(0.75F, 0.75F).maxTrackingRange(25)
+        this.dimensions(0.1F, 0.1F).maxTrackingRange(25)
     })
 
     fun init() {}
