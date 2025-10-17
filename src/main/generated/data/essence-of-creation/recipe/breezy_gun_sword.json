@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "equipment",
+  "ingredients": [
+    "#essence-of-creation:upgradeable_gun_sword",
+    "minecraft:breeze_rod"
+  ],
+  "result": {
+    "count": 1,
+    "id": "essence-of-creation:breezy_gun_sword"
+  }
+}

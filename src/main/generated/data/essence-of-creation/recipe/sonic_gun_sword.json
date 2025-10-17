@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "equipment",
+  "ingredients": [
+    "#essence-of-creation:upgradeable_gun_sword",
+    "minecraft:echo_shard"
+  ],
+  "result": {
+    "count": 1,
+    "id": "essence-of-creation:sonic_gun_sword"
+  }
+}

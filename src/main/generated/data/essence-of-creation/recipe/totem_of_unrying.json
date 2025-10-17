@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "equipment",
+  "ingredients": [
+    "minecraft:totem_of_undying",
+    "essence-of-creation:rye_bale",
+    "essence-of-creation:rye_bale",
+    "essence-of-creation:rye_bale",
+    "essence-of-creation:rye_bale",
+    "essence-of-creation:rye_bale",
+    "essence-of-creation:rye_bale",
+    "essence-of-creation:rye_bale",
+    "essence-of-creation:rye_bale"
+  ],
+  "result": {
+    "count": 1,
+    "id": "essence-of-creation:totem_of_unrying"
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "key": {
+    "i": "minecraft:iron_ingot",
+    "q": "minecraft:quartz",
+    "s": "essence-of-creation:scaffold_seed"
+  },
+  "pattern": [
+    "iqi",
+    "qsq",
+    "iqi"
+  ],
+  "result": {
+    "count": 1,
+    "id": "essence-of-creation:scaffold_stripper"
+  }
+}

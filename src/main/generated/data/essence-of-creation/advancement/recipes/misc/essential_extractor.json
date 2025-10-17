@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_essence_of_creation": {
+      "conditions": {
+        "items": [
+          {
+            "items": "essence-of-creation:essence_of_creation"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "essence-of-creation:essential_extractor"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_essence_of_creation"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "essence-of-creation:essential_extractor"
+    ]
+  }
+}

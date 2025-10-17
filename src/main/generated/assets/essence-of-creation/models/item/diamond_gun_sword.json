@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/handheld",
+  "textures": {
+    "layer0": "essence-of-creation:item/diamond_gun_sword"
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_essential_infuser": {
+      "conditions": {
+        "items": [
+          {
+            "items": "essence-of-creation:essential_infuser"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "essence-of-creation:handheld_infuser"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_essential_infuser"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "essence-of-creation:handheld_infuser"
+    ]
+  }
+}

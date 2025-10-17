@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "e": "essence-of-creation:essence_of_creation",
+    "g": "minecraft:glass",
+    "i": "minecraft:iron_ingot",
+    "o": "minecraft:obsidian"
+  },
+  "pattern": [
+    "i i",
+    "geg",
+    "ooo"
+  ],
+  "result": {
+    "count": 1,
+    "id": "essence-of-creation:essential_infuser"
+  }
+}

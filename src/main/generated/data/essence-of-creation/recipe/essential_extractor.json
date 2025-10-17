@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "d": "minecraft:cobbled_deepslate",
+    "f": "minecraft:furnace",
+    "i": "minecraft:diamond"
+  },
+  "pattern": [
+    "ddd",
+    "ifi",
+    "ddd"
+  ],
+  "result": {
+    "count": 1,
+    "id": "essence-of-creation:essential_extractor"
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "c": "minecraft:crossbow",
+    "e": "essence-of-creation:essential_infuser",
+    "h": "minecraft:chest",
+    "i": "minecraft:iron_ingot"
+  },
+  "pattern": [
+    "ice",
+    " hi"
+  ],
+  "result": {
+    "count": 1,
+    "id": "essence-of-creation:handheld_infuser"
+  }
+}
