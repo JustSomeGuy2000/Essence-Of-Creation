@@ -9,6 +9,8 @@ object EoCEntityRenderers {
 
     fun init() {
         EntityRendererRegistry.register(EoCEntities.gunSwordBullet) { GunSwordBulletRenderer(it) }
+        EntityRendererRegistry.register(EoCEntities.gunSwordBulletWC) { GunSwordBulletRenderer(it) }
+        EntityRendererRegistry.register(EoCEntities.gunSwordBulletSB) { GunSwordBulletRenderer(it) }
         EntityModelLayerRegistry.registerModelLayer(GunSwordBulletModel.layer, GunSwordBulletModel::getTexturedModelData)
     }
 }

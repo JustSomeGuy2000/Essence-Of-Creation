@@ -79,7 +79,11 @@ class EssentialInfuser(settings: Settings): BlockWithEntity(settings) {
             Blocks.PURPUR_PILLAR.asItem() to EoCBlocks.spatialDisplacer.asItem(),
             Items.ENCHANTED_GOLDEN_APPLE to EoCItems.godApple,
             Items.BONE_MEAL to EoCItems.superBoneMeal,
-            Items.STICK to EoCItems.cane
+            Items.STICK to EoCItems.cane,
+            Items.IRON_SWORD to EoCItems.ironGunSword,
+            Items.GOLDEN_SWORD to EoCItems.goldGunSword,
+            Items.DIAMOND_SWORD to EoCItems.diamondGunSword,
+            Items.NETHERITE_SWORD to EoCItems.netheriteGunSword
         )
     }
 

@@ -1,7 +1,7 @@
 {
   "parent": "essence-of-creation:got_eoc",
   "criteria": {
-    "3be3be1c-bcd2-4278-ac89-af8aa5bd5f66": {
+    "3a20cfff-c13d-4541-9f9e-8ea397d47401": {
       "conditions": {
         "items": [
           {
@@ -11,7 +11,57 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
-    "3f38c87f-974e-4fc3-b36e-5d31a790e81f": {
+    "486feac0-a2cc-4f87-b494-ef2ba0d81e07": {
+      "conditions": {
+        "items": [
+          {
+            "items": "essence-of-creation:netherite_gun_sword"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "59c2690d-431c-4e9d-a1d8-b31bfc6a5b18": {
+      "conditions": {
+        "items": [
+          {
+            "items": "essence-of-creation:diamond_gun_sword"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "8a6d04c1-81c6-4ce7-8d67-a0851b17f290": {
+      "conditions": {
+        "items": [
+          {
+            "items": "essence-of-creation:gold_gun_sword"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "8c22397b-c5b9-4bdc-aca4-d6e2029a755a": {
+      "conditions": {
+        "items": [
+          {
+            "items": "essence-of-creation:scaffold_seed"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "a844ecec-56ff-41a0-be5f-bff4b91d2eae": {
+      "conditions": {
+        "items": [
+          {
+            "items": "essence-of-creation:iron_gun_sword"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "dcbc0206-0344-4ed2-8490-308184c95691": {
       "conditions": {
         "items": [
           {
@@ -21,17 +71,7 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
-    "6f7cfb3b-b6d9-4bff-9ca1-4fc28da8b35c": {
-      "conditions": {
-        "items": [
-          {
-            "items": "essence-of-creation:super_bone_meal"
-          }
-        ]
-      },
-      "trigger": "minecraft:inventory_changed"
-    },
-    "725abd75-9cc2-4a56-a966-307e9b70ca66": {
+    "ebdf3463-900b-4ea8-b1b0-47a8d6b08848": {
       "conditions": {
         "items": [
           {
@@ -41,11 +81,11 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
-    "e436e935-149a-4493-8edb-92a5667d4d1a": {
+    "f3789c45-bf25-45e9-8efe-1ee803c30dcf": {
       "conditions": {
         "items": [
           {
-            "items": "essence-of-creation:scaffold_seed"
+            "items": "essence-of-creation:super_bone_meal"
           }
         ]
       },
@@ -65,11 +105,15 @@
   },
   "requirements": [
     [
-      "e436e935-149a-4493-8edb-92a5667d4d1a",
-      "725abd75-9cc2-4a56-a966-307e9b70ca66",
-      "3f38c87f-974e-4fc3-b36e-5d31a790e81f",
-      "6f7cfb3b-b6d9-4bff-9ca1-4fc28da8b35c",
-      "3be3be1c-bcd2-4278-ac89-af8aa5bd5f66",
+      "8c22397b-c5b9-4bdc-aca4-d6e2029a755a",
+      "ebdf3463-900b-4ea8-b1b0-47a8d6b08848",
+      "dcbc0206-0344-4ed2-8490-308184c95691",
+      "f3789c45-bf25-45e9-8efe-1ee803c30dcf",
+      "3a20cfff-c13d-4541-9f9e-8ea397d47401",
+      "a844ecec-56ff-41a0-be5f-bff4b91d2eae",
+      "8a6d04c1-81c6-4ce7-8d67-a0851b17f290",
+      "59c2690d-431c-4e9d-a1d8-b31bfc6a5b18",
+      "486feac0-a2cc-4f87-b494-ef2ba0d81e07",
       "used_handheld_infuser"
     ]
   ],

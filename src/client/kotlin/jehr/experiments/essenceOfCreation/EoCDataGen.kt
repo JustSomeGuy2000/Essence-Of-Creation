@@ -9,6 +9,7 @@ import jehr.experiments.essenceOfCreation.criteria.RyeTotemCriterion
 import jehr.experiments.essenceOfCreation.entities.EoCEntities
 import jehr.experiments.essenceOfCreation.items.EoCItems
 import jehr.experiments.essenceOfCreation.items.EssenceOfCreation
+import jehr.experiments.essenceOfCreation.items.GunSword
 import jehr.experiments.essenceOfCreation.items.HandheldInfuser
 import jehr.experiments.essenceOfCreation.items.SuperBoneMeal
 import jehr.experiments.essenceOfCreation.statusEffects.BlessingOfRye
@@ -25,19 +26,18 @@ import net.fabricmc.fabric.api.datagen.v1.provider.FabricLanguageProvider
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider
 import net.fabricmc.fabric.api.tag.convention.v2.ConventionalBlockTags
-import net.fabricmc.fabric.api.tag.convention.v2.ConventionalItemTags
 import net.minecraft.advancement.Advancement
 import net.minecraft.advancement.AdvancementEntry
 import net.minecraft.advancement.AdvancementFrame
 import net.minecraft.advancement.AdvancementRequirements
 import net.minecraft.advancement.criterion.InventoryChangedCriterion
-import net.minecraft.block.Block
 import net.minecraft.block.Blocks
 import net.minecraft.block.HayBlock
 import net.minecraft.client.data.*
 import net.minecraft.data.recipe.RecipeExporter
 import net.minecraft.data.recipe.RecipeGenerator
 import net.minecraft.item.Item
+import net.minecraft.item.Items
 import net.minecraft.recipe.book.RecipeCategory
 import net.minecraft.registry.RegistryWrapper
 import net.minecraft.registry.tag.BlockTags
@@ -57,7 +57,7 @@ object EoCDataGen : DataGeneratorEntrypoint {
 		pack.addProvider(::EoCLangProviderEnUs)
 		pack.addProvider(::EoCModelProvider)
 		pack.addProvider(::EoCBlockLootTableProvider)
-//		pack.addProvider(::EoCRecipeProvider)
+		pack.addProvider(::EoCRecipeProvider)
 		pack.addProvider(::EoCAdvancementProvider)
 		pack.addProvider(::EoCItemTagProvider)
 		pack.addProvider(::EoCBlockTagprovider)
@@ -107,10 +107,17 @@ class EoCLangProviderEnUs(dataOutput: FabricDataOutput, registryLookup: Completa
 		builder.add("item.$id.${SuperBoneMeal.ID}", "Super Bone Meal")
 		builder.add("item.$id.${EoCItems.CANE_ID}", "Cane")
 		builder.add("death.attack.gun_sword", "%s was fatally shot.")
-		builder.add("death.attack.gun_sword.item", "%s was fatally shot with by %s using %s.")
+		builder.add("death.attack.gun_sword.item", "%s was fatally shot by %s using %s.")
 		builder.add("death.attack.gun_sword.player", "%s was fatally shot while trying to escape %s.")
-		builder.add("item.$id.${EoCItems.WOOD_GUN_SWORD_ID}", "Wooden Gun-Sword")
+		builder.add("item.$id.${EoCItems.IRON_GUN_SWORD_ID}", "Iron Gun-Sword")
+		builder.add("item.$id.${EoCItems.GOLD_GUN_SWORD_ID}", "Gold Gun-Sword")
+		builder.add("item.$id.${EoCItems.DIAMOND_GUN_SWORD_ID}", "Diamond Gun-Sword")
+		builder.add("item.$id.${EoCItems.NETHERITE_GUN_SWORD_ID}", "Netherite Gun-Sword")
+		builder.add("item.$id.${GunSword.Amethyst.ID}", "Amethyst Gun-Sword")
+		builder.add("item.$id.${GunSword.BreezeRod.ID}", "Breezy Gun-Sword")
+		builder.add("item.$id.${GunSword.EchoShard.ID}", "Sonic Gun-Sword")
 		builder.add("item.$id.${EoCItems.SUPER_GUN_SWORD_ID}", "Super Gun-Sword")
+		builder.add("tag.item.$id.${EoCTags.upgradeableGunSword.id}", "upgradeable_gun_sword")
 	}
 }
 
@@ -199,7 +206,13 @@ class EoCModelProvider(dataOutput: FabricDataOutput): FabricModelProvider(dataOu
 		img.register(EoCItems.godApple, Models.GENERATED)
 		img.register(EoCItems.superBoneMeal, Models.GENERATED)
 		img.register(EoCItems.cane, Models.HANDHELD)
-		img.register(EoCItems.woodGunSword, Models.HANDHELD)
+		img.register(EoCItems.ironGunSword, Models.HANDHELD)
+		img.register(EoCItems.goldGunSword, Models.HANDHELD)
+		img.register(EoCItems.diamondGunSword, Models.HANDHELD)
+		img.register(EoCItems.netheriteGunSword, Models.HANDHELD)
+		img.register(EoCItems.amethystGunSword, Models.HANDHELD)
+		img.register(EoCItems.breezeRodGunSword, Models.HANDHELD)
+		img.register(EoCItems.sonicGunSword, Models.HANDHELD)
 		img.register(EoCItems.superGunSword, Models.HANDHELD)
 	}
 }
@@ -224,7 +237,68 @@ class EoCRecipeProvider(dataOutput: FabricDataOutput, registryLookup: Completabl
 	override fun getRecipeGenerator(registryLookup: RegistryWrapper.WrapperLookup?, exporter: RecipeExporter?)
 		= object : RecipeGenerator(registryLookup, exporter) {
 			override fun generate() {
-				createShapeless(RecipeCategory.MISC, EoCBlocks.ryeBale, 1).input(EoCItems.rye, 9).offerTo(exporter)
+				createShapeless(RecipeCategory.MISC, EoCBlocks.ryeBale, 1)
+					.input(EoCItems.rye, 9)
+					.criterion(hasItem(EoCItems.rye), conditionsFromItem(EoCItems.rye))
+					.offerTo(exporter)
+				createShapeless(RecipeCategory.COMBAT, EoCItems.totemOfUnrying, 1)
+					.input(Items.TOTEM_OF_UNDYING, 1)
+					.input(EoCBlocks.ryeBale, 8)
+					.criterion(hasItem(EoCBlocks.ryeBale), conditionsFromItem(EoCBlocks.ryeBale))
+					.offerTo(exporter)
+				createShaped(RecipeCategory.REDSTONE, EoCBlocks.scaffoldStripper, 1)
+					.pattern("iqi")
+					.pattern("qsq")
+					.pattern("iqi")
+					.input('i', Items.IRON_INGOT)
+					.input('q', Items.QUARTZ)
+					.input('s', EoCBlocks.scaffoldSeed)
+					.criterion(hasItem(EoCBlocks.scaffoldSeed), conditionsFromItem(EoCBlocks.scaffoldSeed))
+					.offerTo(exporter)
+				createShaped(RecipeCategory.MISC, EoCBlocks.essentialExtractor, 1)
+					.pattern("ddd")
+					.pattern("ifi")
+					.pattern("ddd")
+					.input('d', Items.COBBLED_DEEPSLATE)
+					.input('i', Items.DIAMOND)
+					.input('f', Items.FURNACE)
+					.criterion(hasItem(EoCItems.essenceOfCreation), conditionsFromItem(EoCItems.essenceOfCreation))
+					.offerTo(exporter)
+				createShaped(RecipeCategory.MISC, EoCBlocks.essentialInfuser, 1)
+					.pattern("i i")
+					.pattern("geg")
+					.pattern("ooo")
+					.input('i', Items.IRON_INGOT)
+					.input('g', Items.GLASS)
+					.input('e', EoCItems.essenceOfCreation)
+					.input('o', Items.OBSIDIAN)
+					.criterion(hasItem(EoCItems.essenceOfCreation), conditionsFromItem(EoCItems.essenceOfCreation))
+					.offerTo(exporter)
+				createShaped(RecipeCategory.MISC, EoCItems.handheldInfuser, 1)
+					.pattern("ice")
+					.pattern(" hi")
+					.input('i', Items.IRON_INGOT)
+					.input('h', Items.CHEST)
+					.input('c', Items.CROSSBOW)
+					.input('e', EoCBlocks.essentialInfuser)
+					.criterion(hasItem(EoCBlocks.essentialInfuser), conditionsFromItem(EoCBlocks.essentialInfuser))
+					.offerTo(exporter)
+				offerNetheriteUpgradeRecipe(EoCItems.diamondGunSword, RecipeCategory.COMBAT, EoCItems.netheriteGunSword)
+				createShapeless(RecipeCategory.COMBAT, EoCItems.amethystGunSword, 1)
+					.input(EoCTags.upgradeableGunSword)
+					.input(Items.AMETHYST_SHARD)
+					.criterion(hasItem(Items.AMETHYST_SHARD), conditionsFromItem(Items.AMETHYST_SHARD))
+					.offerTo(exporter)
+				createShapeless(RecipeCategory.COMBAT, EoCItems.breezeRodGunSword, 1)
+					.input(EoCTags.upgradeableGunSword)
+					.input(Items.BREEZE_ROD)
+					.criterion(hasItem(Items.BREEZE_ROD), conditionsFromItem(Items.BREEZE_ROD))
+					.offerTo(exporter)
+				createShapeless(RecipeCategory.COMBAT, EoCItems.sonicGunSword, 1)
+					.input(EoCTags.upgradeableGunSword)
+					.input(Items.ECHO_SHARD)
+					.criterion(hasItem(Items.ECHO_SHARD), conditionsFromItem(Items.ECHO_SHARD))
+					.offerTo(exporter)
 			}
 		}
 }
@@ -284,6 +358,9 @@ class EoCItemTagProvider(output: FabricDataOutput, registryLookup: CompletableFu
 	override fun configure(wrapperLookup: RegistryWrapper.WrapperLookup?) {
 		valueLookupBuilder(ItemTags.SWORDS)
 			.add(EoCItems.cane)
+		valueLookupBuilder(EoCTags.upgradeableGunSword)
+			.add(EoCItems.diamondGunSword)
+			.add(EoCItems.netheriteGunSword)
 	}
 }
 

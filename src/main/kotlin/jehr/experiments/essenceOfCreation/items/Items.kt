@@ -16,6 +16,7 @@ import net.minecraft.entity.attribute.EntityAttributes
 import net.minecraft.entity.effect.StatusEffectInstance
 import net.minecraft.entity.effect.StatusEffects
 import net.minecraft.item.Item
+import net.minecraft.item.ItemGroups
 import net.minecraft.item.Items
 import net.minecraft.item.consume.ApplyEffectsConsumeEffect
 import net.minecraft.item.consume.ClearAllEffectsConsumeEffect
@@ -76,10 +77,19 @@ object EoCItems {
             .build()))
     const val GSB_ITEM_ID = "gun_sword_bullet_item"
     val gsbItem = register(GSB_ITEM_ID, ::Item, Item.Settings())
-    const val WOOD_GUN_SWORD_ID = "wood_${GunSword.BASE_ID}"
-    val woodGunSword = register(WOOD_GUN_SWORD_ID, ::GunSword, GunSword.generateBaseSettings(2.0, -2.4, 100, 3, 3))
+    const val IRON_GUN_SWORD_ID = "iron_${GunSword.BASE_ID}"
+    val ironGunSword = register(IRON_GUN_SWORD_ID, ::GunSword, GunSword.generateBaseSettings(5.0, -2.4, 250, 5, 3))
+    const val GOLD_GUN_SWORD_ID = "gold_${GunSword.BASE_ID}"
+    val goldGunSword = register(GOLD_GUN_SWORD_ID, ::GunSword, GunSword.generateBaseSettings(3.0, -2.4, 32, 5, 5, cooldown = 10))
+    const val DIAMOND_GUN_SWORD_ID = "diamond_${GunSword.BASE_ID}"
+    val diamondGunSword = register(DIAMOND_GUN_SWORD_ID, ::GunSword, GunSword.generateBaseSettings(6.0, -2.4, 1561, 9, 5))
+    const val NETHERITE_GUN_SWORD_ID = "netherite_${GunSword.BASE_ID}"
+    val netheriteGunSword = register(NETHERITE_GUN_SWORD_ID, ::GunSword, GunSword.generateBaseSettings(7.0, -2.4, 2031, 18, 10))
+    val amethystGunSword = register(GunSword.Amethyst.ID, GunSword::Amethyst, GunSword.generateBaseSettings(6.0, -2.4, 1000, 5, 1, accTime = 20))
+    val breezeRodGunSword = register(GunSword.BreezeRod.ID, GunSword::BreezeRod, GunSword.generateBaseSettings(7.0, -2.4, 1900, 2, 3, cooldown = 5, accTime = 10))
+    val sonicGunSword = register(GunSword.EchoShard.ID, GunSword::EchoShard, GunSword.generateBaseSettings(7.0, -2.4, 1500, 12, 8, cooldown = 60))
     const val SUPER_GUN_SWORD_ID = "super_${GunSword.BASE_ID}"
-    val superGunSword = register(SUPER_GUN_SWORD_ID, ::GunSword, GunSword.generateBaseSettings(7.0, -2.4, 1000, 50, 0))
+    val superGunSword = register(SUPER_GUN_SWORD_ID, ::GunSword, GunSword.generateBaseSettings(9.0, -2.0, 10000, 50, 0))
 
     fun init() {
         ItemGroupEvents.modifyEntriesEvent(EoCMain.EoCItemGroupKey).register{
@@ -90,8 +100,16 @@ object EoCItems {
             it.add(this.godApple)
             it.add(this.superBoneMeal)
             it.add(this.cane)
-            it.add(this.woodGunSword)
             it.add(this.superGunSword)
+        }
+        ItemGroupEvents.modifyEntriesEvent(ItemGroups.COMBAT).register{
+            it.add(this.ironGunSword)
+            it.add(this.goldGunSword)
+            it.add(this.diamondGunSword)
+            it.add(this.netheriteGunSword)
+            it.add(this.amethystGunSword)
+            it.add(this.breezeRodGunSword)
+            it.add(this.sonicGunSword)
         }
     }
 

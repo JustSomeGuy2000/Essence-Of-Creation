@@ -13,8 +13,14 @@ import net.minecraft.world.World
 
 object EoCEntities {
 
-    val gunSwordBullet = register("gun_sword_bullet", ::GunSwordBullet, {
+    val gunSwordBullet = register(GunSwordBullet.ID, ::GunSwordBullet, {
         this.dimensions(0.1F, 0.1F).maxTrackingRange(25)
+    })
+    val gunSwordBulletWC = register(GunSwordBullet.ID_WC, GunSwordBullet::WindCharge,{
+        this.dimensions(0.1F, 0.1F).maxTrackingRange(25)
+    })
+    val gunSwordBulletSB = register(GunSwordBullet.ID_SB, GunSwordBullet::SonicBoom, {
+        this.dimensions(0.5F, 0.5F).maxTrackingRange(25)
     })
 
     fun init() {}

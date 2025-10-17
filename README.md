@@ -17,7 +17,6 @@ For ages Essence of Creation has been irretrievably locked away, but no longer. 
 
 # To Do
 - Finish writing the Roggen Lore Books
-- Figure out why the recipe generator keeps crashing
 - Essential Extractor fuels and sources
 - Make Essential Extractor model better (more contrast for the cobble lines, increase height of horizontal separator band, fix single misplaced pixel on top)
 - Fix Essential Extractor datagen to use proper methods instead of the current cursed implementation
@@ -50,9 +49,9 @@ For ages Essence of Creation has been irretrievably locked away, but no longer. 
 - God Apple (Enchanted Golden Apple): An even better version of the item usually termed "God Apple".
 - Super Bone Meal (Bone Meal): Applies Bone Meal 16 times to every block in a 5x5 are around the targeted block.
 - Cane (Stick): A weak melee weapon that gives a speed and knockback boost.
-- Gun-Sword: **Developing...**
+- Gun-Sword (Sword): A weapon that can be used as a melee on left-click, or a ranged on right-click. Inaccuracy decreases with aiming time. Different materials have different stats, wiht Iron being the minimum. Diamond and Netherite Gun-Swords can also be combined with 1 of certain materials in a Crafting Table to produce special Gun-Swords. Currently available materials are Emerald, Amethyst, Echo Shard and Breeze Rod.
 ## Entities
-- Gun Sword Bullet: **Developing**
+- Gun Sword Bullet: The bullet of the Gun-Sword.
 ## Status Effects
 - Blessing of Rye: Gives you Rye based on its power every second. Automatically increases its power over time. Is not cleared by milk. Cleared by death, but at a cost. A new Statue of the Rye God will spawn, and all your levels and items will be lost as sacrifice to it.
 ## Advancements
@@ -63,6 +62,25 @@ For ages Essence of Creation has been irretrievably locked away, but no longer. 
 - Anthropogenesis (Essence of Creation): Infuse an item or entity with Essence of Creation.
 - Ambrosia (Anthropogenesis): Obtain a God Apple.
 ## Recipes
-- Scaffold Stripper
-- Totem of Unrying
-- Essential Extractor
+- Rye Bale (Shapeless Crafting): Rye x9 
+- Scaffold Stripper (Shaped Crafting):
+iqi
+qsq
+iqi
+i: Iron Ingot, s: Scaffold Seed, q: Nether Quartz
+- Totem of Unrying (Shapeless Crafting): Totem of Undying x1 + Rye Bale x8
+- Essential Extractor (Shaped Crafting):
+ddd
+ifi
+ddd
+d: Cobbled Deepslate, i: Diamond, f: Furnace
+- Essential Infuser (Shaped Crafting):
+isi
+geg
+ooo
+i: Iron Ingot, s: Empty, g: Glass, e: Essence of Creation, o: Obsidian
+- Handheld Infuser (Shaped Crafting):
+sss
+ice
+shi
+s: Empty, i: Iron Ingot, c: Crossbow, e: Essential Infuser, h: Chest
