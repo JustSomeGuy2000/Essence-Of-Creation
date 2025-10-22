@@ -116,6 +116,7 @@ class EoCLangProviderEnUs(dataOutput: FabricDataOutput, registryLookup: Completa
 		builder.add("item.$id.${GunSword.Amethyst.ID}", "Amethyst Gun-Sword")
 		builder.add("item.$id.${GunSword.BreezeRod.ID}", "Breezy Gun-Sword")
 		builder.add("item.$id.${GunSword.EchoShard.ID}", "Sonic Gun-Sword")
+		builder.add("item.$id.${GunSword.Emerald.ID}", "Emerald Gun-Sword")
 		builder.add("item.$id.${EoCItems.SUPER_GUN_SWORD_ID}", "Super Gun-Sword")
 		builder.add("tag.item.$id.${EoCTags.upgradeableGunSword.id}", "upgradeable_gun_sword")
 	}
@@ -213,6 +214,7 @@ class EoCModelProvider(dataOutput: FabricDataOutput): FabricModelProvider(dataOu
 		img.register(EoCItems.amethystGunSword, Models.HANDHELD)
 		img.register(EoCItems.breezeRodGunSword, Models.HANDHELD)
 		img.register(EoCItems.sonicGunSword, Models.HANDHELD)
+		img.register(EoCItems.emeraldGunSword, Models.HANDHELD)
 		img.register(EoCItems.superGunSword, Models.HANDHELD)
 	}
 }
@@ -298,6 +300,11 @@ class EoCRecipeProvider(dataOutput: FabricDataOutput, registryLookup: Completabl
 					.input(EoCTags.upgradeableGunSword)
 					.input(Items.ECHO_SHARD)
 					.criterion(hasItem(Items.ECHO_SHARD), conditionsFromItem(Items.ECHO_SHARD))
+					.offerTo(exporter)
+				createShapeless(RecipeCategory.COMBAT, EoCItems.emeraldGunSword, 1)
+					.input(EoCTags.upgradeableGunSword)
+					.input(Items.EMERALD)
+					.criterion(hasItem(Items.EMERALD), conditionsFromItem(Items.EMERALD))
 					.offerTo(exporter)
 			}
 		}

@@ -1,17 +1,7 @@
 {
   "parent": "essence-of-creation:got_eoc",
   "criteria": {
-    "3a20cfff-c13d-4541-9f9e-8ea397d47401": {
-      "conditions": {
-        "items": [
-          {
-            "items": "essence-of-creation:cane"
-          }
-        ]
-      },
-      "trigger": "minecraft:inventory_changed"
-    },
-    "486feac0-a2cc-4f87-b494-ef2ba0d81e07": {
+    "0094dc5e-f8f0-4bbf-8569-063c56447d8e": {
       "conditions": {
         "items": [
           {
@@ -21,57 +11,7 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
-    "59c2690d-431c-4e9d-a1d8-b31bfc6a5b18": {
-      "conditions": {
-        "items": [
-          {
-            "items": "essence-of-creation:diamond_gun_sword"
-          }
-        ]
-      },
-      "trigger": "minecraft:inventory_changed"
-    },
-    "8a6d04c1-81c6-4ce7-8d67-a0851b17f290": {
-      "conditions": {
-        "items": [
-          {
-            "items": "essence-of-creation:gold_gun_sword"
-          }
-        ]
-      },
-      "trigger": "minecraft:inventory_changed"
-    },
-    "8c22397b-c5b9-4bdc-aca4-d6e2029a755a": {
-      "conditions": {
-        "items": [
-          {
-            "items": "essence-of-creation:scaffold_seed"
-          }
-        ]
-      },
-      "trigger": "minecraft:inventory_changed"
-    },
-    "a844ecec-56ff-41a0-be5f-bff4b91d2eae": {
-      "conditions": {
-        "items": [
-          {
-            "items": "essence-of-creation:iron_gun_sword"
-          }
-        ]
-      },
-      "trigger": "minecraft:inventory_changed"
-    },
-    "dcbc0206-0344-4ed2-8490-308184c95691": {
-      "conditions": {
-        "items": [
-          {
-            "items": "essence-of-creation:god_apple"
-          }
-        ]
-      },
-      "trigger": "minecraft:inventory_changed"
-    },
-    "ebdf3463-900b-4ea8-b1b0-47a8d6b08848": {
+    "24a71fa5-bfc6-43f3-8a9c-056cf0f7e1d1": {
       "conditions": {
         "items": [
           {
@@ -81,11 +21,71 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
-    "f3789c45-bf25-45e9-8efe-1ee803c30dcf": {
+    "2f163a3d-d61e-45ca-ba8b-c2f4f203c9c1": {
+      "conditions": {
+        "items": [
+          {
+            "items": "essence-of-creation:gold_gun_sword"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "34bbdf8f-dc1b-4b4c-8ae5-32e7b8aed40c": {
       "conditions": {
         "items": [
           {
             "items": "essence-of-creation:super_bone_meal"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "6e783e91-1fc8-4cb0-bcd6-4d93b580139e": {
+      "conditions": {
+        "items": [
+          {
+            "items": "essence-of-creation:iron_gun_sword"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "7a2ed02d-a719-47e5-945a-f54d84b4be83": {
+      "conditions": {
+        "items": [
+          {
+            "items": "essence-of-creation:cane"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "aaf154ec-5265-4fd7-a1fc-5f0e70c38fc9": {
+      "conditions": {
+        "items": [
+          {
+            "items": "essence-of-creation:god_apple"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "ab22fd83-a2d1-4b6c-b473-32aa603f7388": {
+      "conditions": {
+        "items": [
+          {
+            "items": "essence-of-creation:scaffold_seed"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "be7ee650-f2da-4f9e-93f1-4470fdb627d0": {
+      "conditions": {
+        "items": [
+          {
+            "items": "essence-of-creation:diamond_gun_sword"
           }
         ]
       },
@@ -105,15 +105,15 @@
   },
   "requirements": [
     [
-      "8c22397b-c5b9-4bdc-aca4-d6e2029a755a",
-      "ebdf3463-900b-4ea8-b1b0-47a8d6b08848",
-      "dcbc0206-0344-4ed2-8490-308184c95691",
-      "f3789c45-bf25-45e9-8efe-1ee803c30dcf",
-      "3a20cfff-c13d-4541-9f9e-8ea397d47401",
-      "a844ecec-56ff-41a0-be5f-bff4b91d2eae",
-      "8a6d04c1-81c6-4ce7-8d67-a0851b17f290",
-      "59c2690d-431c-4e9d-a1d8-b31bfc6a5b18",
-      "486feac0-a2cc-4f87-b494-ef2ba0d81e07",
+      "ab22fd83-a2d1-4b6c-b473-32aa603f7388",
+      "24a71fa5-bfc6-43f3-8a9c-056cf0f7e1d1",
+      "aaf154ec-5265-4fd7-a1fc-5f0e70c38fc9",
+      "34bbdf8f-dc1b-4b4c-8ae5-32e7b8aed40c",
+      "7a2ed02d-a719-47e5-945a-f54d84b4be83",
+      "6e783e91-1fc8-4cb0-bcd6-4d93b580139e",
+      "2f163a3d-d61e-45ca-ba8b-c2f4f203c9c1",
+      "be7ee650-f2da-4f9e-93f1-4470fdb627d0",
+      "0094dc5e-f8f0-4bbf-8569-063c56447d8e",
       "used_handheld_infuser"
     ]
   ],

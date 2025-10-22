@@ -88,6 +88,7 @@ object EoCItems {
     val amethystGunSword = register(GunSword.Amethyst.ID, GunSword::Amethyst, GunSword.generateBaseSettings(6.0, -2.4, 1000, 5, 1, accTime = 20))
     val breezeRodGunSword = register(GunSword.BreezeRod.ID, GunSword::BreezeRod, GunSword.generateBaseSettings(7.0, -2.4, 1900, 2, 3, cooldown = 5, accTime = 10))
     val sonicGunSword = register(GunSword.EchoShard.ID, GunSword::EchoShard, GunSword.generateBaseSettings(7.0, -2.4, 1500, 12, 8, cooldown = 60))
+    val emeraldGunSword = register(GunSword.Emerald.ID, GunSword::Emerald, GunSword.generateBaseSettings(6.0, -2.4, 1000, 0, 4))
     const val SUPER_GUN_SWORD_ID = "super_${GunSword.BASE_ID}"
     val superGunSword = register(SUPER_GUN_SWORD_ID, ::GunSword, GunSword.generateBaseSettings(9.0, -2.0, 10000, 50, 0))
 
@@ -110,6 +111,7 @@ object EoCItems {
             it.add(this.amethystGunSword)
             it.add(this.breezeRodGunSword)
             it.add(this.sonicGunSword)
+            it.add(this.emeraldGunSword)
         }
     }
 

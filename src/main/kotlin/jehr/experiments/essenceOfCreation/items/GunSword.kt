@@ -5,10 +5,12 @@ import com.mojang.serialization.codecs.RecordCodecBuilder
 import jehr.experiments.essenceOfCreation.EoCMain
 import jehr.experiments.essenceOfCreation.components.EoCComponents
 import jehr.experiments.essenceOfCreation.entities.GunSwordBullet
+import jehr.experiments.essenceOfCreation.utils.scalarToVector
 import net.minecraft.component.DataComponentTypes
 import net.minecraft.component.type.AttributeModifierSlot
 import net.minecraft.component.type.AttributeModifiersComponent
 import net.minecraft.component.type.WeaponComponent
+import net.minecraft.entity.Entity
 import net.minecraft.entity.LivingEntity
 import net.minecraft.entity.attribute.EntityAttributeModifier
 import net.minecraft.entity.attribute.EntityAttributes
@@ -23,6 +25,8 @@ import net.minecraft.registry.RegistryKeys
 import net.minecraft.server.world.ServerWorld
 import net.minecraft.util.ActionResult
 import net.minecraft.util.Hand
+import net.minecraft.util.math.MathHelper
+import net.minecraft.util.math.Vec3d
 import net.minecraft.world.World
 import java.util.function.Predicate
 import kotlin.math.max
@@ -91,7 +95,7 @@ open class GunSword(settings: Settings): RangedWeaponItem(settings) {
         projectile.setVelocity(shooter, shooter.pitch, shooter.yaw + yaw, 0.0F, speed, divergence)
     }
 
-    fun spawnAndShoot(world: World, shooter: LivingEntity, info: Info, divergence: Float): Boolean {
+    open fun spawnAndShoot(world: World, shooter: LivingEntity, info: Info, divergence: Float): Boolean {
         if (world.isClient) return false
         val bullet = this.bulletFactory(world, shooter, info.bulletDmg, info.gravity, info.drag)
         bullet.setPosition(shooter.pos.add(0.0, 1.5, 0.0))
@@ -144,7 +148,39 @@ open class GunSword(settings: Settings): RangedWeaponItem(settings) {
         override val bulletFactory: (World, LivingEntity, Int, Float, Float) -> GunSwordBullet.SonicBoom = GunSwordBullet::SonicBoom
     }
 
-    data class Info(val bulletDmg: Int, val bulletCost: Int, val gravity: Float = BASE_GRAVITY, val shotVelocity: Float = BASE_VELOCITY, val drag: Float = BASE_DRAG, val cd: Int = BASE_COOLDOWN, val accTime: Int = ACCURATISE_TIME) {
+    class Emerald(settings: Settings): GunSword(settings) {
+
+        companion object {
+            const val ID = "emerald_$BASE_ID"
+            const val BOOST_VELOCITY = 10.0
+            const val BOOST_BONUS = 5.0F
+        }
+
+        override fun spawnAndShoot(world: World, shooter: LivingEntity, info: Info, divergence: Float): Boolean {
+            if (world.isClient) return false
+            val mhs = shooter.getStackInHand(shooter.activeHand)
+            if (mhs.isOf(EoCItems.emeraldGunSword)) {
+                val info = this.getInfo() ?: return false
+                mhs.set(EoCComponents.gunSwordInfoComponent, info.copy(boost = true))
+            }
+            shooter.addVelocity(scalarToVector(BOOST_VELOCITY, shooter.pitch, shooter.yaw, 0.0F))
+            return true
+        }
+
+        override fun postHit(stack: ItemStack?, target: LivingEntity?, attacker: LivingEntity?) {
+            super.postHit(stack, target, attacker)
+            if (stack == null || target == null || attacker == null || attacker.world !is ServerWorld) return
+            val info = this.getInfo() ?: return
+            if (attacker.velocity.y == 0.0) {
+                stack.set(EoCComponents.gunSwordInfoComponent, info.copy(boost = false))
+                return
+            }
+            target.damage(attacker.world as ServerWorld, DamageSource(attacker.world.registryManager.getOrThrow(RegistryKeys.DAMAGE_TYPE).getEntry(DamageTypes.ARROW.value).get()), BOOST_BONUS) //TODO: Gun-sword damage type!!!
+            stack.set(EoCComponents.gunSwordInfoComponent, info.copy(boost = false))
+        }
+    }
+
+    data class Info(val bulletDmg: Int, val bulletCost: Int, val gravity: Float = BASE_GRAVITY, val shotVelocity: Float = BASE_VELOCITY, val drag: Float = BASE_DRAG, val cd: Int = BASE_COOLDOWN, val accTime: Int = ACCURATISE_TIME, val boost: Boolean = false) {
         /**Rate at which inaccuracy decreases, in 0.0172275/t. (0.0172275 radians per tick)*/
         val accuratiseRate = BASE_DIVERGENCE/accTime
 
