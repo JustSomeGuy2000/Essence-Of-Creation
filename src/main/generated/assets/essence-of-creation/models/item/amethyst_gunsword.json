@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/handheld",
   "textures": {
-    "layer0": "essence-of-creation:item/gold_gun_sword"
+    "layer0": "essence-of-creation:item/amethyst_gunsword"
   }
 }

@@ -32,6 +32,9 @@
 				"value": "jehr.experiments.essenceOfCreation.EoCDataGen",
 				"adapter": "kotlin"
 			}
+		],
+		"mm:early_risers": [
+			"jehr.experiments.essenceOfCreation.utils.EarlyRiser"
 		]
 	},
 	"mixins": [

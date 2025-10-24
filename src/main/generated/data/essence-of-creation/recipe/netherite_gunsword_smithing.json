@@ -1,9 +1,9 @@
 {
   "type": "minecraft:smithing_transform",
   "addition": "#minecraft:netherite_tool_materials",
-  "base": "essence-of-creation:diamond_gun_sword",
+  "base": "essence-of-creation:diamond_gunsword",
   "result": {
-    "id": "essence-of-creation:netherite_gun_sword"
+    "id": "essence-of-creation:netherite_gunsword"
   },
   "template": "minecraft:netherite_upgrade_smithing_template"
 }

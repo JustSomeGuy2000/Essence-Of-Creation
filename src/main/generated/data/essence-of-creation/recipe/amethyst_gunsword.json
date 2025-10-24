@@ -3,10 +3,10 @@
   "category": "equipment",
   "ingredients": [
     "#essence-of-creation:upgradeable_gun_sword",
-    "minecraft:echo_shard"
+    "minecraft:amethyst_shard"
   ],
   "result": {
     "count": 1,
-    "id": "essence-of-creation:sonic_gun_sword"
+    "id": "essence-of-creation:amethyst_gunsword"
   }
 }

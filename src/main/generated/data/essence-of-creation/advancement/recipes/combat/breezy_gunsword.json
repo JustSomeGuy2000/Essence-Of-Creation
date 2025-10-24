@@ -1,11 +1,11 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_netherite_ingot": {
+    "has_breeze_rod": {
       "conditions": {
         "items": [
           {
-            "items": "#minecraft:netherite_tool_materials"
+            "items": "minecraft:breeze_rod"
           }
         ]
       },
@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "essence-of-creation:netherite_gun_sword_smithing"
+        "recipe": "essence-of-creation:breezy_gunsword"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -21,12 +21,12 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_netherite_ingot"
+      "has_breeze_rod"
     ]
   ],
   "rewards": {
     "recipes": [
-      "essence-of-creation:netherite_gun_sword_smithing"
+      "essence-of-creation:breezy_gunsword"
     ]
   }
 }

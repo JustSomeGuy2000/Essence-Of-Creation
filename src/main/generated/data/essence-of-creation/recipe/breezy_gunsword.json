@@ -3,10 +3,10 @@
   "category": "equipment",
   "ingredients": [
     "#essence-of-creation:upgradeable_gun_sword",
-    "minecraft:amethyst_shard"
+    "minecraft:breeze_rod"
   ],
   "result": {
     "count": 1,
-    "id": "essence-of-creation:amethyst_gun_sword"
+    "id": "essence-of-creation:breezy_gunsword"
   }
 }

@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/handheld",
   "textures": {
-    "layer0": "essence-of-creation:item/netherite_gun_sword"
+    "layer0": "essence-of-creation:item/emerald_gunsword"
   }
 }

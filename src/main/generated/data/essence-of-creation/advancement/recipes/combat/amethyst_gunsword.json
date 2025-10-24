@@ -1,11 +1,11 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_breeze_rod": {
+    "has_amethyst_shard": {
       "conditions": {
         "items": [
           {
-            "items": "minecraft:breeze_rod"
+            "items": "minecraft:amethyst_shard"
           }
         ]
       },
@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "essence-of-creation:breezy_gun_sword"
+        "recipe": "essence-of-creation:amethyst_gunsword"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -21,12 +21,12 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_breeze_rod"
+      "has_amethyst_shard"
     ]
   ],
   "rewards": {
     "recipes": [
-      "essence-of-creation:breezy_gun_sword"
+      "essence-of-creation:amethyst_gunsword"
     ]
   }
 }

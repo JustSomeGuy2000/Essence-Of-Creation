@@ -1,11 +1,11 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_emerald": {
+    "has_netherite_ingot": {
       "conditions": {
         "items": [
           {
-            "items": "minecraft:emerald"
+            "items": "#minecraft:netherite_tool_materials"
           }
         ]
       },
@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "essence-of-creation:emerald_gun_sword"
+        "recipe": "essence-of-creation:netherite_gunsword_smithing"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -21,12 +21,12 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_emerald"
+      "has_netherite_ingot"
     ]
   ],
   "rewards": {
     "recipes": [
-      "essence-of-creation:emerald_gun_sword"
+      "essence-of-creation:netherite_gunsword_smithing"
     ]
   }
 }

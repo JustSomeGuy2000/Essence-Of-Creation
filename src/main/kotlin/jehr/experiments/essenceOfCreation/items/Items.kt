@@ -79,7 +79,7 @@ object EoCItems {
     val gsbItem = register(GSB_ITEM_ID, ::Item, Item.Settings())
     const val IRON_GUN_SWORD_ID = "iron_${GunSword.BASE_ID}"
     val ironGunSword = register(IRON_GUN_SWORD_ID, ::GunSword, GunSword.generateBaseSettings(5.0, -2.4, 250, 5, 3))
-    const val GOLD_GUN_SWORD_ID = "gold_${GunSword.BASE_ID}"
+    const val GOLD_GUN_SWORD_ID = "golden_${GunSword.BASE_ID}"
     val goldGunSword = register(GOLD_GUN_SWORD_ID, ::GunSword, GunSword.generateBaseSettings(3.0, -2.4, 32, 5, 5, cooldown = 10))
     const val DIAMOND_GUN_SWORD_ID = "diamond_${GunSword.BASE_ID}"
     val diamondGunSword = register(DIAMOND_GUN_SWORD_ID, ::GunSword, GunSword.generateBaseSettings(6.0, -2.4, 1561, 9, 5))

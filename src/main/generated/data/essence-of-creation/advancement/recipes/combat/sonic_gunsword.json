@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "essence-of-creation:sonic_gun_sword"
+        "recipe": "essence-of-creation:sonic_gunsword"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -26,7 +26,7 @@
   ],
   "rewards": {
     "recipes": [
-      "essence-of-creation:sonic_gun_sword"
+      "essence-of-creation:sonic_gunsword"
     ]
   }
 }

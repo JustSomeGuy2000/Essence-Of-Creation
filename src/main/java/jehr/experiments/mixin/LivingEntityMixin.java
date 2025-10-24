@@ -1,6 +1,5 @@
 package jehr.experiments.mixin;
 
-import com.llamalad7.mixinextras.sugar.Local;
 import jehr.experiments.essenceOfCreation.EoCMain;
 import jehr.experiments.essenceOfCreation.criteria.EoCCriteria;
 import net.minecraft.entity.LivingEntity;

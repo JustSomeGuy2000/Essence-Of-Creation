@@ -1,16 +1,16 @@
 package jehr.experiments.essenceOfCreation.items
 
+import com.chocohead.mm.api.ClassTinkerers
 import com.mojang.serialization.Codec
 import com.mojang.serialization.codecs.RecordCodecBuilder
-import jehr.experiments.essenceOfCreation.EoCMain
 import jehr.experiments.essenceOfCreation.components.EoCComponents
 import jehr.experiments.essenceOfCreation.entities.GunSwordBullet
+import jehr.experiments.essenceOfCreation.utils.EarlyRiser
 import jehr.experiments.essenceOfCreation.utils.scalarToVector
 import net.minecraft.component.DataComponentTypes
 import net.minecraft.component.type.AttributeModifierSlot
 import net.minecraft.component.type.AttributeModifiersComponent
 import net.minecraft.component.type.WeaponComponent
-import net.minecraft.entity.Entity
 import net.minecraft.entity.LivingEntity
 import net.minecraft.entity.attribute.EntityAttributeModifier
 import net.minecraft.entity.attribute.EntityAttributes
@@ -25,8 +25,6 @@ import net.minecraft.registry.RegistryKeys
 import net.minecraft.server.world.ServerWorld
 import net.minecraft.util.ActionResult
 import net.minecraft.util.Hand
-import net.minecraft.util.math.MathHelper
-import net.minecraft.util.math.Vec3d
 import net.minecraft.world.World
 import java.util.function.Predicate
 import kotlin.math.max
@@ -34,7 +32,7 @@ import kotlin.math.max
 open class GunSword(settings: Settings): RangedWeaponItem(settings) {
 
     companion object {
-        const val BASE_ID = "gun_sword"
+        const val BASE_ID = "gunsword"
 
         fun generateBaseSettings(meleeDamageMod: Double, meleeAtkSpdMod: Double, durability: Int, bulletDmg: Int, bulletCost: Int, gravity: Float = Info.BASE_GRAVITY, shotVelocity: Float = Info.BASE_VELOCITY, drag: Float = Info.BASE_DRAG, cooldown: Int = Info.BASE_COOLDOWN, accTime: Int = Info.ACCURATISE_TIME): Settings  =
             Settings()
@@ -51,6 +49,9 @@ open class GunSword(settings: Settings): RangedWeaponItem(settings) {
                         AttributeModifierSlot.MAINHAND)
                     .build()
                 )
+
+        fun getInfo(from: LivingEntity): Info? = from.getStackInHand(from.activeHand).get(EoCComponents.gunSwordInfoComponent)
+
     }
 
     open val bulletFactory: (World, LivingEntity, Int, Float, Float) -> GunSwordBullet = ::GunSwordBullet
@@ -58,10 +59,10 @@ open class GunSword(settings: Settings): RangedWeaponItem(settings) {
     override fun getProjectiles(): Predicate<ItemStack> = Predicate<ItemStack>{stack -> true}
     override fun getRange() = 25
     override fun getMaxUseTime(stack: ItemStack?, user: LivingEntity?) = Info.MAX_USE_TIME
-    override fun getUseAction(stack: ItemStack?) = UseAction.BOW
+    override fun getUseAction(stack: ItemStack?): UseAction = ClassTinkerers.getEnum(UseAction::class.java, EarlyRiser.GUNSWORD_ENUM)
 
     override fun use(world: World, user: PlayerEntity, hand: Hand?): ActionResult? {
-        val xpCost = this.getInfo()?.bulletCost ?: return ActionResult.PASS
+        val xpCost = getInfo(user)?.bulletCost ?: return ActionResult.PASS
         if (user.totalExperience >= xpCost) {
             user.setCurrentHand(hand)
             return ActionResult.CONSUME
@@ -70,7 +71,7 @@ open class GunSword(settings: Settings): RangedWeaponItem(settings) {
 
     override fun onStoppedUsing(stack: ItemStack, world: World, user: LivingEntity, remainingUseTicks: Int): Boolean {
         if (world.isClient) return false
-        val info = getInfo() ?: return false
+        val info = getInfo(user) ?: return false
         val accuracy = max(Info.BASE_DIVERGENCE - (Info.MAX_USE_TIME - remainingUseTicks) * info.accuratiseRate, 0.0F)
         this.spawnAndShoot(world, user, info, accuracy)
         if (user is PlayerEntity) {
@@ -103,15 +104,6 @@ open class GunSword(settings: Settings): RangedWeaponItem(settings) {
         world.spawnEntity(bullet)
         bullet.triggerProjectileSpawned(world as ServerWorld, ItemStack.EMPTY)
         return true
-    }
-
-    fun getInfo(): Info? {
-        val info = this.components.get(EoCComponents.gunSwordInfoComponent)
-        if (info == null) {
-            EoCMain.logger.warn("No info found for this Gun-Sword!")
-            return null
-        }
-        return info
     }
 
     class Amethyst(settings: Settings): GunSword(settings) {
@@ -152,7 +144,7 @@ open class GunSword(settings: Settings): RangedWeaponItem(settings) {
 
         companion object {
             const val ID = "emerald_$BASE_ID"
-            const val BOOST_VELOCITY = 10.0
+            const val BOOST_VELOCITY = 3.0
             const val BOOST_BONUS = 5.0F
         }
 
@@ -160,18 +152,20 @@ open class GunSword(settings: Settings): RangedWeaponItem(settings) {
             if (world.isClient) return false
             val mhs = shooter.getStackInHand(shooter.activeHand)
             if (mhs.isOf(EoCItems.emeraldGunSword)) {
-                val info = this.getInfo() ?: return false
+                val info = getInfo(shooter) ?: return false
                 mhs.set(EoCComponents.gunSwordInfoComponent, info.copy(boost = true))
             }
-            shooter.addVelocity(scalarToVector(BOOST_VELOCITY, shooter.pitch, shooter.yaw, 0.0F))
+            val addVel = scalarToVector(BOOST_VELOCITY, shooter.pitch, shooter.yaw, 0.0F)
+            shooter.addVelocity(addVel)
+            shooter.velocityModified = true
             return true
         }
 
         override fun postHit(stack: ItemStack?, target: LivingEntity?, attacker: LivingEntity?) {
             super.postHit(stack, target, attacker)
             if (stack == null || target == null || attacker == null || attacker.world !is ServerWorld) return
-            val info = this.getInfo() ?: return
-            if (attacker.velocity.y == 0.0) {
+            val info = getInfo(attacker) ?: return
+            if ((attacker.velocity.y < 0.1 && attacker.velocity.y > -0.1) || !info.boost) {
                 stack.set(EoCComponents.gunSwordInfoComponent, info.copy(boost = false))
                 return
             }

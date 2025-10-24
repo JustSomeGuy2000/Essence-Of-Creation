@@ -118,7 +118,8 @@ class EoCLangProviderEnUs(dataOutput: FabricDataOutput, registryLookup: Completa
 		builder.add("item.$id.${GunSword.EchoShard.ID}", "Sonic Gun-Sword")
 		builder.add("item.$id.${GunSword.Emerald.ID}", "Emerald Gun-Sword")
 		builder.add("item.$id.${EoCItems.SUPER_GUN_SWORD_ID}", "Super Gun-Sword")
-		builder.add("tag.item.$id.${EoCTags.upgradeableGunSword.id}", "upgradeable_gun_sword")
+		builder.add("tag.item.$id.${EoCTags.upgradeableGunSword.id}", "upgradeable_gunsword")
+		builder.add("tag.item.$id.${EoCTags.gunSwordBulletBreakable.id}", "breakble_by_gunsword_bullet")
 	}
 }
 
@@ -207,10 +208,6 @@ class EoCModelProvider(dataOutput: FabricDataOutput): FabricModelProvider(dataOu
 		img.register(EoCItems.godApple, Models.GENERATED)
 		img.register(EoCItems.superBoneMeal, Models.GENERATED)
 		img.register(EoCItems.cane, Models.HANDHELD)
-		img.register(EoCItems.ironGunSword, Models.HANDHELD)
-		img.register(EoCItems.goldGunSword, Models.HANDHELD)
-		img.register(EoCItems.diamondGunSword, Models.HANDHELD)
-		img.register(EoCItems.netheriteGunSword, Models.HANDHELD)
 		img.register(EoCItems.amethystGunSword, Models.HANDHELD)
 		img.register(EoCItems.breezeRodGunSword, Models.HANDHELD)
 		img.register(EoCItems.sonicGunSword, Models.HANDHELD)
