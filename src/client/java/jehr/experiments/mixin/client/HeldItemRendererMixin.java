@@ -14,6 +14,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.consume.UseAction;
 import net.minecraft.util.Arm;
 import net.minecraft.util.Hand;
+import net.minecraft.util.math.RotationAxis;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
@@ -33,11 +34,7 @@ public abstract class HeldItemRendererMixin {
     @Inject(method = "renderFirstPersonItem", at = @At(value = "INVOKE", target = "Lnet/minecraft/item/ItemStack;getUseAction()Lnet/minecraft/item/consume/UseAction;", shift = At.Shift.AFTER), cancellable = true)
     public void renderGunSword(AbstractClientPlayerEntity player, float tickProgress, float pitch, Hand hand, float swingProgress, ItemStack item, float equipProgress, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, CallbackInfo ci, @Local(ordinal = 1) boolean bl2) {
         if (item.getUseAction() == ClassTinkerers.getEnum(UseAction.class, EarlyRiser.GUNSWORD_ENUM)) {
-            boolean isMain = hand == Hand.MAIN_HAND;
-            Arm arm = isMain ? player.getMainArm() : player.getMainArm().getOpposite();
-            int dirOffset = isMain ? 1 : -1;
-            this.applyEquipOffset(matrices, arm, equipProgress);
-            this.applyGunSwordRender();
+            this.applyGunSwordRender(player, hand, equipProgress, matrices);
             this.renderItem(player, item, bl2 ? ItemDisplayContext.FIRST_PERSON_RIGHT_HAND : ItemDisplayContext.FIRST_PERSON_LEFT_HAND, matrices, vertexConsumers, light);
             matrices.pop();
             ci.cancel();
@@ -45,7 +42,14 @@ public abstract class HeldItemRendererMixin {
     }
 
     @Unique
-    private void applyGunSwordRender() {
-        //TODO
+    private void applyGunSwordRender(AbstractClientPlayerEntity player, Hand hand, float equipProgress, MatrixStack matrices) {
+        boolean isMain = hand == Hand.MAIN_HAND;
+        Arm arm = isMain ? player.getMainArm() : player.getMainArm().getOpposite();
+        int dirMul = isMain ? 1 : -1;
+        matrices.translate(dirMul * EoCMain.INSTANCE.getGsOffsetX(), EoCMain.INSTANCE.getGsOffsetY(), EoCMain.INSTANCE.getGsOffsetZ());
+        matrices.multiply(RotationAxis.POSITIVE_X.rotationDegrees(EoCMain.INSTANCE.getGsRotX()));
+        matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(dirMul * EoCMain.INSTANCE.getGsRotY()));
+        matrices.multiply(RotationAxis.POSITIVE_Z.rotationDegrees(dirMul * EoCMain.INSTANCE.getGsRotZ()));
+        this.applyEquipOffset(matrices, arm, equipProgress);
     }
 }

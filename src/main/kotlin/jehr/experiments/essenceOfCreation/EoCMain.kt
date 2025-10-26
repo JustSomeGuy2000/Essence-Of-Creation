@@ -1,6 +1,8 @@
 package jehr.experiments.essenceOfCreation
 
+import com.mojang.brigadier.arguments.FloatArgumentType
 import com.mojang.brigadier.arguments.IntegerArgumentType
+import com.mojang.brigadier.context.CommandContext
 import jehr.experiments.essenceOfCreation.blockEntities.EoCBlockEntities
 import jehr.experiments.essenceOfCreation.blocks.EoCBlocks
 import jehr.experiments.essenceOfCreation.blocks.ScaffoldSeed
@@ -24,6 +26,7 @@ import net.minecraft.registry.Registries
 import net.minecraft.registry.Registry
 import net.minecraft.registry.RegistryKey
 import net.minecraft.server.command.CommandManager
+import net.minecraft.server.command.ServerCommandSource
 import net.minecraft.text.Text
 import net.minecraft.util.Identifier
 import org.slf4j.Logger
@@ -35,6 +38,14 @@ object EoCMain : ModInitializer {
 
 	val EoCItemGroupKey: RegistryKey<ItemGroup> = RegistryKey.of(Registries.ITEM_GROUP.getKey(), Identifier.of(MOD_ID, "item_group"))
 	val EoCItemGroup: ItemGroup = FabricItemGroup.builder().icon{ ItemStack(EoCItems.essenceOfCreation) }.displayName(Text.translatable("itemGroup.${MOD_ID}.essence_of_creation")).build()
+
+	var gsOffsetX = -0.55F
+	var gsOffsetY = 0.03F
+	var gsOffsetZ = 0.3573153F
+
+	var gsRotX = -20.0F
+	var gsRotY = 0.0F
+	var gsRotZ = 0.0F
 
 	override fun onInitialize() {
 		// This code runs as soon as Minecraft is in a mod-load-ready state.
@@ -96,8 +107,74 @@ object EoCMain : ModInitializer {
 							context.source.sendMessage(Text.literal("Minimum value is 1"))
 							return@executes -1
 						}
-					})))
+					}))
+				.then(CommandManager.literal("gunsword_translation")
+					.then(CommandManager.literal("x")
+						.then(CommandManager.argument("x", FloatArgumentType.floatArg())
+							.executes{ context ->
+								gsOffsetX = FloatArgumentType.getFloat(context, "x")
+								msgGsTranslations(context)
+								return@executes 1
+							}))
+					.then(CommandManager.literal("y")
+						.then(CommandManager.argument("y", FloatArgumentType.floatArg())
+							.executes{ context ->
+								gsOffsetY = FloatArgumentType.getFloat(context, "y")
+								msgGsTranslations(context)
+								return@executes 1
+							}))
+					.then(CommandManager.literal("z")
+						.then(CommandManager.argument("z", FloatArgumentType.floatArg())
+							.executes{ context ->
+								gsOffsetZ = FloatArgumentType.getFloat(context, "z")
+								msgGsTranslations(context)
+								return@executes 1
+							}))
+					.then(CommandManager.literal("resetTrans")
+						.executes{ context ->
+							gsOffsetX = -0.55F
+							gsOffsetY = 0.03F
+							gsOffsetZ = 0.3573153F
+							context.source.sendMessage(Text.literal("Translations reset."))
+							return@executes 1
+						})
+					.then(CommandManager.literal("rotX")
+						.then(CommandManager.argument("rot", FloatArgumentType.floatArg())
+							.executes{ context ->
+								gsRotX = FloatArgumentType.getFloat(context, "rot")
+								msgGsRotations(context)
+								return@executes 1
+							}))
+					.then(CommandManager.literal("rotY")
+						.then(CommandManager.argument("rot", FloatArgumentType.floatArg())
+							.executes{ context ->
+								gsRotY = FloatArgumentType.getFloat(context, "rot")
+								msgGsRotations(context)
+								return@executes 1
+							}))
+					.then(CommandManager.literal("rotZ")
+						.then(CommandManager.argument("rot", FloatArgumentType.floatArg())
+							.executes{ context ->
+								gsRotZ = FloatArgumentType.getFloat(context, "rot")
+								msgGsRotations(context)
+								return@executes 1
+							}))
+					.then(CommandManager.literal("resetRot")
+						.executes{ context ->
+							gsRotX = -20.0F
+							gsRotY = 0.0F
+							gsRotZ = 0.0F
+							context.source.sendMessage(Text.literal("Rotations reset."))
+							return@executes 1
+						})))
 		}
+	}
+
+	fun msgGsTranslations(ctx: CommandContext<ServerCommandSource>) {
+		ctx.source.sendMessage(Text.literal("Gunsword render translations set to ($gsOffsetX, $gsOffsetY, $gsOffsetZ)."))
+	}
+	fun msgGsRotations(ctx: CommandContext<ServerCommandSource>) {
+		ctx.source.sendMessage(Text.literal("Gunsword render rotations set to ($gsRotX, $gsRotY, $gsRotZ)."))
 	}
 
 	fun registerEvents() {
