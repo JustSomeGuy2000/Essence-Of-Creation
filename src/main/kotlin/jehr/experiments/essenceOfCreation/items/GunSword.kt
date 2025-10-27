@@ -25,7 +25,9 @@ import net.minecraft.registry.RegistryKeys
 import net.minecraft.server.world.ServerWorld
 import net.minecraft.util.ActionResult
 import net.minecraft.util.Hand
+import net.minecraft.util.math.Vec3d
 import net.minecraft.world.World
+import org.joml.Vector3f
 import java.util.function.Predicate
 import kotlin.math.max
 
@@ -52,6 +54,23 @@ open class GunSword(settings: Settings): RangedWeaponItem(settings) {
 
         fun getInfo(from: LivingEntity): Info? = from.getStackInHand(from.activeHand).get(EoCComponents.gunSwordInfoComponent)
 
+        fun getTranslations(stack: ItemStack): Vec3d {
+            var transX = -0.59
+            var transY = 0.49
+            val transZ = 0.3573153
+            if (stack.isOf(EoCItems.ironGunSword)) {
+                transX = -0.582
+            } else if (stack.isOf(EoCItems.goldGunSword)) {
+                transX = -0.585
+            } else if (stack.isOf(EoCItems.diamondGunSword)) {
+                transX = -0.56
+                transY = 0.46
+            } else if (stack.isOf(EoCItems.netheriteGunSword)) {
+                transX = -0.6
+                transY = 0.52
+            }
+            return Vec3d(transX, transY, transZ)
+        }
     }
 
     open val bulletFactory: (World, LivingEntity, Int, Float, Float) -> GunSwordBullet = ::GunSwordBullet

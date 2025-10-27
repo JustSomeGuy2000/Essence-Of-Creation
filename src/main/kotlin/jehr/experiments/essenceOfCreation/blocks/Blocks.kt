@@ -5,6 +5,7 @@ import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents
 import net.minecraft.block.AbstractBlock
 import net.minecraft.block.Block
 import net.minecraft.block.HayBlock
+import net.minecraft.block.piston.PistonBehavior
 import net.minecraft.item.BlockItem
 import net.minecraft.item.Item
 import net.minecraft.item.ItemGroups
@@ -27,6 +28,7 @@ object EoCBlocks {
     val ryeBale = register(RYE_BALE_ID, ::HayBlock, AbstractBlock.Settings.create().sounds(BlockSoundGroup.GRASS).mapColor(DyeColor.BROWN).hardness(0.1f).resistance(0.05f))
     val essentialExtractor = register(EssentialExtractor.ID, ::EssentialExtractor, AbstractBlock.Settings.create().sounds(BlockSoundGroup.STONE).mapColor(DyeColor.GRAY).hardness(6.0f).resistance(5.0f).luminance { state ->  if (state.get(EssentialExtractor.condition).bool) 13 else 0 })
     val essentialInfuser = register(EssentialInfuser.ID, ::EssentialInfuser, AbstractBlock.Settings.create().sounds(BlockSoundGroup.STONE).mapColor(DyeColor.GRAY).hardness(6.0f).resistance(1200.0F).luminance { state -> if (state.get(EssentialInfuser.active)) 13 else 0 })
+    val balefulPoppy = register(BalefulPoppy.ID, ::BalefulPoppy, AbstractBlock.Settings.create().sounds(BlockSoundGroup.GRASS).mapColor(DyeColor.RED).noCollision().breakInstantly().offset(AbstractBlock.OffsetType.XZ).pistonBehavior(PistonBehavior.DESTROY))
 
     fun init() {
         ItemGroupEvents.modifyEntriesEvent(EoCMain.EoCItemGroupKey).register{
@@ -40,7 +42,7 @@ object EoCBlocks {
             it.add(essentialInfuser)
         }
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.NATURAL).register {
-
+            it.add(balefulPoppy)
         }
     }
 

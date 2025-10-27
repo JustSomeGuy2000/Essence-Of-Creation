@@ -1,0 +1,29 @@
+{
+  "parent": "essence-of-creation:anthropogenic",
+  "criteria": {
+    "killed_special_infused_mob": {
+      "conditions": {
+        "items": [
+          {
+            "items": "#essence-of-creation:for_intent_of_creation"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": "The universe knows when you create just to destroy.",
+    "icon": {
+      "count": 1,
+      "id": "essence-of-creation:baleful_poppy"
+    },
+    "title": "Intent of Creation"
+  },
+  "requirements": [
+    [
+      "killed_special_infused_mob"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

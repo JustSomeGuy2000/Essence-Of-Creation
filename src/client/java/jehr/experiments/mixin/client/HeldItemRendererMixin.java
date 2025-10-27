@@ -3,6 +3,7 @@ package jehr.experiments.mixin.client;
 import com.chocohead.mm.api.ClassTinkerers;
 import com.llamalad7.mixinextras.sugar.Local;
 import jehr.experiments.essenceOfCreation.EoCMain;
+import jehr.experiments.essenceOfCreation.items.GunSword;
 import jehr.experiments.essenceOfCreation.utils.EarlyRiser;
 import net.minecraft.client.network.AbstractClientPlayerEntity;
 import net.minecraft.client.render.VertexConsumerProvider;
@@ -34,7 +35,7 @@ public abstract class HeldItemRendererMixin {
     @Inject(method = "renderFirstPersonItem", at = @At(value = "INVOKE", target = "Lnet/minecraft/item/ItemStack;getUseAction()Lnet/minecraft/item/consume/UseAction;", shift = At.Shift.AFTER), cancellable = true)
     public void renderGunSword(AbstractClientPlayerEntity player, float tickProgress, float pitch, Hand hand, float swingProgress, ItemStack item, float equipProgress, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, CallbackInfo ci, @Local(ordinal = 1) boolean bl2) {
         if (item.getUseAction() == ClassTinkerers.getEnum(UseAction.class, EarlyRiser.GUNSWORD_ENUM)) {
-            this.applyGunSwordRender(player, hand, equipProgress, matrices);
+            this.applyGunSwordRender(player, hand, item, equipProgress, matrices);
             this.renderItem(player, item, bl2 ? ItemDisplayContext.FIRST_PERSON_RIGHT_HAND : ItemDisplayContext.FIRST_PERSON_LEFT_HAND, matrices, vertexConsumers, light);
             matrices.pop();
             ci.cancel();
@@ -42,11 +43,15 @@ public abstract class HeldItemRendererMixin {
     }
 
     @Unique
-    private void applyGunSwordRender(AbstractClientPlayerEntity player, Hand hand, float equipProgress, MatrixStack matrices) {
+    private void applyGunSwordRender(AbstractClientPlayerEntity player, Hand hand, ItemStack item, float equipProgress, MatrixStack matrices) {
         boolean isMain = hand == Hand.MAIN_HAND;
         Arm arm = isMain ? player.getMainArm() : player.getMainArm().getOpposite();
         int dirMul = isMain ? 1 : -1;
-        matrices.translate(dirMul * EoCMain.INSTANCE.getGsOffsetX(), EoCMain.INSTANCE.getGsOffsetY(), EoCMain.INSTANCE.getGsOffsetZ());
+        if (EoCMain.INSTANCE.getGsUseCustom()) {
+            matrices.translate(GunSword.Companion.getTranslations(item));
+        } else {
+            matrices.translate(dirMul * EoCMain.INSTANCE.getGsOffsetX(), EoCMain.INSTANCE.getGsOffsetY(), EoCMain.INSTANCE.getGsOffsetZ());
+        }
         matrices.multiply(RotationAxis.POSITIVE_X.rotationDegrees(EoCMain.INSTANCE.getGsRotX()));
         matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(dirMul * EoCMain.INSTANCE.getGsRotY()));
         matrices.multiply(RotationAxis.POSITIVE_Z.rotationDegrees(dirMul * EoCMain.INSTANCE.getGsRotZ()));

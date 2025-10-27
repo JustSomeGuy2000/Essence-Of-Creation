@@ -39,9 +39,11 @@ object EoCMain : ModInitializer {
 	val EoCItemGroupKey: RegistryKey<ItemGroup> = RegistryKey.of(Registries.ITEM_GROUP.getKey(), Identifier.of(MOD_ID, "item_group"))
 	val EoCItemGroup: ItemGroup = FabricItemGroup.builder().icon{ ItemStack(EoCItems.essenceOfCreation) }.displayName(Text.translatable("itemGroup.${MOD_ID}.essence_of_creation")).build()
 
-	var gsOffsetX = -0.55F
-	var gsOffsetY = 0.03F
+	var gsOffsetX = -0.59F
+	var gsOffsetY = 0.51F
 	var gsOffsetZ = 0.3573153F
+
+	var gsUseCustom = true
 
 	var gsRotX = -20.0F
 	var gsRotY = 0.0F
@@ -96,18 +98,6 @@ object EoCMain : ModInitializer {
 							return@executes -1
 						}
 					}))
-				.then(CommandManager.literal("rye_blessing_amp_time")
-					.then(CommandManager.argument("ticks", IntegerArgumentType.integer()).executes {
-						context -> val rate = IntegerArgumentType.getInteger(context, "ticks")
-						if (rate >= 1) {
-							BlessingOfRye.ampTime = rate
-							context.source.sendMessage(Text.literal("Blessing of Rye amplification time set to $rate ticks."))
-							return@executes 1
-						} else {
-							context.source.sendMessage(Text.literal("Minimum value is 1"))
-							return@executes -1
-						}
-					}))
 				.then(CommandManager.literal("gunsword_translation")
 					.then(CommandManager.literal("x")
 						.then(CommandManager.argument("x", FloatArgumentType.floatArg())
@@ -132,8 +122,8 @@ object EoCMain : ModInitializer {
 							}))
 					.then(CommandManager.literal("resetTrans")
 						.executes{ context ->
-							gsOffsetX = -0.55F
-							gsOffsetY = 0.03F
+							gsOffsetX = -0.59F
+							gsOffsetY = 0.51F
 							gsOffsetZ = 0.3573153F
 							context.source.sendMessage(Text.literal("Translations reset."))
 							return@executes 1
@@ -166,7 +156,13 @@ object EoCMain : ModInitializer {
 							gsRotZ = 0.0F
 							context.source.sendMessage(Text.literal("Rotations reset."))
 							return@executes 1
-						})))
+						})
+					.then(CommandManager.literal("custom")
+						.then(CommandManager.argument("bool", IntegerArgumentType.integer(0, 1))
+							.executes{ context ->
+								gsUseCustom = IntegerArgumentType.getInteger(context, "bool") == 1
+								return@executes 1
+							}))))
 		}
 	}
 
