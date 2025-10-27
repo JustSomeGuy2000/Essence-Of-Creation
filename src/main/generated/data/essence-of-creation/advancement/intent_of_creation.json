@@ -1,11 +1,11 @@
 {
   "parent": "essence-of-creation:anthropogenic",
   "criteria": {
-    "killed_special_infused_mob": {
+    "triggered_intent_of_creation": {
       "conditions": {
         "items": [
           {
-            "items": "#essence-of-creation:for_intent_of_creation"
+            "items": "#essence-of-creation:triggers_intent_of_creation"
           }
         ]
       },
@@ -14,6 +14,7 @@
   },
   "display": {
     "description": "The universe knows when you create just to destroy.",
+    "frame": "goal",
     "icon": {
       "count": 1,
       "id": "essence-of-creation:baleful_poppy"
@@ -22,7 +23,7 @@
   },
   "requirements": [
     [
-      "killed_special_infused_mob"
+      "triggered_intent_of_creation"
     ]
   ],
   "sends_telemetry_event": true

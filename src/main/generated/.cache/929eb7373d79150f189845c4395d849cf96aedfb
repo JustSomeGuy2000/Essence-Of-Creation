@@ -1,0 +1,23 @@
+// 1.21.8	-999999999-01-01T00:00:00	Essence Of Creation/EssenceOfCreationRecipeProvider
+7baa3356735eebaa1ea181a71be5a25c0981828f data/essence-of-creation/advancement/recipes/combat/amethyst_gunsword.json
+2e627eb9b2c3095c37fe4aa421fee60474b9f8ce data/essence-of-creation/advancement/recipes/combat/breezy_gunsword.json
+2d52b9eb155faa1d29b6d6789af95e67274e4b4e data/essence-of-creation/advancement/recipes/combat/emerald_gunsword.json
+5225370d663d9d50df088d5f8734075b80442b1d data/essence-of-creation/advancement/recipes/combat/netherite_gunsword_smithing.json
+35a4d169bb5f8770516941d8defd5096dc63e122 data/essence-of-creation/advancement/recipes/combat/sonic_gunsword.json
+17b54276a94d71b65769a2d9b84910b923ea34f0 data/essence-of-creation/advancement/recipes/combat/totem_of_unrying.json
+e8dd4cb4bee5bfb33c7ef055ea840a0d9f73b9d7 data/essence-of-creation/advancement/recipes/misc/essential_extractor.json
+397e30c7959bc258c70c71056dfdd1375d238caf data/essence-of-creation/advancement/recipes/misc/essential_infuser.json
+ad9a88d75d3135ec88572dee2975fec511efd1c5 data/essence-of-creation/advancement/recipes/misc/handheld_infuser.json
+102973d1958bdb159a5eb3dd6aa0831b798646c4 data/essence-of-creation/advancement/recipes/misc/rye_bale.json
+23d4a6a9f2b574d6018dd6924efb404ac30adf1b data/essence-of-creation/advancement/recipes/redstone/scaffold_stripper.json
+4a61ced5525eade9ff7f0d0b82c7c1d3e314e5b2 data/essence-of-creation/recipe/amethyst_gunsword.json
+20088a2325d4370f577ef931a0b5c1ac3ae017e6 data/essence-of-creation/recipe/breezy_gunsword.json
+ae1fc4fc36fc599a93f5e0576fb5534fe5233626 data/essence-of-creation/recipe/emerald_gunsword.json
+5939e80818bc26efbc0e98112b645dca899d9404 data/essence-of-creation/recipe/essential_extractor.json
+38692a298efefa8f2bdf93152d4dac5e8e2c7558 data/essence-of-creation/recipe/essential_infuser.json
+9ad5f49dfb763b26defe696026f2c397e1d4596b data/essence-of-creation/recipe/handheld_infuser.json
+f81de1f6dfa3fc4b46637f8ecf5fb71bd0a4a23e data/essence-of-creation/recipe/netherite_gunsword_smithing.json
+4a321bee3a239bea8e155feb593ec8fe9e57b87d data/essence-of-creation/recipe/rye_bale.json
+321ef5ce8de889d88c02c5433b25ecfdb1a539cd data/essence-of-creation/recipe/scaffold_stripper.json
+e44ab4ccfac42699725b35252b8ba6bc83146b33 data/essence-of-creation/recipe/sonic_gunsword.json
+44f172291776c8323b13fdc6423c9f70c2f1d7f0 data/essence-of-creation/recipe/totem_of_unrying.json

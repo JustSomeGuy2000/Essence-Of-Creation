@@ -16,22 +16,13 @@ class BalefulPoppy(settings: Settings): FlowerBlock(StatusEffects.WITHER, 60F, s
 
     companion object {
         const val ID = "baleful_poppy"
-        const val MAX_CD = 5
     }
-
-    var cooldown = 0
 
     override fun onEntityCollision(state: BlockState, world: World, pos: BlockPos, entity: Entity, handler: EntityCollisionHandler?) {
         if (world is ServerWorld) {
-            this.cooldown -= 1
-            if (this.cooldown <= 0) {
-                entity.slowMovement(state, Vec3d(0.8, 0.75, 0.8))
-                entity.damage(world, damageSourceOf(world, DamageTypes.MAGIC), 3F)
-                val vel = entity.velocity
-                entity.setVelocity(vel.x, 0.0, vel.y)
-                entity.velocityModified = true
-                cooldown = MAX_CD
-            }
+            entity.slowMovement(state, Vec3d(0.15, 0.15, 0.15))
+            entity.velocityModified = true
+            entity.damage(world, damageSourceOf(world, DamageTypes.MAGIC), 3F)
         }
     }
 }

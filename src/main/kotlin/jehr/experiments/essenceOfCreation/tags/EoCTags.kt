@@ -10,6 +10,7 @@ import net.minecraft.util.Identifier
 object EoCTags {
     val gunSwordBulletBreakable = registerForBlock("gun_sword_bullet_breakable")
     val upgradeableGunSword = registerForItem("upgradeable_gun_sword")
+    val triggersIntentOfCreation = registerForItem("triggers_intent_of_creation")
 
     fun init() {}
 

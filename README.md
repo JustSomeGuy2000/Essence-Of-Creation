@@ -41,6 +41,7 @@ For ages Essence of Creation has been irretrievably locked away, but no longer. 
 - Rye Bale: Hay Bale for Rye.
 - Essential Extractor: Allows Essence of Creation to be extracted from objects. Takes in two inputs: a souce and a fuel. Different items have different fuel values or extraction efficiencies (look at EssentialExtractor.Companion.sources/fuels for a list). Both are used up in the process.
 - Essential Infuser: Allows Essence of Creation to be infused into items. Takes in two inputs: a source and an Essence. Each Essence may be infused into one and only one item. Infusable items are shown here with brackets after thieir name showing their source item.
+- Baleful Poppy: Heavily damages and slows entites in contact with it. Dropped by Iron Behemoths.
 ## Items
 - Essence of Creation: The core component of the mod. Can be extracted from and infused into some items and blocks.
 - Rye: A long lost grain. Obtained by being afflicted with Blessing of Rye.
@@ -59,8 +60,9 @@ For ages Essence of Creation has been irretrievably locked away, but no longer. 
 - Ryes and Shine (Essence of Creation): Obtain Rye.
 - Rye Not? (Ryes and Shine): Fill your inventory and offhand with stacks of Rye.
 - Aryse (Ryes and Shine): Activate a Totem of Unrying.
-- Anthropogenesis (Essence of Creation): Infuse an item or entity with Essence of Creation.
-- Ambrosia (Anthropogenesis): Obtain a God Apple.
+- Anthropogenic (Essence of Creation): Infuse an item or entity with Essence of Creation.
+- Ambrosia (Anthropogenic): Obtain a God Apple.
+- Intent of Creation (Anthropogenic): Obtain a Baleful Poppy, Baleful Snowball or Interitor Heart.
 ## Recipes
 - Rye Bale (Shapeless Crafting): Rye x9 
 - Scaffold Stripper (Shaped Crafting):

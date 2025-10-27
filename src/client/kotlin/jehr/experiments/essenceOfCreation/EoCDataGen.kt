@@ -38,7 +38,9 @@ import net.minecraft.data.recipe.RecipeExporter
 import net.minecraft.data.recipe.RecipeGenerator
 import net.minecraft.item.Item
 import net.minecraft.item.Items
+import net.minecraft.predicate.item.ItemPredicate
 import net.minecraft.recipe.book.RecipeCategory
+import net.minecraft.registry.RegistryKeys
 import net.minecraft.registry.RegistryWrapper
 import net.minecraft.registry.tag.BlockTags
 import net.minecraft.registry.tag.EntityTypeTags
@@ -311,7 +313,7 @@ class EoCAdvancementProvider(dataOutput: FabricDataOutput, registryLookup: Compl
 
 	override fun getName(): String?  = "EssenceOfCreationAdvancementProvider"
 
-	override fun generateAdvancement(wrapperLookup: RegistryWrapper.WrapperLookup?, exporter: Consumer<AdvancementEntry?>?) {
+	override fun generateAdvancement(wrapperLookup: RegistryWrapper.WrapperLookup, exporter: Consumer<AdvancementEntry?>?) {
 		val essenceOfCreation = Advancement.Builder.create()
 			.display(EoCItems.essenceOfCreation, Text.literal("Essence Of Creation"), Text.literal("Expand your horizons."), Identifier.ofVanilla("gui/advancements/backgrounds/adventure"), AdvancementFrame.TASK, true, true, false)
 			.criterion("get_eoc",
@@ -344,6 +346,11 @@ class EoCAdvancementProvider(dataOutput: FabricDataOutput, registryLookup: Compl
 			.display(EoCItems.godApple, Text.literal("Ambrosia"), Text.literal("Food of the gods."), null, AdvancementFrame.GOAL, true, true, false)
 			.criterion("has_god_apple", InventoryChangedCriterion.Conditions.items(EoCItems.godApple))
 			.build(exporter, Identifier.of(EoCMain.MOD_ID, "ambrosia").toString())
+
+		val intentOfCreation = Advancement.Builder.create().parent(anthropogenic)
+			.display(EoCBlocks.balefulPoppy.asItem(), Text.literal("Intent of Creation"), Text.literal("The universe knows when you create just to destroy."), null, AdvancementFrame.GOAL, true, true, false)
+			.criterion("triggered_intent_of_creation", InventoryChangedCriterion.Conditions.items(ItemPredicate.Builder.create().tag(wrapperLookup.getOrThrow(RegistryKeys.ITEM), EoCTags.triggersIntentOfCreation)))
+			.build(exporter, Identifier.of(EoCMain.MOD_ID, "intent_of_creation").toString())
 	}
 
 	/**Yet another cursed solution since datagen is so POORLY DOCUMENTED. It works, though, so I won't complain.*/
@@ -365,6 +372,8 @@ class EoCItemTagProvider(output: FabricDataOutput, registryLookup: CompletableFu
 		valueLookupBuilder(EoCTags.upgradeableGunSword)
 			.add(EoCItems.diamondGunSword)
 			.add(EoCItems.netheriteGunSword)
+		valueLookupBuilder(EoCTags.triggersIntentOfCreation)
+			.add(EoCBlocks.balefulPoppy.asItem())
 	}
 }
 
