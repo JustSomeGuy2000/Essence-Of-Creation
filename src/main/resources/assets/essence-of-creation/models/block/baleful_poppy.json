@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cross",
+  "textures": {
+    "cross": "essence-of-creation:block/baleful_poppy"
+  }
+}
