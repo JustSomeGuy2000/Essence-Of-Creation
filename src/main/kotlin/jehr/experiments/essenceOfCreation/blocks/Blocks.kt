@@ -4,7 +4,9 @@ import jehr.experiments.essenceOfCreation.EoCMain
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents
 import net.minecraft.block.AbstractBlock
 import net.minecraft.block.Block
+import net.minecraft.block.Blocks
 import net.minecraft.block.HayBlock
+import net.minecraft.block.MapColor
 import net.minecraft.block.piston.PistonBehavior
 import net.minecraft.item.BlockItem
 import net.minecraft.item.Item
@@ -29,6 +31,7 @@ object EoCBlocks {
     val essentialExtractor = register(EssentialExtractor.ID, ::EssentialExtractor, AbstractBlock.Settings.create().sounds(BlockSoundGroup.STONE).mapColor(DyeColor.GRAY).hardness(6.0f).resistance(5.0f).luminance { state ->  if (state.get(EssentialExtractor.condition).bool) 13 else 0 })
     val essentialInfuser = register(EssentialInfuser.ID, ::EssentialInfuser, AbstractBlock.Settings.create().sounds(BlockSoundGroup.STONE).mapColor(DyeColor.GRAY).hardness(6.0f).resistance(1200.0F).luminance { state -> if (state.get(EssentialInfuser.active)) 13 else 0 })
     val balefulPoppy = register(BalefulPoppy.ID, ::BalefulPoppy, AbstractBlock.Settings.create().sounds(BlockSoundGroup.GRASS).mapColor(DyeColor.RED).noCollision().breakInstantly().offset(AbstractBlock.OffsetType.XZ).pistonBehavior(PistonBehavior.DESTROY))
+    val refractor = register(Refractor.ID, ::Refractor, AbstractBlock.Settings.create().mapColor(MapColor.BRIGHT_RED).strength(4.0F).luminance{ state -> 15 }.nonOpaque().solidBlock(Blocks::never))
 
     fun init() {
         ItemGroupEvents.modifyEntriesEvent(EoCMain.EoCItemGroupKey).register{
@@ -40,6 +43,7 @@ object EoCBlocks {
             it.add(ryeBale)
             it.add(essentialExtractor)
             it.add(essentialInfuser)
+            it.add(refractor)
         }
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.NATURAL).register {
             it.add(balefulPoppy)

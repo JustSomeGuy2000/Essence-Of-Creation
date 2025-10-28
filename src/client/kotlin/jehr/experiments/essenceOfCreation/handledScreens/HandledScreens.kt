@@ -8,5 +8,6 @@ object EoCHandledScreens {
     fun init() {
         HandledScreens.register(EoCScreenHandlers.essentialExtractorScreenHandler, ::EssentialExtractorScreen)
         HandledScreens.register(EoCScreenHandlers.essentialInfuserScreenHandler, ::EssentialInfuserScreen)
+        HandledScreens.register(EoCScreenHandlers.refractorScreenHandler, ::RefractorScreen)
     }
 }

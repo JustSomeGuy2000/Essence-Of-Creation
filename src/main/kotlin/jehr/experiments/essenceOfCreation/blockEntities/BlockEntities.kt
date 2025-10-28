@@ -20,6 +20,7 @@ object EoCBlockEntities {
     val roggenStatueBlockEntity = register("${RoggenStatue.ID}_memory", ::RoggenStatueBlockEntity, EoCBlocks.roggenStatue)
     val essentialExtractorBlockEntity = register("${EssentialExtractor.ID}_memory", ::EssentialExtractorBlockEntity, EoCBlocks.essentialExtractor)
     val essentialInfuserBlockEntity = register("${EssentialInfuser.ID}_memory", ::EssentialInfuserBlockEntity, EoCBlocks.essentialInfuser)
+    val refractorBlockEntity = register(RefractorBlockEntity.ID, ::RefractorBlockEntity, EoCBlocks.refractor)
 
     fun init() {}
 

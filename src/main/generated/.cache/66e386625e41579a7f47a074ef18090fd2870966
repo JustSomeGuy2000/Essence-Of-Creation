@@ -17,6 +17,7 @@ d83ee3db0851dad59d8a5e7939ff44955785c606 assets/essence-of-creation/items/essenc
 0538df5aeabb4982f3ad995244aeffef738ef72b assets/essence-of-creation/items/essential_infuser.json
 462a843e1f50b4babe3228c46ecc1af660ab4bb4 assets/essence-of-creation/items/god_apple.json
 e61a65ffd7084a3b393827a329a6b2e80853fa7e assets/essence-of-creation/items/handheld_infuser.json
+a587c9ff36c2bad749ba0de4200e16fbf0d5e4fc assets/essence-of-creation/items/interitor_heart.json
 5ba16dfa69bc2673248ba56d622ed1f5902bf2e7 assets/essence-of-creation/items/roggen_statue.json
 e7da90bb6da733173d98569c9a113c68fc8ba671 assets/essence-of-creation/items/rye.json
 8acead65edb52907ab4e6c57a5ec9bac5bc6c3f4 assets/essence-of-creation/items/rye_bale.json
@@ -49,6 +50,7 @@ a3853f6c5c94d2af45367e61272c64469711975a assets/essence-of-creation/models/item/
 280e4f7310e6a9104a41484ebfc5ed17c77d9686 assets/essence-of-creation/models/item/essence_of_creation.json
 8d3dd8971cd2d4e7870d693a3c3c2bd52a190891 assets/essence-of-creation/models/item/god_apple.json
 36e4ea36b00747579bc5a740e722339cec97c8ea assets/essence-of-creation/models/item/handheld_infuser.json
+99886ffc01e72ad88c1b6bc3e4af5a907f25c154 assets/essence-of-creation/models/item/interitor_heart.json
 d315cb211a5b448e819466191e8d3070c9b31497 assets/essence-of-creation/models/item/rye.json
 b49b30ea234758118767c33577fb8e5525d5d489 assets/essence-of-creation/models/item/sonic_gunsword.json
 950692b392e360c9827f4211953c1a1520896aeb assets/essence-of-creation/models/item/super_bone_meal.json

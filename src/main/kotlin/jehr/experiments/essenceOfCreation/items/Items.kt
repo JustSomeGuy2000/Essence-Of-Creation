@@ -8,6 +8,7 @@ import net.minecraft.component.DataComponentTypes
 import net.minecraft.component.type.AttributeModifierSlot
 import net.minecraft.component.type.AttributeModifiersComponent
 import net.minecraft.component.type.ConsumableComponents
+import net.minecraft.component.type.DamageResistantComponent
 import net.minecraft.component.type.DeathProtectionComponent
 import net.minecraft.component.type.FoodComponent
 import net.minecraft.component.type.WeaponComponent
@@ -24,6 +25,7 @@ import net.minecraft.registry.Registries
 import net.minecraft.registry.Registry
 import net.minecraft.registry.RegistryKey
 import net.minecraft.registry.RegistryKeys
+import net.minecraft.registry.tag.DamageTypeTags
 import net.minecraft.util.Identifier
 import net.minecraft.util.Rarity
 
@@ -92,6 +94,12 @@ object EoCItems {
     const val SUPER_GUN_SWORD_ID = "super_${GunSword.BASE_ID}"
     val superGunSword = register(SUPER_GUN_SWORD_ID, ::GunSword, GunSword.generateBaseSettings(9.0, -2.0, 10000, 50, 0))
     val balefulSnowballItem = register(BalefulSnowballItem.ID, ::BalefulSnowballItem, Item.Settings().maxCount(16))
+    const val INTERITOR_HEART_ID = "interitor_heart"
+    val interitorHeart = register(INTERITOR_HEART_ID, ::Item, Item.Settings()
+        .rarity(Rarity.RARE)
+        .component(DataComponentTypes.ENCHANTMENT_GLINT_OVERRIDE, true)
+        .component(DataComponentTypes.DAMAGE_RESISTANT, DamageResistantComponent(DamageTypeTags.IS_EXPLOSION))
+        .component(DataComponentTypes.DAMAGE_RESISTANT, DamageResistantComponent(DamageTypeTags.IS_FIRE)))
 
     fun init() {
         ItemGroupEvents.modifyEntriesEvent(EoCMain.EoCItemGroupKey).register{
@@ -104,6 +112,7 @@ object EoCItems {
             it.add(this.cane)
             it.add(this.superGunSword)
             it.add(this.balefulSnowballItem)
+            it.add(this.interitorHeart)
         }
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.COMBAT).register{
             it.add(this.ironGunSword)

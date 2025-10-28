@@ -1,17 +1,7 @@
 {
   "parent": "essence-of-creation:got_eoc",
   "criteria": {
-    "25b64df1-9ae2-4b36-986e-658fbbbe3f3f": {
-      "conditions": {
-        "items": [
-          {
-            "items": "essence-of-creation:netherite_gunsword"
-          }
-        ]
-      },
-      "trigger": "minecraft:inventory_changed"
-    },
-    "2ca5df66-9a87-46c8-9865-db44ae257567": {
+    "0a1fd4a6-0fc2-4418-a3fc-78b11afa925d": {
       "conditions": {
         "items": [
           {
@@ -21,37 +11,7 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
-    "52dda85c-4d0e-4159-9ee2-066d1e84cd4e": {
-      "conditions": {
-        "items": [
-          {
-            "items": "essence-of-creation:diamond_gunsword"
-          }
-        ]
-      },
-      "trigger": "minecraft:inventory_changed"
-    },
-    "6b393b47-e152-418a-bcc0-a66441b305ab": {
-      "conditions": {
-        "items": [
-          {
-            "items": "essence-of-creation:god_apple"
-          }
-        ]
-      },
-      "trigger": "minecraft:inventory_changed"
-    },
-    "bbfc8ece-0766-478e-82fb-47a31e6e4a21": {
-      "conditions": {
-        "items": [
-          {
-            "items": "essence-of-creation:super_bone_meal"
-          }
-        ]
-      },
-      "trigger": "minecraft:inventory_changed"
-    },
-    "bfe7f8d5-5bd7-4084-8e01-07aa9cbb8466": {
+    "54ff43a7-9449-4290-879b-f83356880003": {
       "conditions": {
         "items": [
           {
@@ -61,17 +21,7 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
-    "c53bb5ec-8b23-495a-9c22-08bfc41f9ed6": {
-      "conditions": {
-        "items": [
-          {
-            "items": "essence-of-creation:golden_gunsword"
-          }
-        ]
-      },
-      "trigger": "minecraft:inventory_changed"
-    },
-    "c6203e78-fb7b-4e78-b7f1-46533cd680c8": {
+    "7c20f183-0207-4637-8175-a6a206db34b2": {
       "conditions": {
         "items": [
           {
@@ -81,11 +31,61 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
-    "d2ed94ac-13bd-4ff5-8e58-8920ab4e1481": {
+    "8b1608af-25ae-46bd-94d5-e8ac2c737029": {
       "conditions": {
         "items": [
           {
             "items": "essence-of-creation:scaffold_seed"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "8c24c3ba-de57-4ce3-a652-b06120e1efb7": {
+      "conditions": {
+        "items": [
+          {
+            "items": "essence-of-creation:god_apple"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "c97b5046-54b5-475b-a627-3d6e94c58312": {
+      "conditions": {
+        "items": [
+          {
+            "items": "essence-of-creation:golden_gunsword"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "c9aa12f1-f543-419c-b9cc-0a3b34bc8208": {
+      "conditions": {
+        "items": [
+          {
+            "items": "essence-of-creation:super_bone_meal"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "ec15c8ec-0e78-4eed-bc04-25b0e4d2a20c": {
+      "conditions": {
+        "items": [
+          {
+            "items": "essence-of-creation:netherite_gunsword"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "f4d9bcb3-81fa-4243-bf94-9b0af5d4b7dc": {
+      "conditions": {
+        "items": [
+          {
+            "items": "essence-of-creation:diamond_gunsword"
           }
         ]
       },
@@ -105,15 +105,15 @@
   },
   "requirements": [
     [
-      "d2ed94ac-13bd-4ff5-8e58-8920ab4e1481",
-      "c6203e78-fb7b-4e78-b7f1-46533cd680c8",
-      "6b393b47-e152-418a-bcc0-a66441b305ab",
-      "bbfc8ece-0766-478e-82fb-47a31e6e4a21",
-      "bfe7f8d5-5bd7-4084-8e01-07aa9cbb8466",
-      "2ca5df66-9a87-46c8-9865-db44ae257567",
-      "c53bb5ec-8b23-495a-9c22-08bfc41f9ed6",
-      "52dda85c-4d0e-4159-9ee2-066d1e84cd4e",
-      "25b64df1-9ae2-4b36-986e-658fbbbe3f3f",
+      "8b1608af-25ae-46bd-94d5-e8ac2c737029",
+      "7c20f183-0207-4637-8175-a6a206db34b2",
+      "8c24c3ba-de57-4ce3-a652-b06120e1efb7",
+      "c9aa12f1-f543-419c-b9cc-0a3b34bc8208",
+      "54ff43a7-9449-4290-879b-f83356880003",
+      "0a1fd4a6-0fc2-4418-a3fc-78b11afa925d",
+      "c97b5046-54b5-475b-a627-3d6e94c58312",
+      "f4d9bcb3-81fa-4243-bf94-9b0af5d4b7dc",
+      "ec15c8ec-0e78-4eed-bc04-25b0e4d2a20c",
       "used_handheld_infuser"
     ]
   ],

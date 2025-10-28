@@ -46,6 +46,7 @@ import net.minecraft.registry.RegistryWrapper
 import net.minecraft.registry.tag.BlockTags
 import net.minecraft.registry.tag.EntityTypeTags
 import net.minecraft.registry.tag.ItemTags
+import net.minecraft.registry.tag.TagKey
 import net.minecraft.text.Text
 import net.minecraft.util.Identifier
 import net.minecraft.util.math.Direction
@@ -123,7 +124,12 @@ class EoCLangProviderEnUs(dataOutput: FabricDataOutput, registryLookup: Completa
 		builder.add("item.$id.${EoCItems.SUPER_GUN_SWORD_ID}", "Super Gun-Sword")
 		builder.add("tag.item.$id.${EoCTags.upgradeableGunSword.id}", "upgradeable_gunsword")
 		builder.add("tag.item.$id.${EoCTags.gunSwordBulletBreakable.id}", "breakble_by_gunsword_bullet")
+		builder.add("item.$id.${BalefulPoppy.ID}", "Baleful Poppy")
 		builder.add("item.$id.${BalefulSnowballItem.ID}", "Baleful Snowball")
+		builder.add("item.$id.${EoCItems.INTERITOR_HEART_ID}", "Interitor Heart")
+		builder.add("item.$id.${Refractor.ID}", "Refractor")
+		builder.add("block.$id.${Refractor.ID}", "Refractor")
+		builder.add("container.refractor", "Refractor")
 	}
 }
 
@@ -218,6 +224,7 @@ class EoCModelProvider(dataOutput: FabricDataOutput): FabricModelProvider(dataOu
 		img.register(EoCItems.emeraldGunSword, Models.HANDHELD)
 		img.register(EoCItems.superGunSword, Models.HANDHELD)
 		img.register(EoCItems.balefulSnowballItem, Models.GENERATED)
+		img.register(EoCItems.interitorHeart, Models.GENERATED)
 	}
 }
 
@@ -309,6 +316,15 @@ class EoCRecipeProvider(dataOutput: FabricDataOutput, registryLookup: Completabl
 					.input(Items.EMERALD)
 					.criterion(hasItem(Items.EMERALD), conditionsFromItem(Items.EMERALD))
 					.offerTo(exporter)
+				createShaped(RecipeCategory.MISC, EoCBlocks.refractor, 1)
+					.pattern("ggg")
+					.pattern("ghg")
+					.pattern("ooo")
+					.input('g', Blocks.GLASS)
+					.input('h', EoCItems.interitorHeart)
+					.input('o', Blocks.OBSIDIAN)
+					.criterion(hasItem(EoCItems.interitorHeart), conditionsFromItem(EoCItems.interitorHeart))
+					.offerTo(exporter)
 			}
 		}
 }
@@ -378,6 +394,8 @@ class EoCItemTagProvider(output: FabricDataOutput, registryLookup: CompletableFu
 			.add(EoCItems.netheriteGunSword)
 		valueLookupBuilder(EoCTags.triggersIntentOfCreation)
 			.add(EoCBlocks.balefulPoppy.asItem())
+			.add(EoCItems.balefulSnowballItem)
+			.add(EoCItems.interitorHeart)
 	}
 }
 

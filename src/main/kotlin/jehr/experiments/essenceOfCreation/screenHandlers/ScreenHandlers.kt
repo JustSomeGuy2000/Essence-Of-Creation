@@ -15,6 +15,7 @@ object EoCScreenHandlers {
 
     val essentialExtractorScreenHandler = register("${EssentialExtractor.ID}_screen_handler", ::EssentialExtractorScreenHandler)
     val essentialInfuserScreenHandler = register("${EssentialInfuser.ID}_screen_handler", ::EssentialInfuserScreenHandler)
+    val refractorScreenHandler = register(RefractorScreenHandler.ID, ::RefractorScreenHandler)
 
     fun init() {}
 
