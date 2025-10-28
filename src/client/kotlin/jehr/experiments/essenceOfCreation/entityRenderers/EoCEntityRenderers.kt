@@ -4,6 +4,7 @@ import jehr.experiments.essenceOfCreation.entities.EoCEntities
 import jehr.experiments.essenceOfCreation.entityModels.GunSwordBulletModel
 import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry
+import net.minecraft.client.render.entity.FlyingItemEntityRenderer
 
 object EoCEntityRenderers {
 
@@ -12,6 +13,7 @@ object EoCEntityRenderers {
         EntityRendererRegistry.register(EoCEntities.gunSwordBulletWC) { GunSwordBulletRenderer(it) }
         EntityRendererRegistry.register(EoCEntities.gunSwordBulletSB) { GunSwordBulletRenderer(it) }
         EntityModelLayerRegistry.registerModelLayer(GunSwordBulletModel.layer, GunSwordBulletModel::getTexturedModelData)
+        EntityRendererRegistry.register(EoCEntities.balefulSnowballEntity, {ctx -> FlyingItemEntityRenderer(ctx)})
     }
 }
 

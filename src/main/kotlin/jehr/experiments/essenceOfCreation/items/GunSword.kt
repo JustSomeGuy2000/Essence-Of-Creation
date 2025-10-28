@@ -112,7 +112,8 @@ open class GunSword(settings: Settings): RangedWeaponItem(settings) {
     override fun shoot(shooter: LivingEntity, projectile: ProjectileEntity, index: Int, speed: Float, divergence: Float, yaw: Float, target: LivingEntity?) {
         /*Yaw is between 90 and -90, negative values upwards, 0 is parallel to ground.
          * Pitch is between 180 and -180, 0 is south (z-axis), negative values towards positive x (east).*/
-        projectile.setVelocity(shooter, shooter.pitch, shooter.yaw + yaw, 0.0F, speed, divergence)
+        val dir = Vec3d.fromPolar(shooter.pitch, shooter.yaw).normalize()
+        projectile.setVelocity(dir.x, dir.y, dir.z, speed, divergence)
     }
 
     open fun spawnAndShoot(world: World, shooter: LivingEntity, info: Info, divergence: Float): Boolean {

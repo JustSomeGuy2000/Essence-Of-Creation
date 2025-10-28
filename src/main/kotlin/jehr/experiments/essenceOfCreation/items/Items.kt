@@ -91,6 +91,7 @@ object EoCItems {
     val emeraldGunSword = register(GunSword.Emerald.ID, GunSword::Emerald, GunSword.generateBaseSettings(6.0, -2.4, 1000, 0, 4))
     const val SUPER_GUN_SWORD_ID = "super_${GunSword.BASE_ID}"
     val superGunSword = register(SUPER_GUN_SWORD_ID, ::GunSword, GunSword.generateBaseSettings(9.0, -2.0, 10000, 50, 0))
+    val balefulSnowballItem = register(BalefulSnowballItem.ID, ::BalefulSnowballItem, Item.Settings().maxCount(16))
 
     fun init() {
         ItemGroupEvents.modifyEntriesEvent(EoCMain.EoCItemGroupKey).register{
@@ -102,6 +103,7 @@ object EoCItems {
             it.add(this.superBoneMeal)
             it.add(this.cane)
             it.add(this.superGunSword)
+            it.add(this.balefulSnowballItem)
         }
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.COMBAT).register{
             it.add(this.ironGunSword)

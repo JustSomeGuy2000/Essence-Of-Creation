@@ -1,5 +1,6 @@
 package jehr.experiments.essenceOfCreation.utils
 
+import net.minecraft.entity.Entity
 import net.minecraft.entity.damage.DamageSource
 import net.minecraft.entity.damage.DamageType
 import net.minecraft.registry.RegistryKey
@@ -15,4 +16,4 @@ fun scalarToVector(scalar: Double, pitch: Float, yaw: Float, roll: Float): Vec3d
     return Vec3d(x, y, z).normalize().multiply(scalar)
 }
 
-fun damageSourceOf(world: World, type: RegistryKey<DamageType>) = DamageSource(world.registryManager.getOrThrow(RegistryKeys.DAMAGE_TYPE).getEntry(type.value).get())
+fun damageSourceOf(world: World, type: RegistryKey<DamageType>, source: Entity? = null, attacker: Entity? = null) = DamageSource(world.registryManager.getOrThrow(RegistryKeys.DAMAGE_TYPE).getEntry(type.value).get(), source, attacker)

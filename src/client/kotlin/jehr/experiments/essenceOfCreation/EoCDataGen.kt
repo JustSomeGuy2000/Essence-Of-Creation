@@ -7,6 +7,7 @@ import jehr.experiments.essenceOfCreation.criteria.EoCCriteria
 import jehr.experiments.essenceOfCreation.criteria.RyeNotCriterion
 import jehr.experiments.essenceOfCreation.criteria.RyeTotemCriterion
 import jehr.experiments.essenceOfCreation.entities.EoCEntities
+import jehr.experiments.essenceOfCreation.items.BalefulSnowballItem
 import jehr.experiments.essenceOfCreation.items.EoCItems
 import jehr.experiments.essenceOfCreation.items.EssenceOfCreation
 import jehr.experiments.essenceOfCreation.items.GunSword
@@ -122,6 +123,7 @@ class EoCLangProviderEnUs(dataOutput: FabricDataOutput, registryLookup: Completa
 		builder.add("item.$id.${EoCItems.SUPER_GUN_SWORD_ID}", "Super Gun-Sword")
 		builder.add("tag.item.$id.${EoCTags.upgradeableGunSword.id}", "upgradeable_gunsword")
 		builder.add("tag.item.$id.${EoCTags.gunSwordBulletBreakable.id}", "breakble_by_gunsword_bullet")
+		builder.add("item.$id.${BalefulSnowballItem.ID}", "Baleful Snowball")
 	}
 }
 
@@ -206,7 +208,7 @@ class EoCModelProvider(dataOutput: FabricDataOutput): FabricModelProvider(dataOu
 		img.register(EoCItems.essenceOfCreation, Models.GENERATED)
 		img.register(EoCItems.rye, Models.GENERATED)
 		img.register(EoCItems.totemOfUnrying, Models.GENERATED)
-		img.register(EoCItems.handheldInfuser, Models.GENERATED) // change to 3D in the future
+		img.register(EoCItems.handheldInfuser, Models.GENERATED) //TODO: change to 3D in the future
 		img.register(EoCItems.godApple, Models.GENERATED)
 		img.register(EoCItems.superBoneMeal, Models.GENERATED)
 		img.register(EoCItems.cane, Models.HANDHELD)
@@ -215,6 +217,7 @@ class EoCModelProvider(dataOutput: FabricDataOutput): FabricModelProvider(dataOu
 		img.register(EoCItems.sonicGunSword, Models.HANDHELD)
 		img.register(EoCItems.emeraldGunSword, Models.HANDHELD)
 		img.register(EoCItems.superGunSword, Models.HANDHELD)
+		img.register(EoCItems.balefulSnowballItem, Models.GENERATED)
 	}
 }
 
@@ -228,6 +231,7 @@ class EoCBlockLootTableProvider(dataOutput: FabricDataOutput, registryLookup: Co
 		addDrop(EoCBlocks.essentialExtractor)
 		addDrop(EoCBlocks.essentialInfuser)
 		addDrop(EoCBlocks.ryeBale)
+		addDrop(EoCBlocks.balefulPoppy)
 	}
 }
 

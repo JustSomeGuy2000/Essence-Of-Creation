@@ -51,6 +51,7 @@ For ages Essence of Creation has been irretrievably locked away, but no longer. 
 - Super Bone Meal (Bone Meal): Applies Bone Meal 16 times to every block in a 5x5 are around the targeted block.
 - Cane (Stick): A weak melee weapon that gives a speed and knockback boost.
 - Gun-Sword (Sword): A weapon that can be used as a melee on left-click, or a ranged on right-click. Inaccuracy decreases with aiming time. Different materials have different stats, wiht Iron being the minimum. Diamond and Netherite Gun-Swords can also be combined with 1 of certain materials in a Crafting Table to produce special Gun-Swords. Currently available materials are Emerald, Amethyst, Echo Shard and Breeze Rod.
+- Baleful Snowball: A throwable item that deals 5 dmg and heavy knockback on impact.
 ## Entities
 - Gun Sword Bullet: The bullet of the Gun-Sword.
 ## Status Effects

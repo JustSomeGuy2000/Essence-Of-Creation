@@ -8,6 +8,7 @@ ba805276e3caec259d6bbc055c9daa8c5cf9a044 assets/essence-of-creation/blockstates/
 604a7724416c80063ad0776f2c9131383b06bc28 assets/essence-of-creation/blockstates/scaffold_trunk.json
 01af7b7a87f3bfb995178787f8df8eeb5303ad46 assets/essence-of-creation/blockstates/spatial_displacer.json
 df01786945be61b3c9c5984f874674be1fac0573 assets/essence-of-creation/items/amethyst_gunsword.json
+20db097957e2498249d25fe3eaead3e3c1573503 assets/essence-of-creation/items/baleful_snowball.json
 6dbe8a87928368884c6b0d55e230021b002cb460 assets/essence-of-creation/items/breezy_gunsword.json
 cce3f9afee29ab2ee04d954a9ec3ca747f2e924d assets/essence-of-creation/items/cane.json
 4bd66feb3404d15a283bf9da2071820d021976cb assets/essence-of-creation/items/emerald_gunsword.json
@@ -41,6 +42,7 @@ bfca0a09c64cd9831bf287f6192de697c5299ebe assets/essence-of-creation/models/block
 78d82346e22e61bcb1a26425f19bcdf18ede43c8 assets/essence-of-creation/models/block/scaffold_trunk.json
 c40c750774495e0e9be6dd05611768a7755a2ce8 assets/essence-of-creation/models/block/spatial_displacer.json
 8b493f742e41e156122f27321c4af0820ccf5398 assets/essence-of-creation/models/item/amethyst_gunsword.json
+0e6a701f8e5811c3dd0e47cc0bb137f01836ec41 assets/essence-of-creation/models/item/baleful_snowball.json
 3cfc2b93195cffde92a4ef0245995f46e70c7e6e assets/essence-of-creation/models/item/breezy_gunsword.json
 a3853f6c5c94d2af45367e61272c64469711975a assets/essence-of-creation/models/item/cane.json
 91c5ae94d207a983b14dc34c2ecb85fd071bcc72 assets/essence-of-creation/models/item/emerald_gunsword.json

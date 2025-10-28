@@ -22,6 +22,9 @@ object EoCEntities {
     val gunSwordBulletSB = register(GunSwordBullet.ID_SB, GunSwordBullet::SonicBoom, {
         this.dimensions(0.5F, 0.5F).maxTrackingRange(25)
     })
+    val balefulSnowballEntity = register(BalefulSnowballEntity.ID, ::BalefulSnowballEntity, {
+        this.dimensions(0.3F, 0.3F).maxTrackingRange(10).dropsNothing().trackingTickInterval(10)
+    })
 
     fun init() {}
 
