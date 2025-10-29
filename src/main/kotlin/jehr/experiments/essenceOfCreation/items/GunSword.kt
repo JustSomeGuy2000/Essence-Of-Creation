@@ -91,8 +91,7 @@ open class GunSword(settings: Settings): RangedWeaponItem(settings) {
     override fun onStoppedUsing(stack: ItemStack, world: World, user: LivingEntity, remainingUseTicks: Int): Boolean {
         if (world.isClient) return false
         val info = getInfo(user) ?: return false
-        val accuracy = max(Info.BASE_DIVERGENCE - (Info.MAX_USE_TIME - remainingUseTicks) * info.accuratiseRate, 0.0F)
-        this.spawnAndShoot(world, user, info, accuracy)
+        this.spawnAndShoot(world, user, info, 0F)
         if (user is PlayerEntity) {
             this.applyCost(user, info)
             user.itemCooldownManager.set(ItemStack(this), this.components.get(EoCComponents.gunSwordInfoComponent)?.cd ?: Info.BASE_COOLDOWN)
@@ -195,8 +194,6 @@ open class GunSword(settings: Settings): RangedWeaponItem(settings) {
     }
 
     data class Info(val bulletDmg: Int, val bulletCost: Int, val gravity: Float = BASE_GRAVITY, val shotVelocity: Float = BASE_VELOCITY, val drag: Float = BASE_DRAG, val cd: Int = BASE_COOLDOWN, val accTime: Int = ACCURATISE_TIME, val boost: Boolean = false) {
-        /**Rate at which inaccuracy decreases, in 0.0172275/t. (0.0172275 radians per tick)*/
-        val accuratiseRate = BASE_DIVERGENCE/accTime
 
         companion object {
             /**Acceleration downwards, in b/t^2.*/
@@ -205,8 +202,6 @@ open class GunSword(settings: Settings): RangedWeaponItem(settings) {
             const val BASE_VELOCITY = 10.0F
             /**Drag force, ib b/t^2 opposite velocity.*/
             const val BASE_DRAG = 0.0005F
-            /**Hip-fire inaccuracy in 0.0172275 radians (or 0.987 degrees) of pitch, roll and yaw. The significance of the constant eludes me.*/
-            const val BASE_DIVERGENCE = 20.0F
             /**Amount of aiming time to 0 inaccuracy, in ticks.*/
             const val ACCURATISE_TIME = 40
             /**How long before it automatically shoots, in ticks.*/

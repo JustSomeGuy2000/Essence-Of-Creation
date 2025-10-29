@@ -42,6 +42,7 @@ For ages Essence of Creation has been irretrievably locked away, but no longer. 
 - Essential Extractor: Allows Essence of Creation to be extracted from objects. Takes in two inputs: a souce and a fuel. Different items have different fuel values or extraction efficiencies (look at EssentialExtractor.Companion.sources/fuels for a list). Both are used up in the process.
 - Essential Infuser: Allows Essence of Creation to be infused into items. Takes in two inputs: a source and an Essence. Each Essence may be infused into one and only one item. Infusable items are shown here with brackets after thieir name showing their source item.
 - Baleful Poppy: Heavily damages and slows entites in contact with it. Dropped by Iron Behemoths.
+- Refractor: **Developing...**
 ## Items
 - Essence of Creation: The core component of the mod. Can be extracted from and infused into some items and blocks.
 - Rye: A long lost grain. Obtained by being afflicted with Blessing of Rye.
@@ -87,3 +88,8 @@ sss
 ice
 shi
 s: Empty, i: Iron Ingot, c: Crossbow, e: Essential Infuser, h: Chest
+- Refractor (Shaped Crafting):
+ggg
+ghg
+ooo
+g: Glass, h: Interitor Heart, o: Obsidian

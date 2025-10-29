@@ -18,6 +18,7 @@ import net.minecraft.registry.RegistryKeys
 import net.minecraft.sound.BlockSoundGroup
 import net.minecraft.util.DyeColor
 import net.minecraft.util.Identifier
+import net.minecraft.util.Rarity
 
 object EoCBlocks {
 
@@ -31,7 +32,7 @@ object EoCBlocks {
     val essentialExtractor = register(EssentialExtractor.ID, ::EssentialExtractor, AbstractBlock.Settings.create().sounds(BlockSoundGroup.STONE).mapColor(DyeColor.GRAY).hardness(6.0f).resistance(5.0f).luminance { state ->  if (state.get(EssentialExtractor.condition).bool) 13 else 0 })
     val essentialInfuser = register(EssentialInfuser.ID, ::EssentialInfuser, AbstractBlock.Settings.create().sounds(BlockSoundGroup.STONE).mapColor(DyeColor.GRAY).hardness(6.0f).resistance(1200.0F).luminance { state -> if (state.get(EssentialInfuser.active)) 13 else 0 })
     val balefulPoppy = register(BalefulPoppy.ID, ::BalefulPoppy, AbstractBlock.Settings.create().sounds(BlockSoundGroup.GRASS).mapColor(DyeColor.RED).noCollision().breakInstantly().offset(AbstractBlock.OffsetType.XZ).pistonBehavior(PistonBehavior.DESTROY))
-    val refractor = register(Refractor.ID, ::Refractor, AbstractBlock.Settings.create().mapColor(MapColor.BRIGHT_RED).strength(4.0F).luminance{ state -> 15 }.nonOpaque().solidBlock(Blocks::never))
+    val refractor = register(Refractor.ID, ::Refractor, AbstractBlock.Settings.create().mapColor(MapColor.BRIGHT_RED).strength(4.0F).luminance{ state -> 15 }.nonOpaque().solidBlock(Blocks::never)) {rarity(Rarity.EPIC)}
 
     fun init() {
         ItemGroupEvents.modifyEntriesEvent(EoCMain.EoCItemGroupKey).register{
@@ -50,12 +51,12 @@ object EoCBlocks {
         }
     }
 
-    fun register(name: String, factory: (AbstractBlock.Settings) -> Block, settings: AbstractBlock.Settings, registerItem: Boolean = true): Block {
+    fun register(name: String, factory: (AbstractBlock.Settings) -> Block, settings: AbstractBlock.Settings, registerItem: Boolean = true, itemSettings: Item.Settings.() -> Unit = {this}): Block {
         val blockKey = RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(EoCMain.MOD_ID, name))
         val block = factory(settings.registryKey(blockKey))
         if (registerItem) {
             val itemKey = RegistryKey.of(RegistryKeys.ITEM, Identifier.of(EoCMain.MOD_ID, name))
-            val item = BlockItem(block, Item.Settings().registryKey(itemKey))
+            val item = BlockItem(block, Item.Settings().registryKey(itemKey).apply(itemSettings))
             Registry.register(Registries.ITEM, itemKey, item)
         }
         Registry.register(Registries.BLOCK, blockKey, block)

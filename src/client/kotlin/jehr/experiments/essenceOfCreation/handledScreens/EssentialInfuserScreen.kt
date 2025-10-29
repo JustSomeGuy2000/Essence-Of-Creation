@@ -22,7 +22,8 @@ class EssentialInfuserScreen(handler: EssentialInfuserScreenHandler, playerInv: 
 
     override fun init() {
         super.init()
-        this.titleX = (backgroundWidth - textRenderer.getWidth(title)) / 2
+        //this.titleX = (backgroundWidth - textRenderer.getWidth(title)) / 2
+        this.title = Text.literal("")
     }
 
     override fun drawBackground(context: DrawContext, deltaTicks: Float, mouseX: Int, mouseY: Int) {
