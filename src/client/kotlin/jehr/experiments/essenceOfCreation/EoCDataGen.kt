@@ -130,6 +130,8 @@ class EoCLangProviderEnUs(dataOutput: FabricDataOutput, registryLookup: Completa
 		builder.add("item.$id.${Refractor.ID}", "Refractor")
 		builder.add("block.$id.${Refractor.ID}", "Refractor")
 		builder.add("container.refractor", "Refractor")
+		builder.add("block.$id.${Refractor.ID}.blessing", "For Thyself")
+		builder.add("block.$id.${Refractor.ID}.curse", "For Thy Foes")
 	}
 }
 

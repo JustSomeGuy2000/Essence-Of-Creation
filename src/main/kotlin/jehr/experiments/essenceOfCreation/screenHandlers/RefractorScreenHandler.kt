@@ -57,6 +57,18 @@ class RefractorScreenHandler(syncId: Int, playerInv: PlayerInventory, val delega
         return ItemStack.EMPTY
     }
 
+    override fun onClosed(player: PlayerEntity) {
+        super.onClosed(player)
+        if (!player.world.isClient) {
+            val itemStack = this.paymentSlot.takeStack(this.paymentSlot.getMaxItemCount())
+            if (!itemStack.isEmpty) {
+                player.dropItem(itemStack, false)
+            }
+        }
+    }
+
+    fun hasPayment() = this.paymentSlot.hasStack()
+
     class PaymentSlot(inv: Inventory, index: Int, coords: Pair<Int, Int>): Slot(inv, index, coords.first, coords.second) {
 
         override fun canInsert(stack: ItemStack) = stack.isIn(ItemTags.BEACON_PAYMENT_ITEMS)

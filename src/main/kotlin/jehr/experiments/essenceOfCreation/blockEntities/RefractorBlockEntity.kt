@@ -54,8 +54,8 @@ class RefractorBlockEntity(pos: BlockPos, state: BlockState): BlockEntity(EoCBlo
         val defaultName: Text = Text.translatable("container.refractor")
 
         const val INDEX_LEVEL = 0
-        const val INDEX_PRIMARY = 1
-        const val INDEX_SECONDARY = 2
+        const val INDEX_BLESSING = 1
+        const val INDEX_CURSE = 2
 
         const val KEY_PRIMARY = "primary_effect"
         const val KEY_SECONDARY = "secondary_effect"
@@ -63,12 +63,12 @@ class RefractorBlockEntity(pos: BlockPos, state: BlockState): BlockEntity(EoCBlo
         const val KEY_LEVEL = "level"
 
         const val EFFECT_AMPLIFIER = 1
-        val ownerEffectsByLevel = listOf(
+        val blessingsByLevel = listOf(
             listOf(StatusEffects.SPEED, StatusEffects.HASTE, StatusEffects.NIGHT_VISION),
             listOf(StatusEffects.STRENGTH, StatusEffects.RESISTANCE, StatusEffects.JUMP_BOOST),
             listOf(StatusEffects.REGENERATION, StatusEffects.LUCK),
             listOf(StatusEffects.SATURATION, StatusEffects.CONDUIT_POWER))
-        val enemyEffectsByLevel = listOf(
+        val cursesEffectsByLevel = listOf(
             listOf(StatusEffects.WEAVING, StatusEffects.OOZING, StatusEffects.INFESTED),
             listOf(StatusEffects.SLOWNESS, StatusEffects.MINING_FATIGUE),
             listOf(StatusEffects.DARKNESS, StatusEffects.HUNGER),
@@ -146,8 +146,8 @@ class RefractorBlockEntity(pos: BlockPos, state: BlockState): BlockEntity(EoCBlo
                         world,
                         pos,
                         blockEntity.level,
-                        blockEntity.primary,
-                        blockEntity.secondary
+                        blockEntity.blessing,
+                        blockEntity.curse
                     )
                     BeaconBlockEntity.playSound(world, pos, SoundEvents.BLOCK_BEACON_AMBIENT)
                 }
@@ -272,28 +272,28 @@ class RefractorBlockEntity(pos: BlockPos, state: BlockState): BlockEntity(EoCBlo
     var backingCustomName: Text? = null
 
     /**First effect to apply*/
-    var primary: RegistryEntry<StatusEffect>? = null
+    var blessing: RegistryEntry<StatusEffect>? = null
     /**Second effect to apply*/
-    var secondary: RegistryEntry<StatusEffect>? = null
+    var curse: RegistryEntry<StatusEffect>? = null
 
     /**Allows Screens to interact with this.*/
     val delegate = object: PropertyDelegate{
         override fun get(index: Int) = when(index) {
             INDEX_LEVEL -> this@RefractorBlockEntity.level
-            INDEX_PRIMARY -> BeaconScreenHandler.getRawIdForStatusEffect(this@RefractorBlockEntity.primary)
-            INDEX_SECONDARY -> BeaconScreenHandler.getRawIdForStatusEffect(this@RefractorBlockEntity.secondary)
+            INDEX_BLESSING -> BeaconScreenHandler.getRawIdForStatusEffect(this@RefractorBlockEntity.blessing)
+            INDEX_CURSE -> BeaconScreenHandler.getRawIdForStatusEffect(this@RefractorBlockEntity.curse)
             else -> {throw IllegalArgumentException()}
         }
 
         override fun set(index: Int, value: Int) = when(index) {
             INDEX_LEVEL -> this@RefractorBlockEntity.level = value
-            INDEX_PRIMARY -> {
+            INDEX_BLESSING -> {
                 if ((this@RefractorBlockEntity.world?.isClient ?: false) && this@RefractorBlockEntity.firstBeamSegments.isNotEmpty()) {
                     playSound(this@RefractorBlockEntity.world, this@RefractorBlockEntity.pos, SoundEvents.BLOCK_BEACON_ACTIVATE)
                 }
-                this@RefractorBlockEntity.primary = BeaconScreenHandler.getStatusEffectForRawId(value)
+                this@RefractorBlockEntity.blessing = BeaconScreenHandler.getStatusEffectForRawId(value)
             }
-            INDEX_SECONDARY -> this@RefractorBlockEntity.secondary = BeaconScreenHandler.getStatusEffectForRawId(value)
+            INDEX_CURSE -> this@RefractorBlockEntity.curse = BeaconScreenHandler.getStatusEffectForRawId(value)
             else -> {throw IllegalArgumentException()}
         }
 
@@ -315,16 +315,16 @@ class RefractorBlockEntity(pos: BlockPos, state: BlockState): BlockEntity(EoCBlo
 
     override fun readData(view: ReadView) {
         super.readData(view)
-        this.primary = readStatusEffect(view, KEY_PRIMARY)
-        this.secondary = readStatusEffect(view, KEY_SECONDARY)
+        this.blessing = readStatusEffect(view, KEY_PRIMARY)
+        this.curse = readStatusEffect(view, KEY_SECONDARY)
         this.backingCustomName = tryParseCustomName(view, KEY_CUSTOM_NAME)
         this.lock = ContainerLock.read(view)
     }
 
     override fun writeData(view: WriteView) {
         super.writeData(view)
-        writeStatusEffect(view, KEY_PRIMARY, this.primary)
-        writeStatusEffect(view, KEY_SECONDARY, this.secondary)
+        writeStatusEffect(view, KEY_PRIMARY, this.blessing)
+        writeStatusEffect(view, KEY_SECONDARY, this.curse)
         view.putInt(KEY_LEVEL, this.level)
         view.putNullable(KEY_CUSTOM_NAME, TextCodecs.CODEC, this.customName)
         this.lock.write(view)
