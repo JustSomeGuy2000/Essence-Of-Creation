@@ -7,7 +7,9 @@ import jehr.experiments.essenceOfCreation.clientUtils.BaseButton
 import jehr.experiments.essenceOfCreation.clientUtils.HasButtonTextures
 import jehr.experiments.essenceOfCreation.clientUtils.IconButton
 import jehr.experiments.essenceOfCreation.clientUtils.PropertyLinkedButton
+import jehr.experiments.essenceOfCreation.packets.UpdateRefractorC2SPacket
 import jehr.experiments.essenceOfCreation.screenHandlers.RefractorScreenHandler
+import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking
 import net.minecraft.client.gl.RenderPipelines
 import net.minecraft.client.gui.DrawContext
 import net.minecraft.client.gui.hud.InGameHud
@@ -22,7 +24,8 @@ import net.minecraft.screen.BeaconScreenHandler
 import net.minecraft.screen.ScreenTexts
 import net.minecraft.text.Text
 import net.minecraft.util.Identifier
-import kotlin.math.sign
+import net.minecraft.world.World
+import java.util.Optional
 
 class RefractorScreen(handler: RefractorScreenHandler, playerInv: PlayerInventory, title: Text): HandledScreen<RefractorScreenHandler>(handler, playerInv, Text.literal("")) {
 
@@ -43,8 +46,8 @@ class RefractorScreen(handler: RefractorScreenHandler, playerInv: PlayerInventor
         val cancelButtonCoords = Pair(190, 107)
         val doneTexture: Identifier = Identifier.ofVanilla("container/beacon/confirm")
         val doneButtonCoords = Pair(164, 107)
-        const val BLESSING_PYRAMID_X = 70
-        const val CURSE_PYRAMID_X = 185
+        const val BLESSING_PYRAMID_X = 75
+        const val CURSE_PYRAMID_X = 190
         const val PYRAMIDS_Y = 20
         const val PYRAMID_ROW_SPACING = 8
         const val PYRAMID_COLUMN_SPACING = 4
@@ -52,8 +55,8 @@ class RefractorScreen(handler: RefractorScreenHandler, playerInv: PlayerInventor
 
     val delegate = this.handler.delegate
     val buttons  = mutableListOf<BaseButton<*>>()
-    val chosenBlessing: RegistryEntry<StatusEffect>? = null
-    val chosenCurse: RegistryEntry<StatusEffect>? = null
+    var chosenBlessing: RegistryEntry<StatusEffect>? = BeaconScreenHandler.getStatusEffectForRawId(this.delegate.get(RefractorBlockEntity.INDEX_BLESSING))
+    var chosenCurse: RegistryEntry<StatusEffect>? = BeaconScreenHandler.getStatusEffectForRawId(this.delegate.get(RefractorBlockEntity.INDEX_CURSE))
 
     init {
         this.backgroundWidth = 230
@@ -76,14 +79,21 @@ class RefractorScreen(handler: RefractorScreenHandler, playerInv: PlayerInventor
     }
 
     fun buildPyramid(items: List<List<RegistryEntry<StatusEffect>>>, startMidX: Int,blessing: Boolean, startY: Int = PYRAMIDS_Y + this.y, rowSpacing: Int = PYRAMID_ROW_SPACING, columnSpacing: Int = PYRAMID_COLUMN_SPACING, buttonDims: Pair<Int, Int> = IconButton.defaultIconDims) {
+        var yMark = startY
         for ((levelInd, levelList) in items.withIndex()) {
-            val len = levelList.size
-            for ((effectInd, effect) in levelList.withIndex()) {
-                val currentX = startMidX + (effectInd - (len / 2.0)) * buttonDims.first + columnSpacing * effectInd * sign(effectInd - (len / 2.0))
-                val currentY = startY + levelInd * (buttonDims.second + rowSpacing)
-                val button = EffectButton(blessing, effect, currentX.toInt(), currentY, {this.delegate.set(if (blessing) RefractorBlockEntity.INDEX_BLESSING else RefractorBlockEntity.INDEX_CURSE, BeaconScreenHandler.getRawIdForStatusEffect(it))}, levelInd)
+            val lenOnOneSide = (levelList.size / 2.0)
+            var xMark = startMidX - lenOnOneSide * buttonDims.first - lenOnOneSide * columnSpacing
+            for (effect in levelList) {
+                val button = EffectButton(blessing, effect, xMark.toInt(), yMark,
+                    if (blessing) {
+                        { this.chosenBlessing = effect }
+                    } else {
+                        { this.chosenCurse = effect }
+                    } , levelInd)
                 this.addButton(button)
+                xMark += buttonDims.first + columnSpacing
             }
+            yMark += buttonDims.second + rowSpacing
         }
     }
 
@@ -128,8 +138,13 @@ class RefractorScreen(handler: RefractorScreenHandler, playerInv: PlayerInventor
     inner class DoneButton(): IconButton<Companion>(RefractorScreen, doneTexture,  this@RefractorScreen.x + doneButtonCoords.first, this@RefractorScreen.y + doneButtonCoords.second, ScreenTexts.DONE) {
 
         override fun onPress() {
-            // TODO: See if networking is needed like in the BeaconScreen function
-            // TODO: Update selected blessing and curse for the block entity
+            if (this@RefractorScreen.handler.paymentSlot.hasStack()) {
+                this@RefractorScreen.delegate.set(RefractorBlockEntity.INDEX_BLESSING, BeaconScreenHandler.getRawIdForStatusEffect(this@RefractorScreen.chosenBlessing))
+                this@RefractorScreen.delegate.set(RefractorBlockEntity.INDEX_CURSE, BeaconScreenHandler.getRawIdForStatusEffect(this@RefractorScreen.chosenCurse))
+                this@RefractorScreen.handler.paymentSlot.takeStack(1)
+                this@RefractorScreen.handler.context.run(World::markDirty)
+            }
+            ClientPlayNetworking.send(UpdateRefractorC2SPacket(Optional.ofNullable(this@RefractorScreen.chosenBlessing), Optional.ofNullable(this@RefractorScreen.chosenCurse)))
             this@RefractorScreen.client?.player?.closeHandledScreen()
         }
 
@@ -150,7 +165,7 @@ class RefractorScreen(handler: RefractorScreenHandler, playerInv: PlayerInventor
         }
 
         override fun tickWithInt(level: Int) {
-            this.active = this.level <= level
+            this.active = this.level < level
             this.chosen = this.effect == if (this.blessing) this@RefractorScreen.chosenBlessing else this@RefractorScreen.chosenCurse
         }
     }

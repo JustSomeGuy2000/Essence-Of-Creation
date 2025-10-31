@@ -5,15 +5,20 @@ import jehr.experiments.essenceOfCreation.blockEntities.EoCBlockEntities
 import jehr.experiments.essenceOfCreation.blockEntities.RefractorBlockEntity
 import net.minecraft.block.BlockState
 import net.minecraft.block.BlockWithEntity
+import net.minecraft.block.Stainable
 import net.minecraft.block.entity.BlockEntity
 import net.minecraft.block.entity.BlockEntityType
+import net.minecraft.entity.LazyEntityReference
+import net.minecraft.entity.LivingEntity
 import net.minecraft.entity.player.PlayerEntity
+import net.minecraft.item.ItemStack
 import net.minecraft.util.ActionResult
+import net.minecraft.util.DyeColor
 import net.minecraft.util.hit.BlockHitResult
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.World
 
-class Refractor(settings: Settings): BlockWithEntity(settings) {
+class Refractor(settings: Settings): BlockWithEntity(settings), Stainable {
 
     companion object {
         const val ID = "refractor"
@@ -21,6 +26,7 @@ class Refractor(settings: Settings): BlockWithEntity(settings) {
     }
 
     override fun getCodec(): MapCodec<Refractor> = Companion.codec
+    override fun getColor() = DyeColor.RED
 
     override fun createBlockEntity(pos: BlockPos, state: BlockState) = RefractorBlockEntity(pos, state)
 
@@ -33,5 +39,13 @@ class Refractor(settings: Settings): BlockWithEntity(settings) {
             player.openHandledScreen(be)
         }
         return ActionResult.SUCCESS
+    }
+
+    override fun onPlaced(world: World, pos: BlockPos?, state: BlockState?, placer: LivingEntity?, itemStack: ItemStack?) {
+        super.onPlaced(world, pos, state, placer, itemStack)
+        val be = world.getBlockEntity(pos)
+        if (placer is PlayerEntity && be is RefractorBlockEntity) {
+            be.owner = LazyEntityReference(placer)
+        }
     }
 }

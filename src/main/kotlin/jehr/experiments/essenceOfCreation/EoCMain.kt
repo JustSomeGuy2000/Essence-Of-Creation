@@ -12,9 +12,9 @@ import jehr.experiments.essenceOfCreation.criteria.EoCCriteria
 import jehr.experiments.essenceOfCreation.damageTypes.EoCDamageTypes
 import jehr.experiments.essenceOfCreation.entities.EoCEntities
 import jehr.experiments.essenceOfCreation.items.EoCItems
+import jehr.experiments.essenceOfCreation.packets.EoCPackets
 import jehr.experiments.essenceOfCreation.particles.EoCParticles
 import jehr.experiments.essenceOfCreation.screenHandlers.EoCScreenHandlers
-import jehr.experiments.essenceOfCreation.statusEffects.BlessingOfRye
 import jehr.experiments.essenceOfCreation.statusEffects.EoCStatusEffects
 import jehr.experiments.essenceOfCreation.tags.EoCTags
 import net.fabricmc.api.ModInitializer
@@ -68,6 +68,7 @@ object EoCMain : ModInitializer {
 		EoCParticles.init()
 		EoCEntities.init()
 		EoCTags.init()
+		EoCPackets.init()
 	}
 
 	fun registerCommands() {

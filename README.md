@@ -30,6 +30,9 @@ For ages Essence of Creation has been irretrievably locked away, but no longer. 
 - Particles for Super Bone Meal don't work
 - Make blocks only be able to be mined with certain material levels
 - Add sound to the Gun-Sword
+- Refractor property delegate REFUSES TO SYNC. REFUSES. I'M GONNA TEAR MY HAIR OUT OVER THIS
+- Figure out what all the numbers supplied to rendering functions mean and how they affect the result.
+- Refractor beam never goes away.
 
 # Features
 ## Blocks
@@ -67,29 +70,39 @@ For ages Essence of Creation has been irretrievably locked away, but no longer. 
 - Intent of Creation (Anthropogenic): Obtain a Baleful Poppy, Baleful Snowball or Interitor Heart.
 ## Recipes
 - Rye Bale (Shapeless Crafting): Rye x9 
-- Scaffold Stripper (Shaped Crafting):
-iqi
-qsq
-iqi
+- Scaffold Stripper (Shaped Crafting):  
+```
+iqi  
+qsq  
+iqi  
+```
 i: Iron Ingot, s: Scaffold Seed, q: Nether Quartz
 - Totem of Unrying (Shapeless Crafting): Totem of Undying x1 + Rye Bale x8
-- Essential Extractor (Shaped Crafting):
-ddd
-ifi
-ddd
+- Essential Extractor (Shaped Crafting):  
+```
+ddd  
+ifi  
+ddd  
+```
 d: Cobbled Deepslate, i: Diamond, f: Furnace
-- Essential Infuser (Shaped Crafting):
-isi
-geg
-ooo
+- Essential Infuser (Shaped Crafting): 
+```
+isi  
+geg  
+ooo  
+```
 i: Iron Ingot, s: Empty, g: Glass, e: Essence of Creation, o: Obsidian
-- Handheld Infuser (Shaped Crafting):
-sss
-ice
-shi
+- Handheld Infuser (Shaped Crafting):  
+```
+sss  
+ice  
+shi  
+```
 s: Empty, i: Iron Ingot, c: Crossbow, e: Essential Infuser, h: Chest
-- Refractor (Shaped Crafting):
-ggg
-ghg
-ooo
+- Refractor (Shaped Crafting):  
+```
+ggg  
+ghg  
+ooo  
+```
 g: Glass, h: Interitor Heart, o: Obsidian

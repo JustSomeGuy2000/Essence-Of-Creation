@@ -1,7 +1,10 @@
 package jehr.experiments.essenceOfCreation.screenHandlers
 
+import jehr.experiments.essenceOfCreation.blockEntities.RefractorBlockEntity
 import jehr.experiments.essenceOfCreation.blocks.EoCBlocks
 import jehr.experiments.essenceOfCreation.blocks.Refractor
+import jehr.experiments.essenceOfCreation.packets.UpdateRefractorC2SPacket
+import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking
 import net.minecraft.entity.player.PlayerEntity
 import net.minecraft.entity.player.PlayerInventory
 import net.minecraft.inventory.Inventory
@@ -9,10 +12,13 @@ import net.minecraft.inventory.SimpleInventory
 import net.minecraft.item.ItemStack
 import net.minecraft.registry.tag.ItemTags
 import net.minecraft.screen.ArrayPropertyDelegate
+import net.minecraft.screen.BeaconScreenHandler
 import net.minecraft.screen.PropertyDelegate
 import net.minecraft.screen.ScreenHandler
 import net.minecraft.screen.ScreenHandlerContext
 import net.minecraft.screen.slot.Slot
+import net.minecraft.world.World
+import kotlin.jvm.optionals.getOrNull
 
 class RefractorScreenHandler(syncId: Int, playerInv: PlayerInventory, val delegate: PropertyDelegate, val context: ScreenHandlerContext): ScreenHandler(EoCScreenHandlers.refractorScreenHandler, syncId) {
 
@@ -68,6 +74,15 @@ class RefractorScreenHandler(syncId: Int, playerInv: PlayerInventory, val delega
     }
 
     fun hasPayment() = this.paymentSlot.hasStack()
+
+    fun setEffectFromPacket(packet: UpdateRefractorC2SPacket) {
+        if (this.paymentSlot.hasStack()) {
+            this.delegate.set(RefractorBlockEntity.INDEX_BLESSING, BeaconScreenHandler.getRawIdForStatusEffect(packet.blessing.getOrNull()))
+            this.delegate.set(RefractorBlockEntity.INDEX_CURSE, BeaconScreenHandler.getRawIdForStatusEffect(packet.curse.getOrNull()))
+            this.paymentSlot.takeStack(1)
+            this.context.run(World::markDirty)
+        }
+    }
 
     class PaymentSlot(inv: Inventory, index: Int, coords: Pair<Int, Int>): Slot(inv, index, coords.first, coords.second) {
 

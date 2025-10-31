@@ -28,14 +28,14 @@ abstract class BaseButton<T: HasButtonTextures>(val source: T, x: Int, y: Int, w
     var chosen = false
 
     companion object {
-        const val DEFAULT_WIDTH = 20
-        const val DEFAULT_HEIGHT = 20
+        const val DEFAULT_WIDTH = 16
+        const val DEFAULT_HEIGHT = 16
     }
 
     override fun renderWidget(context: DrawContext, mouseX: Int, mouseY: Int, deltaTicks: Float) {
         val id = if (!this.active) {
             this.source.buttonDisabledTexture
-        } else if (!this.chosen) {
+        } else if (this.chosen) {
             this.source.buttonSelectedTexture
         } else if (this.isSelected) {
             this.source.buttonHighlightedTexture
@@ -58,7 +58,7 @@ abstract class IconButton<T: HasButtonTextures>(source: T, val texture: Identifi
 
     companion object {
         val defaultIconOffset = Pair(2, 2)
-        val defaultIconDims = Pair(16, 16)
+        val defaultIconDims = Pair(12, 12)
     }
 
     override fun renderExtra(context: DrawContext, mX: Int, mY: Int, dT: Float) {

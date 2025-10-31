@@ -1,5 +1,7 @@
 package jehr.experiments.essenceOfCreation.blockEntities
 
+import com.mojang.serialization.Codec
+import com.mojang.serialization.codecs.UnboundedMapCodec
 import jehr.experiments.essenceOfCreation.blocks.Refractor
 import jehr.experiments.essenceOfCreation.screenHandlers.RefractorScreenHandler
 import net.minecraft.advancement.criterion.Criteria
@@ -14,6 +16,7 @@ import net.minecraft.block.entity.LockableContainerBlockEntity
 import net.minecraft.component.ComponentMap
 import net.minecraft.component.ComponentsAccess
 import net.minecraft.component.DataComponentTypes
+import net.minecraft.entity.LazyEntityReference
 import net.minecraft.entity.effect.StatusEffect
 import net.minecraft.entity.effect.StatusEffectInstance
 import net.minecraft.entity.effect.StatusEffects
@@ -40,18 +43,23 @@ import net.minecraft.text.Text
 import net.minecraft.text.TextCodecs
 import net.minecraft.util.DyeColor
 import net.minecraft.util.Nameable
+import net.minecraft.util.dynamic.Codecs
 import net.minecraft.util.math.BlockPos
 import net.minecraft.util.math.Box
 import net.minecraft.util.math.ColorHelper
 import net.minecraft.world.Heightmap
 import net.minecraft.world.World
+import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-class RefractorBlockEntity(pos: BlockPos, state: BlockState): BlockEntity(EoCBlockEntities.refractorBlockEntity, pos, state), NamedScreenHandlerFactory, BeamEmitter, Stainable, Nameable {
+class RefractorBlockEntity(pos: BlockPos, state: BlockState): BlockEntity(EoCBlockEntities.refractorBlockEntity, pos, state), NamedScreenHandlerFactory, BeamEmitter, Nameable {
 
     companion object {
         const val ID = "${Refractor.ID}_block_entity"
         val defaultName: Text = Text.translatable("container.refractor")
+        val playerCodec: Codec<Optional<LazyEntityReference<PlayerEntity>>> = Codecs.optional(LazyEntityReference.createCodec<PlayerEntity>())
+        val playersCodec: Codec<Optional<Map<LazyEntityReference<PlayerEntity>, Int>>> = Codecs.optional(Codec.unboundedMap(
+            LazyEntityReference.createCodec<PlayerEntity>(), Codec.INT))
 
         const val INDEX_LEVEL = 0
         const val INDEX_BLESSING = 1
@@ -61,6 +69,10 @@ class RefractorBlockEntity(pos: BlockPos, state: BlockState): BlockEntity(EoCBlo
         const val KEY_SECONDARY = "secondary_effect"
         const val KEY_CUSTOM_NAME = "CustomName"
         const val KEY_LEVEL = "level"
+        const val KEY_OWNER = "owner"
+        const val KEY_ENEMIES = "enemies"
+
+        const val REMEMBER_ENEMY_TIME = 20 * 60 * 60
 
         const val EFFECT_AMPLIFIER = 1
         val blessingsByLevel = listOf(
@@ -77,6 +89,13 @@ class RefractorBlockEntity(pos: BlockPos, state: BlockState): BlockEntity(EoCBlo
 
         /**Time to analyse how the Beacon works.*/
         fun tick(world: World, pos: BlockPos, state: BlockState, blockEntity: RefractorBlockEntity) {
+            for ((enemy, time) in blockEntity.enemies) {
+                blockEntity.enemies.remove(enemy)
+                if ((time - 1) <= 0) {
+                    blockEntity.enemies[enemy] = time - 1
+                }
+            }
+
             val x = pos.x
             val y = pos.y
             val z = pos.z
@@ -271,10 +290,13 @@ class RefractorBlockEntity(pos: BlockPos, state: BlockState): BlockEntity(EoCBlo
     var lock: ContainerLock = ContainerLock.EMPTY
     var backingCustomName: Text? = null
 
-    /**First effect to apply*/
+    /**Effect on players (except those in the enemy list)*/
     var blessing: RegistryEntry<StatusEffect>? = null
-    /**Second effect to apply*/
+    /**Effect on enemies (any entity the player attacks)*/
     var curse: RegistryEntry<StatusEffect>? = null
+
+    var owner: LazyEntityReference<PlayerEntity>? = null
+    var enemies = mutableMapOf<LazyEntityReference<PlayerEntity>, Int>()
 
     /**Allows Screens to interact with this.*/
     val delegate = object: PropertyDelegate{
@@ -292,8 +314,12 @@ class RefractorBlockEntity(pos: BlockPos, state: BlockState): BlockEntity(EoCBlo
                     playSound(this@RefractorBlockEntity.world, this@RefractorBlockEntity.pos, SoundEvents.BLOCK_BEACON_ACTIVATE)
                 }
                 this@RefractorBlockEntity.blessing = BeaconScreenHandler.getStatusEffectForRawId(value)
+                markDirty()
             }
-            INDEX_CURSE -> this@RefractorBlockEntity.curse = BeaconScreenHandler.getStatusEffectForRawId(value)
+            INDEX_CURSE -> {
+                this@RefractorBlockEntity.curse = BeaconScreenHandler.getStatusEffectForRawId(value)
+                markDirty()
+            }
             else -> {throw IllegalArgumentException()}
         }
 
@@ -302,8 +328,7 @@ class RefractorBlockEntity(pos: BlockPos, state: BlockState): BlockEntity(EoCBlo
 
     override fun getDisplayName(): Text = Text.translatable(this.cachedState.block.translationKey)
     override fun getName() = this.backingCustomName ?: defaultName
-    override fun getColor() = DyeColor.RED
-    override fun getBeamSegments(): List<BeamSegment> = this.firstBeamSegments
+    override fun getBeamSegments(): List<BeamSegment> = this.secondBeamSegments
 
     override fun createMenu(syncId: Int, playerInventory: PlayerInventory, player: PlayerEntity?) =
         if (LockableContainerBlockEntity.checkUnlocked(player, this.lock, this.displayName)) RefractorScreenHandler(syncId, playerInventory, this.delegate, ScreenHandlerContext.create(this.world, this.pos)) else null
@@ -319,6 +344,8 @@ class RefractorBlockEntity(pos: BlockPos, state: BlockState): BlockEntity(EoCBlo
         this.curse = readStatusEffect(view, KEY_SECONDARY)
         this.backingCustomName = tryParseCustomName(view, KEY_CUSTOM_NAME)
         this.lock = ContainerLock.read(view)
+        this.owner = view.read(KEY_OWNER, playerCodec).getOrNull()?.getOrNull()
+        this.enemies = view.read(KEY_ENEMIES, playersCodec).getOrNull()?.getOrNull()?.toMutableMap() ?: mutableMapOf()
     }
 
     override fun writeData(view: WriteView) {
@@ -327,6 +354,8 @@ class RefractorBlockEntity(pos: BlockPos, state: BlockState): BlockEntity(EoCBlo
         writeStatusEffect(view, KEY_SECONDARY, this.curse)
         view.putInt(KEY_LEVEL, this.level)
         view.putNullable(KEY_CUSTOM_NAME, TextCodecs.CODEC, this.customName)
+        view.put(KEY_OWNER, playerCodec, Optional.ofNullable(this.owner))
+        view.put(KEY_ENEMIES, playersCodec, Optional.of(this.enemies))
         this.lock.write(view)
     }
 

@@ -1,5 +1,6 @@
 package jehr.experiments.essenceOfCreation
 
+import jehr.experiments.essenceOfCreation.blockEntityRenderers.EoCBlockEntityRenderers
 import jehr.experiments.essenceOfCreation.blocks.EoCBlocks
 import jehr.experiments.essenceOfCreation.entityRenderers.EoCEntityRenderers
 import jehr.experiments.essenceOfCreation.handledScreens.EoCHandledScreens
@@ -17,6 +18,7 @@ object EoCClient : ClientModInitializer {
 			EoCBlocks.balefulPoppy)
 		EoCHandledScreens.init()
 		EoCEntityRenderers.init()
+		EoCBlockEntityRenderers.init()
 		ParticleFactoryRegistry.getInstance().register(EoCParticles.purpleFlame, FlameParticle::Factory)
 	}
 }
