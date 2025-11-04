@@ -32,7 +32,7 @@ For ages Essence of Creation has been irretrievably locked away, but no longer. 
 - Add sound to the Gun-Sword
 - Refractor property delegate REFUSES TO SYNC. REFUSES. I'M GONNA TEAR MY HAIR OUT OVER THIS
 - Figure out what all the numbers supplied to rendering functions mean and how they affect the result.
-- Refractor beam never goes away.
+- Refractor beam never goes away. Wait, is it supposed to work like that?
 
 # Features
 ## Blocks

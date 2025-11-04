@@ -328,7 +328,7 @@ class RefractorBlockEntity(pos: BlockPos, state: BlockState): BlockEntity(EoCBlo
 
     override fun getDisplayName(): Text = Text.translatable(this.cachedState.block.translationKey)
     override fun getName() = this.backingCustomName ?: defaultName
-    override fun getBeamSegments(): List<BeamSegment> = this.secondBeamSegments
+    override fun getBeamSegments(): List<BeamSegment> = this.firstBeamSegments
 
     override fun createMenu(syncId: Int, playerInventory: PlayerInventory, player: PlayerEntity?) =
         if (LockableContainerBlockEntity.checkUnlocked(player, this.lock, this.displayName)) RefractorScreenHandler(syncId, playerInventory, this.delegate, ScreenHandlerContext.create(this.world, this.pos)) else null
