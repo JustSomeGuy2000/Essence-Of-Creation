@@ -85,6 +85,13 @@ class EssentialInfuser(settings: Settings): BlockWithEntity(settings) {
             Items.DIAMOND_SWORD to EoCItems.diamondGunSword,
             Items.NETHERITE_SWORD to EoCItems.netheriteGunSword
         )
+
+        /**Valid input items and what they trun into, accounting for specifics components. First values are if the item can be transformed, second value is what it transforms into*/
+        val componentedOutputs = listOf<Pair<(ItemStack) -> Boolean, (ItemStack) -> ItemStack>>()
+
+        fun enchantmentTransformable(input: ItemStack) {
+            TODO()
+        }
     }
 
     override fun getCodec(): MapCodec<EssentialInfuser> = createCodec(::EssentialInfuser)

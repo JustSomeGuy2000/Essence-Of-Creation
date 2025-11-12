@@ -30,9 +30,7 @@ For ages Essence of Creation has been irretrievably locked away, but no longer. 
 - Particles for Super Bone Meal don't work
 - Make blocks only be able to be mined with certain material levels
 - Add sound to the Gun-Sword
-- Refractor property delegate REFUSES TO SYNC. REFUSES. I'M GONNA TEAR MY HAIR OUT OVER THIS
-- Figure out what all the numbers supplied to rendering functions mean and how they affect the result.
-- Refractor beam never goes away. Wait, is it supposed to work like that?
+- Finish the Refractor when I have the courage and motivation: Make property delegate sync, figure out how to render beam, find potential bugs in activation code, inject ownedRefractors into Player class, save and load it, implement the curse beam.
 
 # Features
 ## Blocks
@@ -58,6 +56,8 @@ For ages Essence of Creation has been irretrievably locked away, but no longer. 
 - Baleful Snowball: A throwable item that deals 5 dmg and heavy knockback on impact.
 ## Entities
 - Gun Sword Bullet: The bullet of the Gun-Sword.
+## Enchantments
+- Fulmination (I-III): Enchantable on weapons. Summons one lightnign bolt on damage entites for every level.
 ## Status Effects
 - Blessing of Rye: Gives you Rye based on its power every second. Automatically increases its power over time. Is not cleared by milk. Cleared by death, but at a cost. A new Statue of the Rye God will spawn, and all your levels and items will be lost as sacrifice to it.
 ## Advancements

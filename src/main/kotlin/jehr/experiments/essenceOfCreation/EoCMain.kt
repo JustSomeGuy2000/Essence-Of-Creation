@@ -10,6 +10,7 @@ import jehr.experiments.essenceOfCreation.blocks.ScaffoldStripper
 import jehr.experiments.essenceOfCreation.components.EoCComponents
 import jehr.experiments.essenceOfCreation.criteria.EoCCriteria
 import jehr.experiments.essenceOfCreation.damageTypes.EoCDamageTypes
+import jehr.experiments.essenceOfCreation.enchantmentEffects.EoCEnchantmentEffects
 import jehr.experiments.essenceOfCreation.entities.EoCEntities
 import jehr.experiments.essenceOfCreation.items.EoCItems
 import jehr.experiments.essenceOfCreation.packets.EoCPackets
@@ -69,6 +70,7 @@ object EoCMain : ModInitializer {
 		EoCEntities.init()
 		EoCTags.init()
 		EoCPackets.init()
+		EoCEnchantmentEffects.init()
 	}
 
 	fun registerCommands() {

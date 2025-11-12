@@ -29,7 +29,7 @@
 		],
 		"fabric-datagen": [
 			{
-				"value": "jehr.experiments.essenceOfCreation.EoCDataGen",
+				"value": "jehr.experiments.essenceOfCreation.datagen.EoCDataGen",
 				"adapter": "kotlin"
 			}
 		],
