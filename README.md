@@ -31,6 +31,7 @@ For ages Essence of Creation has been irretrievably locked away, but no longer. 
 - Make blocks only be able to be mined with certain material levels
 - Add sound to the Gun-Sword
 - Finish the Refractor when I have the courage and motivation: Make property delegate sync, figure out how to render beam, find potential bugs in activation code, inject ownedRefractors into Player class, save and load it, implement the curse beam.
+- Add special treatment upgrades to Anthropogenic.
 
 # Features
 ## Blocks

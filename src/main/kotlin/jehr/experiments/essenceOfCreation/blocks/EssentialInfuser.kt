@@ -3,6 +3,7 @@ package jehr.experiments.essenceOfCreation.blocks
 import com.mojang.serialization.MapCodec
 import jehr.experiments.essenceOfCreation.blockEntities.EoCBlockEntities
 import jehr.experiments.essenceOfCreation.blockEntities.EssentialInfuserBlockEntity
+import jehr.experiments.essenceOfCreation.enchantmentEffects.EoCEnchantmentEffects
 import jehr.experiments.essenceOfCreation.items.EoCItems
 import jehr.experiments.essenceOfCreation.particles.EoCParticles
 import net.minecraft.block.Block
@@ -13,10 +14,17 @@ import net.minecraft.block.Blocks
 import net.minecraft.block.entity.BlockEntity
 import net.minecraft.block.entity.BlockEntityTicker
 import net.minecraft.block.entity.BlockEntityType
+import net.minecraft.component.DataComponentTypes
+import net.minecraft.component.type.ItemEnchantmentsComponent
+import net.minecraft.enchantment.Enchantment
+import net.minecraft.enchantment.Enchantments
 import net.minecraft.entity.player.PlayerEntity
 import net.minecraft.item.Item
 import net.minecraft.item.ItemStack
 import net.minecraft.item.Items
+import net.minecraft.registry.RegistryKey
+import net.minecraft.registry.RegistryKeys
+import net.minecraft.registry.entry.RegistryEntry
 import net.minecraft.server.world.ServerWorld
 import net.minecraft.sound.SoundCategory
 import net.minecraft.sound.SoundEvents
@@ -28,6 +36,7 @@ import net.minecraft.util.hit.BlockHitResult
 import net.minecraft.util.math.BlockPos
 import net.minecraft.util.math.random.Random
 import net.minecraft.world.World
+import kotlin.jvm.optionals.getOrNull
 
 class EssentialInfuser(settings: Settings): BlockWithEntity(settings) {
 
@@ -54,10 +63,13 @@ class EssentialInfuser(settings: Settings): BlockWithEntity(settings) {
                             world.setBlockState(pos, state.with(active, true))
                         }
                     } else {
-                        val result = outputs[be.source.item]
+                        var result = ItemStack(outputs[be.source.item], 1)
+                        if (result.item in specialTreatment) {
+                            result = specialTreatment[result.item]!!(be.source, world)
+                        }
                         if (be.output.isEmpty) {
-                            be.output = ItemStack(result, 1)
-                        } else if (be.output.isOf(result)) {
+                            be.output = result
+                        } else if (ItemStack.areItemsAndComponentsEqual(be.output, result) && be.output.count <= be.output.maxCount) {
                             be.output.increment(1)
                         } else return
                         be.source.decrement(1)
@@ -83,14 +95,41 @@ class EssentialInfuser(settings: Settings): BlockWithEntity(settings) {
             Items.IRON_SWORD to EoCItems.ironGunSword,
             Items.GOLDEN_SWORD to EoCItems.goldGunSword,
             Items.DIAMOND_SWORD to EoCItems.diamondGunSword,
-            Items.NETHERITE_SWORD to EoCItems.netheriteGunSword
+            Items.NETHERITE_SWORD to EoCItems.netheriteGunSword,
+            Items.ENCHANTED_BOOK to Items.ENCHANTED_BOOK
         )
 
-        /**Valid input items and what they trun into, accounting for specifics components. First values are if the item can be transformed, second value is what it transforms into*/
-        val componentedOutputs = listOf<Pair<(ItemStack) -> Boolean, (ItemStack) -> ItemStack>>()
+        /**Input items which need to undergo further processing, such as for tacking on components.*/
+        val specialTreatment = mapOf(
+            Items.ENCHANTED_BOOK to ::upgradeEnchantedBook
+        )
 
-        fun enchantmentTransformable(input: ItemStack) {
-            TODO()
+        /**Upgraded versions of enchantments.*/
+        val enchantUpgrades: Map<RegistryKey<Enchantment>, RegistryKey<Enchantment>> = mapOf(
+            Enchantments.FIRE_ASPECT to EoCEnchantmentEffects.fulmination
+        )
+
+        fun upgradeEnchantedBook(original: ItemStack, world: World): ItemStack {
+            val enchants = original.get(DataComponentTypes.STORED_ENCHANTMENTS) ?: return original
+            val originalEnchants = enchants.enchantments?.toList() ?: return original
+            val upgraded = mutableMapOf<Int, RegistryKey<Enchantment>>()
+            for (enchant in originalEnchants) {
+                val key = enchant.key.getOrNull() ?: return original
+                if (key in enchantUpgrades) {
+                    upgraded.put(enchants.getLevel(enchant), enchantUpgrades[key]!!)
+                } else {
+                    upgraded.put(enchants.getLevel(enchant), key)
+                }
+            }
+            val retStack = ItemStack(Items.ENCHANTED_BOOK)
+            val builder = ItemEnchantmentsComponent.Builder(ItemEnchantmentsComponent.DEFAULT)
+            val reg = world.registryManager.getOptional(RegistryKeys.ENCHANTMENT).getOrNull() ?: return original
+            for ((level, enchant) in upgraded) {
+                val finalEnchant = reg.getEntry(enchant.value).getOrNull() ?: return original
+                builder.add(finalEnchant, level)
+            }
+            retStack.set(DataComponentTypes.STORED_ENCHANTMENTS, builder.build())
+            return retStack
         }
     }
 

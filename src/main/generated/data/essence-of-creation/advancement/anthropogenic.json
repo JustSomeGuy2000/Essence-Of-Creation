@@ -1,57 +1,7 @@
 {
   "parent": "essence-of-creation:got_eoc",
   "criteria": {
-    "1bcd2825-9524-4af1-a12b-74eb8a8dc931": {
-      "conditions": {
-        "items": [
-          {
-            "items": "essence-of-creation:golden_gunsword"
-          }
-        ]
-      },
-      "trigger": "minecraft:inventory_changed"
-    },
-    "22061ffc-fa44-4a1d-b204-ce7364e3b4dc": {
-      "conditions": {
-        "items": [
-          {
-            "items": "essence-of-creation:scaffold_seed"
-          }
-        ]
-      },
-      "trigger": "minecraft:inventory_changed"
-    },
-    "31ac842d-880f-4f55-a153-ecbad4b5a554": {
-      "conditions": {
-        "items": [
-          {
-            "items": "essence-of-creation:diamond_gunsword"
-          }
-        ]
-      },
-      "trigger": "minecraft:inventory_changed"
-    },
-    "32fd183d-e769-4070-9d3f-e13d2b34f7c4": {
-      "conditions": {
-        "items": [
-          {
-            "items": "essence-of-creation:cane"
-          }
-        ]
-      },
-      "trigger": "minecraft:inventory_changed"
-    },
-    "4140ec3f-d434-4bc7-b2a1-160e570430f8": {
-      "conditions": {
-        "items": [
-          {
-            "items": "essence-of-creation:netherite_gunsword"
-          }
-        ]
-      },
-      "trigger": "minecraft:inventory_changed"
-    },
-    "a9f741f7-d2f4-4391-8a80-85ea0104d725": {
+    "2216ac30-de00-476b-a310-76c29f1e7029": {
       "conditions": {
         "items": [
           {
@@ -61,17 +11,17 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
-    "d87e6388-ee62-4ae3-98f5-b3c55ab1507b": {
+    "2507ed87-fb9b-4fa0-88ad-5c647c95ea4a": {
       "conditions": {
         "items": [
           {
-            "items": "essence-of-creation:iron_gunsword"
+            "items": "essence-of-creation:cane"
           }
         ]
       },
       "trigger": "minecraft:inventory_changed"
     },
-    "dc114093-2135-4a0f-af88-ab4bd5174e26": {
+    "36b9843e-8e6d-43a3-8496-c6bc89610b02": {
       "conditions": {
         "items": [
           {
@@ -81,11 +31,71 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
-    "e5103b0f-793e-4608-811c-13dfe70668e7": {
+    "372c4a1e-707f-48e5-bf4f-64b2a3baea74": {
+      "conditions": {
+        "items": [
+          {
+            "items": "essence-of-creation:netherite_gunsword"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "7cf8cb93-d5ff-4a17-a7d8-5311c8de8ca1": {
+      "conditions": {
+        "items": [
+          {
+            "items": "essence-of-creation:diamond_gunsword"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "86b7bf0c-f19f-46ac-a768-da357d72f388": {
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:enchanted_book"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "88266d03-0372-4c34-8484-c20648a83ff4": {
+      "conditions": {
+        "items": [
+          {
+            "items": "essence-of-creation:scaffold_seed"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "ac04d0a0-c052-4636-91b9-4ca248e2b7a3": {
+      "conditions": {
+        "items": [
+          {
+            "items": "essence-of-creation:iron_gunsword"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "f4e402bd-853f-4c4e-a56b-11557d166bb6": {
       "conditions": {
         "items": [
           {
             "items": "essence-of-creation:god_apple"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "fd2b4b90-90e7-4be1-a2ce-0a5522463377": {
+      "conditions": {
+        "items": [
+          {
+            "items": "essence-of-creation:golden_gunsword"
           }
         ]
       },
@@ -96,7 +106,7 @@
     }
   },
   "display": {
-    "description": "Use Essence of Creation.",
+    "description": "Obtain something made with Essence of Creation.",
     "icon": {
       "count": 1,
       "id": "essence-of-creation:essential_infuser"
@@ -105,15 +115,16 @@
   },
   "requirements": [
     [
-      "22061ffc-fa44-4a1d-b204-ce7364e3b4dc",
-      "a9f741f7-d2f4-4391-8a80-85ea0104d725",
-      "e5103b0f-793e-4608-811c-13dfe70668e7",
-      "dc114093-2135-4a0f-af88-ab4bd5174e26",
-      "32fd183d-e769-4070-9d3f-e13d2b34f7c4",
-      "d87e6388-ee62-4ae3-98f5-b3c55ab1507b",
-      "1bcd2825-9524-4af1-a12b-74eb8a8dc931",
-      "31ac842d-880f-4f55-a153-ecbad4b5a554",
-      "4140ec3f-d434-4bc7-b2a1-160e570430f8",
+      "88266d03-0372-4c34-8484-c20648a83ff4",
+      "2216ac30-de00-476b-a310-76c29f1e7029",
+      "f4e402bd-853f-4c4e-a56b-11557d166bb6",
+      "36b9843e-8e6d-43a3-8496-c6bc89610b02",
+      "2507ed87-fb9b-4fa0-88ad-5c647c95ea4a",
+      "ac04d0a0-c052-4636-91b9-4ca248e2b7a3",
+      "fd2b4b90-90e7-4be1-a2ce-0a5522463377",
+      "7cf8cb93-d5ff-4a17-a7d8-5311c8de8ca1",
+      "372c4a1e-707f-48e5-bf4f-64b2a3baea74",
+      "86b7bf0c-f19f-46ac-a768-da357d72f388",
       "used_handheld_infuser"
     ]
   ],

@@ -17,6 +17,12 @@ import net.minecraft.advancement.AdvancementFrame
 import net.minecraft.advancement.AdvancementRequirements
 import net.minecraft.advancement.criterion.InventoryChangedCriterion
 import net.minecraft.item.Item
+import net.minecraft.item.Items
+import net.minecraft.predicate.NumberRange
+import net.minecraft.predicate.component.ComponentPredicateTypes
+import net.minecraft.predicate.component.ComponentsPredicate
+import net.minecraft.predicate.item.EnchantmentPredicate
+import net.minecraft.predicate.item.EnchantmentsPredicate
 import net.minecraft.predicate.item.ItemPredicate
 import net.minecraft.registry.RegistryKeys
 import net.minecraft.registry.RegistryWrapper
@@ -55,9 +61,22 @@ class EoCAdvancementProvider(dataOutput: FabricDataOutput, registryLookup: Compl
                     Optional.empty())))
 			.build(exporter, Identifier.of(EoCMain.MOD_ID, "aryse").toString())
 
+		val enchantsReg = wrapperLookup.getOrThrow(RegistryKeys.ENCHANTMENT)
 		val anthropogenic = Advancement.Builder.create().parent(essenceOfCreation)
-			.display(EoCBlocks.essentialInfuser, Text.literal("Anthropogenic"), Text.literal("Use Essence of Creation."), null, AdvancementFrame.TASK, true, true, false)
+			.display(EoCBlocks.essentialInfuser, Text.literal("Anthropogenic"), Text.literal("Obtain something made with Essence of Creation."), null, AdvancementFrame.TASK, true, true, false)
 			.oneFromItemListCriterion(EssentialInfuser.Companion.outputs.values)
+			/*TODO: .criterion("has_upgraded_enchantment",
+				InventoryChangedCriterion.Conditions.items(ItemPredicate.Builder().items(
+					wrapperLookup.getOrThrow(RegistryKeys.ITEM), Items.ENCHANTED_BOOK)
+					.components(
+						ComponentsPredicate.Builder.create().partial(
+							ComponentPredicateTypes.ENCHANTMENTS,
+							EnchantmentsPredicate.enchantments(
+								EssentialInfuser.enchantUpgrades.values.map{
+									EnchantmentPredicate(
+										enchantsReg.getOrThrow(it),
+										NumberRange.IntRange.atLeast(0)) })).build()).build()))
+			.criteriaMerger(AdvancementRequirements.CriterionMerger.OR)*/
 			.criterion("used_handheld_infuser", EoCCriteria.anthropogenicCriterion.create(
                 AnthropogenicCriterion.Conditions(
                     Optional.empty())))
