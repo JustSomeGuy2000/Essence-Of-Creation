@@ -5,6 +5,7 @@ import jehr.experiments.essenceOfCreation.blockEntities.EoCBlockEntities
 import jehr.experiments.essenceOfCreation.blockEntities.EssentialInfuserBlockEntity
 import jehr.experiments.essenceOfCreation.enchantmentEffects.EoCEnchantmentEffects
 import jehr.experiments.essenceOfCreation.items.EoCItems
+import jehr.experiments.essenceOfCreation.items.EoCPotions
 import jehr.experiments.essenceOfCreation.particles.EoCParticles
 import net.minecraft.block.Block
 import net.minecraft.block.BlockRenderType
@@ -16,12 +17,15 @@ import net.minecraft.block.entity.BlockEntityTicker
 import net.minecraft.block.entity.BlockEntityType
 import net.minecraft.component.DataComponentTypes
 import net.minecraft.component.type.ItemEnchantmentsComponent
+import net.minecraft.component.type.PotionContentsComponent
 import net.minecraft.enchantment.Enchantment
 import net.minecraft.enchantment.Enchantments
+import net.minecraft.entity.effect.StatusEffectInstance
 import net.minecraft.entity.player.PlayerEntity
 import net.minecraft.item.Item
 import net.minecraft.item.ItemStack
 import net.minecraft.item.Items
+import net.minecraft.potion.Potions
 import net.minecraft.registry.RegistryKey
 import net.minecraft.registry.RegistryKeys
 import net.minecraft.registry.entry.RegistryEntry
@@ -36,6 +40,7 @@ import net.minecraft.util.hit.BlockHitResult
 import net.minecraft.util.math.BlockPos
 import net.minecraft.util.math.random.Random
 import net.minecraft.world.World
+import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
 class EssentialInfuser(settings: Settings): BlockWithEntity(settings) {
@@ -96,12 +101,14 @@ class EssentialInfuser(settings: Settings): BlockWithEntity(settings) {
             Items.GOLDEN_SWORD to EoCItems.goldGunSword,
             Items.DIAMOND_SWORD to EoCItems.diamondGunSword,
             Items.NETHERITE_SWORD to EoCItems.netheriteGunSword,
-            Items.ENCHANTED_BOOK to Items.ENCHANTED_BOOK
+            Items.ENCHANTED_BOOK to Items.ENCHANTED_BOOK,
+            Items.POTION to Items.POTION
         )
 
         /**Input items which need to undergo further processing, such as for tacking on components.*/
         val specialTreatment = mapOf(
-            Items.ENCHANTED_BOOK to ::upgradeEnchantedBook
+            Items.ENCHANTED_BOOK to ::upgradeEnchantedBook,
+            Items.POTION to ::upgradePotion
         )
 
         /**Upgraded versions of enchantments.*/
@@ -129,6 +136,21 @@ class EssentialInfuser(settings: Settings): BlockWithEntity(settings) {
                 builder.add(finalEnchant, level)
             }
             retStack.set(DataComponentTypes.STORED_ENCHANTMENTS, builder.build())
+            return retStack
+        }
+
+        /**Upgraded versions of potions.*/
+        val upgradedPotions = mapOf(
+            Potions.AWKWARD to EoCPotions.perplexingBrew
+        )
+
+        fun upgradePotion(original: ItemStack, world: World): ItemStack {
+            val retStack = original.copy()
+            val potion = original.get(DataComponentTypes.POTION_CONTENTS)?.potion?.getOrNull() ?: return original
+            val reg = world.registryManager.getOrThrow(RegistryKeys.POTION)
+            if (potion in upgradedPotions.keys) {
+                retStack.set(DataComponentTypes.POTION_CONTENTS, PotionContentsComponent(reg.getEntry(upgradedPotions[potion])))
+            }
             return retStack
         }
     }

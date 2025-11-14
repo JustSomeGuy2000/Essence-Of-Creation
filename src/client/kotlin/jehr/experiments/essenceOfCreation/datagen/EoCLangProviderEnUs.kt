@@ -14,6 +14,7 @@ import jehr.experiments.essenceOfCreation.blocks.SpatialDisplacer
 import jehr.experiments.essenceOfCreation.enchantmentEffects.FulminationEffect
 import jehr.experiments.essenceOfCreation.items.BalefulSnowballItem
 import jehr.experiments.essenceOfCreation.items.EoCItems
+import jehr.experiments.essenceOfCreation.items.EoCPotions
 import jehr.experiments.essenceOfCreation.items.EssenceOfCreation
 import jehr.experiments.essenceOfCreation.items.GunSword
 import jehr.experiments.essenceOfCreation.items.HandheldInfuser
@@ -90,5 +91,6 @@ class EoCLangProviderEnUs(dataOutput: FabricDataOutput, registryLookup: Completa
 		builder.add("block.$id.${Refractor.Companion.ID}.blessing", "For Thyself")
 		builder.add("block.$id.${Refractor.Companion.ID}.curse", "For Thy Foes")
 		builder.add("enchantment.$id.${FulminationEffect.ID}", "Fulmination")
+		builder.add("item.$id.${EoCPotions.PERPLEXING_BREW_ID}", "Perplexing Brew")
 	}
 }

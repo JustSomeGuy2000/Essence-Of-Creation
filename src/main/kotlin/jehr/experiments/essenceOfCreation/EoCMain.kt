@@ -13,6 +13,7 @@ import jehr.experiments.essenceOfCreation.damageTypes.EoCDamageTypes
 import jehr.experiments.essenceOfCreation.enchantmentEffects.EoCEnchantmentEffects
 import jehr.experiments.essenceOfCreation.entities.EoCEntities
 import jehr.experiments.essenceOfCreation.items.EoCItems
+import jehr.experiments.essenceOfCreation.items.EoCPotions
 import jehr.experiments.essenceOfCreation.packets.EoCPackets
 import jehr.experiments.essenceOfCreation.particles.EoCParticles
 import jehr.experiments.essenceOfCreation.screenHandlers.EoCScreenHandlers
@@ -61,6 +62,7 @@ object EoCMain : ModInitializer {
 		EoCComponents.init()
 		EoCDamageTypes.init()
 		EoCItems.init()
+		EoCPotions.init()
 		EoCStatusEffects.init()
 		EoCBlocks.init()
 		EoCBlockEntities.init()

@@ -57,6 +57,8 @@ For ages Essence of Creation has been irretrievably locked away, but no longer. 
 - Baleful Snowball: A throwable item that deals 5 dmg and heavy knockback on impact.
 ## Entities
 - Gun Sword Bullet: The bullet of the Gun-Sword.
+## Potions
+- Perplexing Brew: Upgrade of Awkward Potion. Forms the base for other upgraded potions.
 ## Enchantments
 - Fulmination (I-III): Enchantable on weapons. Summons one lightnign bolt on damage entites for every level.
 ## Status Effects
